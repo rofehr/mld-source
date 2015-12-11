@@ -1,5 +1,8 @@
 SUMMARY = "A mld base image ."
 
+include recipes-core/images/core-image-base.bb
+
+
 LICENSE = "MIT"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
@@ -10,10 +13,11 @@ IMAGE_FEATURES += "splash"
 
 IMAGE_INSTALL += " \
 	nano \
+	kernel-modules \
+	tiny-init \
 	mc \
 "
 
 
-inherit core-image
 
 export IMAGE_BASENAME="mld-image"
