@@ -1,9 +1,19 @@
 SUMMARY = "A mld base image ."
 
+LICENSE = "MIT"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
+                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+                    
+
 IMAGE_FEATURES += "splash"
 
-LICENSE = "MIT"
+IMAGE_INSTALL += " \
+	nano \
+	mc \
+"
 
-#inherit core-image
+
+inherit core-image
 
 export IMAGE_BASENAME="mld-image"
