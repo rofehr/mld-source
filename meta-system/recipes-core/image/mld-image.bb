@@ -20,4 +20,4 @@ IMAGE_INSTALL += " \
 
 
 
-export IMAGE_BASENAME="mld-image"
+export IMAGE_BASENAME="MLD_Base-image"
