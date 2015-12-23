@@ -1,0 +1,109 @@
+--- busybox/debianutils/start_stop_daemon.c.orig	2014-10-04 22:35:58.000000000 +0200
++++ busybox/debianutils/start_stop_daemon.c	2014-12-26 16:40:08.629975977 +0100
+@@ -78,6 +78,7 @@
+ //usage:     "\n	-b,--background		Background"
+ //usage:	IF_FEATURE_START_STOP_DAEMON_FANCY(
+ //usage:     "\n	-N,--nicelevel N	Change nice level"
++//usage:     "\n        -R,--retry N            check whether processes die, and retry"
+ //usage:	)
+ //usage:     "\n	-c,--chuid USER[:[GRP]]	Change to user/group"
+ //usage:     "\n	-m,--make-pidfile	Write PID to the pidfile specified by -p"
+@@ -106,6 +107,7 @@
+ //usage:     "\n	-b		Background"
+ //usage:	IF_FEATURE_START_STOP_DAEMON_FANCY(
+ //usage:     "\n	-N N		Change nice level"
++//usage:     "\n        -R, N           check whether processes die, and retry"
+ //usage:	)
+ //usage:     "\n	-c USER[:[GRP]]	Change to user/group"
+ //usage:     "\n	-m		Write PID to the pidfile specified by -p"
+@@ -321,11 +323,12 @@
+ 		bb_error_msg_and_die("nothing in /proc - not mounted?");
+ }
+ 
+-static int do_stop(void)
++static int do_stop(int retries)
+ {
+ 	char *what;
+ 	struct pid_list *p;
+ 	int killed = 0;
++	int retry;
+ 
+ 	if (cmdname) {
+ 		if (ENABLE_FEATURE_CLEAN_UP) what = xstrdup(cmdname);
+@@ -340,6 +343,32 @@
+ 	} else {
+ 		bb_error_msg_and_die("internal error, please report");
+ 	}
++	
++	if (retries > 0 && !TEST) {
++		for (retry = 0; retry < retries; retry++) {
++			for (p = G.found_procs; p; p = p->next) {
++				if (p->pid && kill (p->pid,0) == 0) {
++					sleep (1);
++					break;
++				}
++			}
++		}
++		if (signal_nr != get_signum("KILL")) {
++			for (p = G.found_procs; p; p = p->next) {
++				if (p->pid && kill(p->pid, get_signum("KILL")) == 0) {
++					killed++;
++				}
++			}
++			for (retry = 0; retry < retries; retry++) {
++				for (p = G.found_procs; p; p = p->next) {
++					if (p->pid && kill(p->pid, 0) == 0) {
++						sleep (1);
++						break;
++					}
++				}
++			}
++		}
++	}
+ 
+ 	if (!G.found_procs) {
+ 		if (!QUIET)
+@@ -411,8 +440,8 @@
+ 	struct stat execstat;
+ #endif
+ #if ENABLE_FEATURE_START_STOP_DAEMON_FANCY
+-//	char *retry_arg = NULL;
+-//	int retries = -1;
++	char *retry_arg = NULL;
++	int retries = 0;
+ 	char *opt_N;
+ #endif
+ 
+@@ -434,7 +463,7 @@
+ 		&startas, &cmdname, &signame, &userspec, &chuid, &execname, &pidfile
+ 		IF_FEATURE_START_STOP_DAEMON_FANCY(,&opt_N)
+ 		/* We accept and ignore -R <param> / --retry <param> */
+-		IF_FEATURE_START_STOP_DAEMON_FANCY(,NULL)
++		IF_FEATURE_START_STOP_DAEMON_FANCY(,&retry_arg)
+ 	);
+ 
+ 	if (opt & OPT_s) {
+@@ -451,10 +480,10 @@
+ 		G.execname_cmpbuf = xmalloc(G.execname_sizeof + 1);
+ 	}
+ 
+-//	IF_FEATURE_START_STOP_DAEMON_FANCY(
+-//		if (retry_arg)
+-//			retries = xatoi_positive(retry_arg);
+-//	)
++	IF_FEATURE_START_STOP_DAEMON_FANCY(
++		if (retry_arg)
++			retries = xatoi_positive(retry_arg);
++	)
+ 	//argc -= optind;
+ 	argv += optind;
+ 
+@@ -467,7 +496,7 @@
+ 	do_procinit();
+ 
+ 	if (opt & CTX_STOP) {
+-		int i = do_stop();
++		int i = do_stop(IF_FEATURE_START_STOP_DAEMON_FANCY(retries)IF_NOT_FEATURE_START_STOP_DAEMON_FANCY(0));
+ 		return (opt & OPT_OKNODO) ? 0 : (i <= 0);
+ 	}
+ 
