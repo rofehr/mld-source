@@ -18,3 +18,7 @@ MACHINE_EXTRA_RRECOMMENDS += "linux-firmware v86d eee-acpi-scripts"
 GLIBC_ADDONS = "nptl"
 
 EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
+
+TARGET_CXXFLAGS += "-fno-ipa-icf"
+
+
