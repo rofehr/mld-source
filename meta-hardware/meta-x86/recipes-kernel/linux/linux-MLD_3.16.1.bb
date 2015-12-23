@@ -31,7 +31,7 @@ SRC_URI += "https://www.kernel.org/pub/linux/kernel/v3.x/linux-${PV}.tar.xz \
         file://COPYING.GPL \
         "
 
-S = "${WORKDIR}/linux-MLD"
+S = "${WORKDIR}/linux-${PV}"
 B = "${WORKDIR}/build"
 
 export OS = "Linux"
