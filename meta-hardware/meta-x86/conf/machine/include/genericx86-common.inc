@@ -2,7 +2,7 @@ include conf/machine/include/x86-base.inc
 MACHINE_FEATURES += "wifi efi pcbios"
 
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-MLD"
-PREFERRED_VERSION_linux-yocto ?= "3.16%"
+PREFERRED_VERSION_linux-MLD ?= "3.16%"
 PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
 XSERVER ?= "${XSERVER_X86_BASE} \
             ${XSERVER_X86_EXT} \
@@ -19,6 +19,5 @@ GLIBC_ADDONS = "nptl"
 
 EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
 
-TARGET_CXXFLAGS += "-fno-ipa-icf"
 
 
