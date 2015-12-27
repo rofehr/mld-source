@@ -23,6 +23,8 @@
 #export IMAGE_BASENAME="MLD-Base-image"
 
 SUMMARY = "A MLD base image ."
+DESCRIPTION = "An image containing the BASE system for MLD ${DISTRO_VERSION} "
+HOMEPAGE = "http://www.minidvblinux.de"
 
 include recipes-core/images/core-image-minimal.bb
 
