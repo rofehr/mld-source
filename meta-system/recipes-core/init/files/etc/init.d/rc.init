@@ -1,0 +1,118 @@
+#!/bin/sh
+#
+# run init scripts
+
+if [ -z "$1" ]; then
+	echo "Usage: $0 {start|restart|stop|resume|halt} [NAME]" >&2
+	exit 1
+fi
+
+if [ "$1" = "restart" ]; then
+	restart=1
+	action=start
+else
+	restart=
+	action=$1
+fi
+name=$2
+direction=$(test "$action" = "start" -o "$action" = "resume" && echo "start" || echo "stop")
+path=/var/spool/rc.init
+
+process()
+{
+	touch $path/lock/$action/$name/wait
+	test -e $path/pre/$action/$name && call $path/pre/$action/$name
+	rm $path/lock/$action/$name/wait
+	test "$debug" && echo -e "  \\033[1;37mStarting $name\\033[0;39m"
+	test "$debug" && time=$(date +%s)
+	if [ "$nobg" -o -e $path/nobg/$action/$name ]; then
+		/etc/init.d/$name $action
+	else
+		echo -e "$( (/etc/init.d/$name $action) 2>&1 )"
+	fi
+	test "$debug" && echo -e "  \\033[1;37m         $name: $(($(date +%s)-$time))s\\033[0;39m"
+	rm -rf $path/lock/$(echo -e "start stop\nstop start\nresume halt\nhalt resume" | grep "^$action" | cut -d " " -f2)/$name
+}
+
+call()
+(
+	names=""
+	test "$debug" && echo -e "  \\033[1;37m${1##*/} needs "$(cat $1)"\\033[0;39m"
+	for name in $(cat $1 2>/dev/null); do
+		if [ -e /etc/init.d/$name ] && mkdir $path/lock/$action/$name 2>/dev/null; then
+			if [ "$nobg" -o -e $path/nobg/$action/$name ]; then
+				process
+			else
+				process &
+				echo $! > $path/lock/$action/$name/pid
+			fi
+		fi
+	done
+	i=0
+	for name in $(cat $1 2>/dev/null); do
+		test -s $path/lock/$action/$name/pid && while [ $i -lt 0${wait-60} -a -e /proc/$(cat $path/lock/$action/$name/pid 2>/dev/null) ]; do test "$debug" -a ! -e $path/lock/$action/$name/wait && echo -ne "  \\033[1;37mWaiting for $name\\033[0;39m          \r"; test -e $path/lock/$action/$name/wait -o -e $path/wait/$action/$name || i=$(($i+1)); sleep 1 "#waiting for /etc/init.d/$name"; done
+		if [ $i -eq 0${wait-60} ]; then
+			echo "$name seems to hang! continue now..."
+			rm -f $path/lock/$action/$name/pid
+		fi
+		i=$(($i-1))
+	done
+)
+
+init()
+(
+	rm -rf $path/pre $path/order $path/nobg $path/wait $path/provided
+	if [ -z "$name" -a -z "$restart" ]; then
+		rm -rf $path/lock/halt $path/lock/resume
+		test "$action" = "start" && rm -rf $path/lock
+	fi
+	mkdir -p $path/provided
+	for a in start stop resume halt; do mkdir -p $path/order/$a $path/pre/$a $path/lock/$a $path/nobg/$a $path/wait/$a; done
+	find /etc/init.d -maxdepth 1 -type f ! -name "rc.*" -printf "%f\n" | while read name; do
+	(
+		. /etc/init.d/$name init
+		test -n "$provide" && echo $name >> $path/provided/$provide
+		if [ "$start" ]; then
+			test -n "$before" && echo $name | tee $(echo "$before" | sed "s#\(\S\+\)#-a $path/pre/start/\1#g") >/dev/null
+			test -n "$after" && echo $after >> $path/pre/start/$name
+			test "$start" = "nobg" && touch $path/nobg/start/$name
+			test "$start" = "wait" && touch $path/wait/start/$name
+			echo $name >> $path/order/start/${priority:-0}
+		fi
+		if [ "$resume" ]; then
+			test -n "$before" && echo $name | tee $(echo "$before" | sed "s#\(\S\+\)#-a $path/pre/resume/\1#g") >/dev/null
+			test -n "$after" && echo $after >> $path/pre/resume/$name
+			echo $name >> $path/order/resume/${priority:-0}
+		fi
+		if [ "$stop" ]; then
+			test -n "$before" && echo $before >> $path/pre/stop/$name
+			test -n "$after" && echo $name | tee $(echo "$after" | sed "s#\(\S\+\)#-a $path/pre/stop/\1#g") >/dev/null
+			echo $name >> $path/order/stop/${priority:-0}
+		fi
+		if [ "$halt" ]; then
+			test "$before" && echo $before >> $path/pre/halt/$name
+			test "$after" && echo $name | tee $(echo "$after" | sed "s#\(\S\+\)#-a $path/pre/halt/\1#g") >/dev/null
+			echo $name >> $path/order/halt/${priority:-0}
+		fi
+	)
+	done
+	ls $path/provided/ | while read name; do
+		grep -l $name $path/pre/start/* | while read file; do
+			cat $path/provided/$name >> $file
+		done
+	done
+)
+
+init
+
+if [ -z "$name" ]; then
+	export init=1
+	ls -1 $path/order/$action | sort $(test "$direction" = "start" && echo "-r") | while read priority; do
+		call $path/order/$action/$priority
+	done
+else
+	rm -rf $path/lock/$action/$name
+	echo "$name" > $path/call
+	export nobg=1
+	call $path/call
+fi

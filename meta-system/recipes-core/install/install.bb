@@ -4,11 +4,11 @@ HOMEPAGE ="http://www.minidvblinux.de"
 SECTION = "base"
 PN = "install"
 
-#DEPENDS ="btrfs xfs"
 
-LICENSE = "CLOSED"
-#LICENSE = "GPLv2"
-#LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
+LICENSE = "MIT"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
+                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
 
 SRC_URI = " file://etc/setup/install.sh \

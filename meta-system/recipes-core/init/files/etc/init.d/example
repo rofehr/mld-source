@@ -1,0 +1,35 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+NAME=${0##*/}
+
+case "$1" in
+	start)
+		echo "Starting $NAME: "
+		#
+		# add here your start actions
+		#
+		check_status
+		;;
+	stop)
+		echo "Stopping $NAME: "
+		#
+		# add here your stop actions
+		#
+		check_status
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	init)
+		#start=1     # enable start section
+		#stop=1      # enable stop section
+		#after=""    # init scripts that must be started before this
+		#before=""   # init scripts that should be started after this
+		;;
+	*)
+		echo "Usage: $0 {start | stop | restart}" >&2
+		exit 1
+esac

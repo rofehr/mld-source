@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# start an init script
+
+if [ -z "$1" ]; then
+	echo "Usage $0 NAME"
+	exit 1
+fi
+
+if [ ! -e "/etc/init.d/$1" ]; then
+	echo "Unknown init script '$1'"
+	exit 2
+fi
+
+if [ -n "$init" ]; then
+	# do not execute on boot up
+	exit
+fi
+
+if [ "${0##*/}" = "restart" ]; then
+	/etc/init.d/$1 ${0##*/}
+else
+	/etc/init.d/rc.init ${0##*/} $1
+fi

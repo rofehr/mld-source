@@ -1,0 +1,220 @@
+#!/bin/sh
+
+test -e /etc/rc.config && . /etc/rc.config
+test -e /etc/init.d/rc.splash && . /etc/init.d/rc.splash
+
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+
+failed()
+{
+	touch /var/spool/failed
+	return 1
+}
+
+check_status()
+{
+	status=$?
+	if [ -n "$1" ]; then
+		status=$1
+	elif [ -e /var/spool/failed ]; then
+		status=1
+	fi
+	rm -f /var/spool/failed
+
+	echo -en "\\033[1A\\033[1000C\\033[10D"
+	if [ $status = 0 ]; then
+		echo -en "\\033[1;32mdone"
+	else
+		if [ -n "$2" ]; then
+			echo -en "\\033[1;37m$2"
+		else
+			echo -en "\\033[1;31mfailed"
+			touch /var/spool/error
+		fi
+	fi
+	echo -e "\\033[0;39m"
+
+#	kill $(cat /var/run/step 2>/dev/null) &>/dev/null
+	bootstep=$(cat /var/spool/bootstep 2>/dev/null)
+	echo $((${bootstep:-0} + 1)) > /var/spool/bootstep
+	echo 0 > /var/spool/subbootstep
+	show_bootstep
+	
+	return $status
+}
+
+show_step()
+{
+#	kill $(cat /var/run/step 2>/dev/null) &>/dev/null
+	subbootstep=$(cat /var/spool/subbootstep 2>/dev/null)
+	subbootstep=$((${subbootstep:-0} + 3))
+	echo $subbootstep > /var/spool/subbootstep
+	echo -n "$(echo '|/-\' | cut -b $(($subbootstep%4+1)))"
+	show_bootstep
+#	while true; do
+#		sleep 1
+#		subbootstep=$((${subbootstep:-0} + 1))
+#		echo $subbootstep > /var/spool/subbootstep
+#		show_bootstep
+#	done & echo $! > /var/run/step
+}
+
+show_bootstep()
+{
+	if [ "$splash" = "silent" -a "$(type -t splash_progress)" ]; then
+		bootstep=$(cat /var/spool/bootstep 2>/dev/null)
+		bootstep=$((${bootstep:-0} * 100 / ${BOOTSTEPS:-100}))
+		subbootstep=$(cat /var/spool/subbootstep 2>/dev/null)
+		subbootstep=${subbootstep:-0}
+		if [ $subbootstep -gt 0 ]; then
+			splash_progress -$subbootstep
+		elif [ $bootstep -gt 0 ]; then
+			splash_progress $bootstep
+		fi
+	fi
+}
+
+show_message()
+{
+	message="${1:- }"
+	timeout=$2
+	kill $(cat /var/run/message 2>/dev/null) &>/dev/null
+	if [ "$splash" = "silent" -a "$(type -t splash_message)" ]; then
+		if [ "$timeout" ]; then
+			(
+			sleep $timeout
+			splash_message "$message"
+			) & echo $! > /var/run/message
+		else
+			splash_message "$message"
+		fi
+	fi
+}
+
+hide_splash()
+{
+	if [ "$splash" = "silent" -a "$(type -t splash_hide)" ]; then
+		splash_hide
+	fi
+}
+
+stop_splash()
+{
+	if [ "$splash" = "silent" -a "$(type -t splash_stop)" ]; then
+		splash_stop
+	fi
+}
+
+show_splash()
+{
+	if [ "$splash" = "silent" -a "$(type -t splash_show)" ]; then
+		splash_show
+		show_bootstep
+	fi
+}
+
+dialog()
+{
+	export LANG
+	vt=/var/spool/dialog
+	if [ "$1" = "--kill" ]; then
+		kill $(cat /var/run/dialog 2>/dev/null) &>/dev/null
+		test -e $vt && (chvt $(cat $vt); rm $vt)
+	elif [ "$init" ]; then
+		kill $(cat /var/run/dialog 2>/dev/null) &>/dev/null
+		usleep 10000
+		hide_splash
+		test -e $vt || fgconsole > $vt
+		chvt 5
+		/usr/bin/dialog "$@" >/dev/console </dev/console
+		status=$?
+		if ! echo "$@" | grep -q " --infobox"; then
+			(
+			sleep 1
+			test -e $vt && (chvt $(cat $vt); rm $vt)
+			show_splash
+			rm -f /var/run/dialog
+			) & echo $! > /var/run/dialog
+		fi
+	else
+		/usr/bin/dialog "$@"
+		status=$?
+	fi
+	return $status
+}
+
+gt()
+{
+	export LC_ALL=$LANG
+	export TEXTDOMAIN
+	eval "echo -en \"$(gettext "$1")\""
+}
+
+register_setting()
+{
+	name="$1"
+	value="$2"
+	description="$3"
+	
+	if [ -z "`grep -e "^$name=" /etc/rc.config`" ]; then
+		if [ -z "$registerSetting" ]; then
+			echo >> /etc/rc.config
+		fi
+		if [ -n "$description" ]; then
+			echo "# $description" >> /etc/rc.config
+		fi
+		echo "$name=\"$value\"" >> /etc/rc.config
+		eval "$name=\"$value\""
+	fi
+	registerSetting=1
+}
+
+update_setting()
+{
+	name="$1"
+	value="$2"
+	description="$3"
+
+	register_setting "$name" "$value" "$description"
+	value="$(echo "$value" | sed 's|\([\%\&\|]\)|\\\1|g')"
+	sed -i "s|^$name=.*|$name=\"$value\"|g" /etc/rc.config
+	eval "$name=\"$value\""
+}
+
+register_config()
+{
+	update_config "$1" "$2" "$3"
+}
+
+update_config()
+{
+	search="$1"
+	value="$2"
+	file=$3
+
+	if grep -qs "$search" $file; then
+		sed -i "s|.*\($search\).*|$value|g" $file
+	else
+		echo -e "$value" >> $file
+	fi
+}
+
+register_application()
+{
+	/etc/applications/rc.register add "$1" "$2" "$3"
+}
+
+unregister_application()
+{
+	/etc/applications/rc.register del "$1" "$2" "$3"
+}
+
+lock()
+{
+	while ! mkdir /var/lock/$1 2>/dev/null; do sleep 1; done
+	$@
+	status=$?
+	rmdir /var/lock/$1 2>/dev/null
+	return $status
+}

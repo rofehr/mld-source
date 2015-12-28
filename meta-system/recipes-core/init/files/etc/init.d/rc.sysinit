@@ -1,0 +1,74 @@
+#!/bin/sh
+#
+# System initialesieren
+
+. /etc/init.d/rc.functions
+. /etc/profile
+export BOOTSTEPS=$STARTSTEPS
+
+{
+mount proc
+mount sys
+mount tmp
+mount run
+mount dev
+mkdir -p /dev/pts
+mount devpts
+mount -o rw,remount /
+
+echo 1 > /var/spool/bootstep
+show_splash
+
+root=$(grep root= /proc/cmdline | sed "s/.*root=\([^ ]*\).*/\1/") #"
+root=$(blkid -o device -l -t $root 2>/dev/null || echo $root)
+test -e "$root" && ln -fs $root /dev/root
+
+# move from static /var/{run,lock} to /run
+touch /run/utmp
+mkdir -p /run/lock /run/shm
+chmod 1777 /run/shm
+ln -s /run/shm /dev/shm
+
+# Starting loging damons and Destination for extended log messages
+echo "Setting up logging: level $LOG_LEVEL"
+reset >/dev/tty5 || failed
+echo >/dev/tty10 || failed
+setlogcons 10 || failed
+syslogd -m 0 $SYSLOG_ARGS || failed
+klogd -c $(test "0$LOG_LEVEL" -le "2" && echo 1 || echo $(($LOG_LEVEL-2))) || failed
+} 2>&1 | tee -a /var/log/sysinit
+
+if [ "0$LOG_LEVEL" -eq "1" ]; then
+	# move /var/log to tmpfs
+	echo -n "  log to tmpfs" | tee -a /var/log/sysinit
+	mkdir /tmp/log
+	mv /var/log/* /tmp/log || failed
+	mount -n log /var/log -t tmpfs
+	mv /tmp/log/* /var/log || failed
+	rmdir /tmp/log
+fi
+if [ "0$LOG_LEVEL" -eq "0" ]; then
+	echo -n "  disable logging" | tee -a /var/log/sysinit
+	# redirect logfiles to /dev/null
+	for f in /var/run/utmp $(find /var/log -type f); do
+		ln -fs /dev/null $f || failed
+	done
+fi
+check_status | tee -a /var/log/sysinit
+
+# Run init scripts
+export QUIET=$(grep -q "nodialog" /proc/cmdline && echo 1)
+export nobg=$(grep -q "nobg" /proc/cmdline && echo 1)
+export debug=$(grep -q "debug" /proc/cmdline && echo 1)
+/etc/init.d/rc.init start 2>&1 | tee -a /var/log/sysinit
+
+# Save number of bootsteps and set progesivebar to 100%
+update_setting STARTSTEPS $(cat /var/spool/bootstep)
+echo $BOOTSTEPS >/var/spool/bootstep
+echo 0 > /var/spool/subbootstep
+show_bootstep
+
+. /etc/rc.config
+if [ "$SHOW_PROMPT" = "1" ]; then
+	hide_splash
+fi

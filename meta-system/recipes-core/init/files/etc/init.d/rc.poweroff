@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# System herunterfahren
+
+. /etc/init.d/rc.functions
+
+export BOOTSTEPS=$STOPSTEPS
+export splash="$(sed 's|.*splash=\(\S*\).*\|.*|\1|' /proc/cmdline)"
+echo 1 > /var/spool/bootstep
+chvt 1 &
+usleep 100
+show_splash
+
+echo -e "\nSystem going down now."; check_status
+
+# Stop Scripte ausführen
+(
+. /etc/profile
+/etc/init.d/rc.init stop
+)
+
+echo "Stopping all proceses"
+killall5 -SIGTERM
+sleep 1
+killall5 -SIGKILL
+check_status
+
+# Save number of downsteps
+update_setting STOPSTEPS $(( `cat /var/spool/bootstep` + 2 ))
+
+# alles unmounten
+echo "Syncing filesystems:"; sync; check_status
+echo "Unmounting filesystems:"
+umount -a -r 2>>/dev/stdlog
+
+eval $POWEROFF_LAST_CMD

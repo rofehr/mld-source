@@ -30,14 +30,21 @@ include recipes-core/images/core-image-minimal.bb
 
 
 LICENSE = "MIT"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
+                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+  
 
 # Roor Passwort setzen :)
-inherit extrausers
+inherit extrausers 
 EXTRA_USERS_PARAMS = "usermod -P mld600 root;"
 
+IMAGE_FEATURES += "splash"
 
 IMAGE_INSTALL += " \
-	packagegroup-mld-netinstall \
+	packagegroup-mld-base \
+	packagegroup-mld-install \
+	packagegroup-mld-tools \
 " 
 
 #syslinux_iso_populate_append() {

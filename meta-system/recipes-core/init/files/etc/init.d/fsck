@@ -1,0 +1,22 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+case "$1" in
+	start)
+		echo "Checking filesystems: "
+		fsck -a -C1 -A | while read a b c d; do test -n "${d##/dev/*}" -o -z "$d" || { n=$(($b*20/$c+($a-1)*20)); test "$n" != "$l" && show_step $n; l=$n; }; done
+		check_status
+		;;
+	stop)
+		;;
+	restart)
+		;;
+	init)
+		start=1
+		after=dma
+		;;
+	*)
+		echo "Usage: $0 {start | stop | restart}" >&2
+		exit 1
+esac

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+touch /tmp/shutdown.poweroff
+
+ls /sbin/shutdown.* 2>/dev/null | while read shutdown; do
+	$shutdown && rm /tmp/shutdown.poweroff
+done
+
+test -e /tmp/shutdown.poweroff && /sbin/poweroff

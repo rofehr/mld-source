@@ -1,0 +1,24 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+case "$1" in
+	start)
+		echo "Setting up localhost: "
+		hostname $HOST_NAME || failed
+		ifconfig lo up 127.0.0.1 || failed
+		route add -net 127.0.0.0/8 lo || failed
+		check_status
+		;;
+	stop)
+		;;
+	restart)
+		;;
+	init)
+		start=1
+		priority=9
+		;;
+	*)
+		echo "Usage: $0 {start | stop | restart}" >&2
+		exit 1
+esac

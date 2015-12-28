@@ -1,0 +1,23 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+case "$1" in
+	start)
+		echo "Turn on DMA: "
+		for dev in $(ls -d /proc/ide/hd? 2>/dev/null; ls -d /proc/ide/sd? 2>/dev/null); do
+			device="/dev/${dev##*/}"
+			hdparm -d1 $dev >>/dev/null 2>&1 || (echo "    $dev"; check_status 1 "no DMA")
+		done
+		;;
+	stop)
+		;;
+	restart)
+		;;
+	init)
+		grep -q "ide=nodma" /proc/cmdline || start=1
+		;;
+	*)
+		echo "Usage: $0 {start | stop | restart}" >&2
+		exit 1
+esac

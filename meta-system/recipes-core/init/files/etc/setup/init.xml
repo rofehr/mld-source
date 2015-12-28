@@ -1,0 +1,17 @@
+<menu name="Network">
+	<entry name="Hostname" sysconfig="HOST_NAME" type="text" value="MLD" command="/etc/setup/init.sh sethostname" help1="Name of this PC" />
+</menu>
+<menu name="System">
+	<entry name="Log level" sysconfig="LOG_LEVEL" type="selection" value="" help1="Loglevel 0-8">
+		<value name="0 - Deactivate log">0</value>
+		<value name="1 - Log to RamDisk">1</value>
+		<value name="2 - Log to HDD">2</value>
+		<value name="3 - Extended log at console">3</value>
+		<value name="4 - Kernel log level 1">4</value>
+		<value name="5 - Kernel log level 2">5</value>
+		<value name="6 - Kernel log level 3">6</value>
+		<value name="7 - Kernel log level 4">7</value>
+		<value name="8 - Kernel log level 5">8</value>
+	</entry>
+	<entry name="Show prompt" sysconfig="SHOW_PROMPT" type="bool" value="yes" help1="Deaktivate the silent splash screen and activate a prompt on console 1" />
+</menu>

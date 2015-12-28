@@ -1,0 +1,23 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+case "$1" in
+	start)
+		echo "Mounting filesystems: "
+		mount -a
+		check_status
+		;;
+	stop)
+		;;
+	restart)
+		;;
+	init)
+		start=1
+		priority=8
+		after=fsck
+		;;
+	*)
+		echo "Usage: $0 {start | stop | restart}" >&2
+		exit 1
+esac
