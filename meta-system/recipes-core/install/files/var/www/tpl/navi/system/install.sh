@@ -1,0 +1,1 @@
+<li class="soft"><a href="?site=setup&section=0Install">$(gt 'Install')</a></li>

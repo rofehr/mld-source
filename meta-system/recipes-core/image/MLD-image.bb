@@ -28,18 +28,22 @@ HOMEPAGE = "http://www.minidvblinux.de"
 
 include recipes-core/images/core-image-minimal.bb
 
-INITRD_IMAGE = "core-image-minimal-initramfs"
 
 LICENSE = "MIT"
 
+# Roor Passwort setzen :)
+inherit extrausers
+EXTRA_USERS_PARAMS = "usermod -P mld600 root;"
 
-IMAGE_INSTALL += "psplash \
+
+IMAGE_INSTALL += " \
+	packagegroup-mld-netinstall \
 " 
 
-syslinux_iso_populate_append() {
-	install -m 0444 ${STAGING_DATADIR}/syslinux/libcom32.c32 ${ISODIR}${ISOLINUXDIR}
-	install -m 0444 ${STAGING_DATADIR}/syslinux/mboot.c32 ${ISODIR}${ISOLINUXDIR}
-}
+#syslinux_iso_populate_append() {
+#	install -m 0444 ${STAGING_DATADIR}/syslinux/libcom32.c32 ${ISODIR}${ISOLINUXDIR}
+#	install -m 0444 ${STAGING_DATADIR}/syslinux/mboot.c32 ${ISODIR}${ISOLINUXDIR}
+#}
 
 
 

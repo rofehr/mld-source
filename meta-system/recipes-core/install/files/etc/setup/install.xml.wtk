@@ -1,0 +1,19 @@
+<menu name="0Install" command="/etc/setup/install.sh install automatic">
+	<menu name="Manual" command="/etc/setup/install.sh install manual">
+		<entry text="Manual install info" type="info" order="-1" />
+		<entry name="Boot partition" sysconfig="INSTALL_BOOT_PARTITION" type="selection" setup="/etc/setup/install.sh boot_partition_list" value="" help1="Use this SD-card partition for the boot files" />
+		<entry name="System partition" sysconfig="INSTALL_SYSTEM_PARTITION" type="selection" setup="/etc/setup/install.sh mmc_partition_list" value="" help1="Use this partition for the system" />
+		<entry name="Data partition" sysconfig="INSTALL_DATA_PARTITION" type="selection" setup="/etc/setup/install.sh mmc_partition_list" value="" help1="Use this partition for the data" />
+		<entry name="Format boot partition" sysconfig="INSTALL_FORMAT_BOOT_PARTITION" type="bool" value="" help1="Format the system partition" />
+		<entry name="Format system partition" sysconfig="INSTALL_FORMAT_SYSTEM_PARTITION" type="bool" value="" help1="Format the system partition" />
+		<entry name="Format data partition" sysconfig="INSTALL_FORMAT_DATA_PARTITION" type="bool" value="" help1="Format the data partition" />
+		<entry name="Copy system to disk" sysconfig="INSTALL_COPY_SYSTEM" type="bool" value="" help1="Copy system to disk" />
+		<entry name="Copy boot files to disk" sysconfig="INSTALL_COPY_BOOT" type="bool" value="" help1="Copy boot files to disk" />
+		<entry name="Reboot" type="button" command="reboot,/system?site=quickstart" />
+		<entry name="Install" type="save" />
+	</menu>
+	<entry text="Automatic install info" type="info" order="-1" />
+	<entry name="Install on SD-card" sysconfig="INSTALL_ON_SDCARD" type="bool" value="" help1="Install on the SD-card in the WeTek card reader" />
+	<entry name="Reboot" type="button" command="reboot,/system?site=quickstart" />
+	<entry name="Install" type="save" />
+</menu>

@@ -1,0 +1,16 @@
+<menu name="0Install" command="/etc/setup/install.sh install automatic">
+	<menu name="Manual" command="/etc/setup/install.sh install manual">
+		<entry text="Manual install info" type="info" order="-1" />
+		<entry name="System partition" sysconfig="INSTALL_SYSTEM_PARTITION" type="selection" setup="/etc/setup/install.sh partition_list" value="" help1="Use this partition for the system" />
+		<entry name="Data partition" sysconfig="INSTALL_DATA_PARTITION" type="selection" setup="/etc/setup/install.sh partition_list" value="" help1="Use this partition for the data" />
+		<entry name="Format system partition" sysconfig="INSTALL_FORMAT_SYSTEM_PARTITION" type="bool" value="" help1="Format the system partition" />
+		<entry name="Format data partition" sysconfig="INSTALL_FORMAT_DATA_PARTITION" type="bool" value="" help1="Format the data partition" />
+		<entry name="Copy system to disk" sysconfig="INSTALL_COPY_SYSTEM" type="bool" value="" help1="Copy system to hard disk" />
+		<entry name="Boot block disk" sysconfig="INSTALL_BOOTBLOCK_HDD" type="selection" setup="/etc/setup/install.sh hdd_list" value="" help1="Write boot block to the selected hard disk" />
+		<entry name="Reboot" type="button" command="reboot,/system?site=quickstart" />
+		<entry name="Install" type="save" />
+	</menu>
+	<entry text="Automatic install info" type="info" order="-1" />
+	<entry name="Hard disk" sysconfig="INSTALL_HDD" type="selection" setup="/etc/setup/install.sh hdd_list" value="" help1="Install on this hard disk" />
+	<entry name="Install" type="save" />
+</menu>

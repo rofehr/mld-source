@@ -1,0 +1,24 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+if [ "$SYSTEM_TYPE" = "rpi" -o "$SYSTEM_TYPE" = "wtk" ]; then
+	export INSTALL_HDD="mmcblk0"
+	test -e /usr/bin/install.* && . /usr/bin/install.*
+	install.sh automatic dialog "$(gt 'Install system')"
+else
+	options=
+	for hdd in $(/etc/setup/install.sh hdd_list | grep -v "-"); do
+		options="$options $hdd"
+	done
+	if [ "$options" ]; then
+		count=$(($(echo "$options" | wc -w) / 2))
+		dialog --clear --backtitle "$SYSTEM_NAME" --title "$(gt 'Install system')" --menu "$(gt 'Please select device to install on')" $((8+$count)) 45 $count $options 2>/tmp/$$
+		if [ $? = 0 ]; then
+			export INSTALL_HDD="$(cat /tmp/$$)"
+			test -e /usr/bin/install.* && . /usr/bin/install.*
+			install.sh automatic dialog "$(gt 'Install system')"
+		fi
+		rm -f /tmp/$$
+	fi
+fi
