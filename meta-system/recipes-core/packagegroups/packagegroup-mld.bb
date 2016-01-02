@@ -11,16 +11,31 @@ inherit packagegroup
 
 PACKAGES = " \
  packagegroup-mld-base \
+ packagegroup-mld-cmdline \
  packagegroup-mld-kernel-modules \
  packagegroup-mld-install \
  packagegroup-mld-tools \
 "
 
+#RDEPENDS_packagegroup-mld-base = " \
+#	psplash \
+#	busybox \
+#	init \
+#   gettext \
+#  gettext-runtime \
+#"
+
 RDEPENDS_packagegroup-mld-base = " \
-	psplash \
-	busybox \
-	init \
-	gettext \
+    busybox \
+    udev \
+"
+
+RDEPENDS_packagegroup-mld-cmdline = " \
+	initscripts \
+	sysvinit \
+    acl \
+    attr \
+    nfs-utils \
 "
 
 RDEPENDS_packagegroup-mld-kernel-modules = " \
@@ -28,7 +43,10 @@ RDEPENDS_packagegroup-mld-kernel-modules = " \
 "
 
 RDEPENDS_packagegroup-mld-install = " \
+	init \
 	install \
+	gettext \
+	gettext-runtime \
 	ssh \
 "
 

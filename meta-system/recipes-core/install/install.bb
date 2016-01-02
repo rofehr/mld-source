@@ -50,10 +50,11 @@ do_install () {
 	# Dateien installieren
 	#
     install -m 0755    ${WORKDIR}/etc/setup/install.sh							${D}${sysconfdir}/setup
-    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.bpi						${D}${sysconfdir}/setup
-    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.rpi						${D}${sysconfdir}/setup
-    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.wtk						${D}${sysconfdir}/setup
-    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.x86						${D}${sysconfdir}/setup
+    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.x86					${D}${sysconfdir}/setup
+    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.bpi					${D}${sysconfdir}/setup
+    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.rpi					${D}${sysconfdir}/setup
+    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.wtk					${D}${sysconfdir}/setup
+
     
     install -m 0755    ${WORKDIR}/usr/bin/install								${D}${bindir}
     
@@ -65,8 +66,10 @@ do_install () {
     install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/27_reboot.sh					${D}${localstatedir}/www/tpl/setup/0Install
     install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/95_reboot.sh					${D}${localstatedir}/www/tpl/setup/0Install
     install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/Manual/80_warning.sh			${D}${localstatedir}/www/tpl/setup/0Install/Manual
-    
-    
-    
 	
 }
+
+
+
+
+

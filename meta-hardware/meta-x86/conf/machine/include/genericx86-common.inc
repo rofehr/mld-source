@@ -1,5 +1,6 @@
 include conf/machine/include/x86-base.inc
-MACHINE_FEATURES += "wifi efi pcbios"
+#MACHINE_FEATURES += "wifi efi pcbios"
+#MACHINE_FEATURES += "ext4"
 
 PREFERRED_PROVIDER_virtual/kernel ?= "linux-MLD"
 PREFERRED_VERSION_linux-MLD ?= "x86%"
@@ -13,11 +14,11 @@ XSERVER ?= "${XSERVER_X86_BASE} \
             ${XSERVER_X86_MODESETTING} \
            "
 
-MACHINE_EXTRA_RRECOMMENDS += "linux-firmware v86d eee-acpi-scripts"
+#MACHINE_EXTRA_RRECOMMENDS += "linux-firmware v86d eee-acpi-scripts"
 
-GLIBC_ADDONS = "nptl"
+#GLIBC_ADDONS = "nptl"
 
-EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
+#EXTRA_OECONF_append_pn-matchbox-panel-2 = " --with-battery=acpi"
 
 
 
