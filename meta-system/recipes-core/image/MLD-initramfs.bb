@@ -3,7 +3,6 @@ DESCRIPTION = "Simple initramfs image for the MLD Distro."
 
 
 PACKAGE_INSTALL = " packagegroup-mld-base \
-    				packagegroup-mld-cmdline \
     				packagegroup-mld-install \
 "
 
