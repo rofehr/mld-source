@@ -26,7 +26,15 @@ RDEPENDS_packagegroup-mld-base = " \
     nfs-utils \    
     xfsprogs \
     btrfs-tools \
-    dialog \    
+    dialog \ 
+    findutils \
+    gptfdisk \
+	gettext \
+	gettext-runtime \
+	ssh \
+	hdparm \
+	extlinux \
+	syslinux-extlinux \
 "
 
 
@@ -37,9 +45,6 @@ RDEPENDS_packagegroup-mld-kernel-modules = " \
 RDEPENDS_packagegroup-mld-install = " \
 	init \
 	install \
-	gettext \
-	gettext-runtime \
-	ssh \
 "
 
 RDEPENDS_packagegroup-mld-tools = " \

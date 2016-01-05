@@ -37,6 +37,7 @@ do_install () {
 	install -d ${D}${sysconfdir}/setup
 	install -d ${D}${bindir}
 	install -d ${D}${sbindir}
+	install -d ${D}${localstatedir}/cache
 	install -d ${D}${localstatedir}/www
 	install -d ${D}${localstatedir}/www/tpl
 	install -d ${D}${localstatedir}/www/tpl/index
@@ -50,7 +51,7 @@ do_install () {
 	# Dateien installieren
 	#
     install -m 0755    ${WORKDIR}/etc/setup/install.sh							${D}${sysconfdir}/setup
-    #install -m 0755    ${WORKDIR}/etc/setup/install.xml.x86					${D}${sysconfdir}/setup
+    install -m 0755    ${WORKDIR}/etc/setup/install.xml.x86						${D}${sysconfdir}/setup/install.xml
     #install -m 0755    ${WORKDIR}/etc/setup/install.xml.bpi					${D}${sysconfdir}/setup
     #install -m 0755    ${WORKDIR}/etc/setup/install.xml.rpi					${D}${sysconfdir}/setup
     #install -m 0755    ${WORKDIR}/etc/setup/install.xml.wtk					${D}${sysconfdir}/setup

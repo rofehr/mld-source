@@ -1,4 +1,4 @@
-SUMMARY = "Installieren der MLD"
+SUMMARY = "Init der MLD"
 AUTHOTR = "Claus Muus <mld@clausmuus.de>"
 HOMEPAGE ="http://www.minidvblinux.de"
 SECTION = "base"
