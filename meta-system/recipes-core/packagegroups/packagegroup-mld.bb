@@ -14,6 +14,7 @@ PACKAGES = " \
  packagegroup-mld-kernel-modules \
  packagegroup-mld-install \
  packagegroup-mld-tools \
+ packagegroup-mld-network \
 "
 
 RDEPENDS_packagegroup-mld-base = " \
@@ -35,6 +36,10 @@ RDEPENDS_packagegroup-mld-base = " \
 	hdparm \
 	extlinux \
 	syslinux-extlinux \
+"
+
+RDEPENDS_packagegroup-mld-network = " \
+	avahi-daemon \
 "
 
 

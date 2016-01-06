@@ -43,8 +43,8 @@ do_install () {
 	install -d ${D}${localstatedir}/www/tpl/index
 	install -d ${D}${localstatedir}/www/tpl/navi
 	install -d ${D}${localstatedir}/www/tpl/navi/system
-	install -d ${D}${localstatedir}/www/tpl/setup/0Install
-	install -d ${D}${localstatedir}/www/tpl/setup/0Install/Manual
+	install -d ${D}${localstatedir}/www/tpl/setup.d/0Install
+	install -d ${D}${localstatedir}/www/tpl/setup.d/0Install/Manual
 
 	
 	#
@@ -63,10 +63,10 @@ do_install () {
     
     install -m 0755    ${WORKDIR}/var/www/tpl/index/20_install.sh							${D}${localstatedir}/www/tpl/index
     install -m 0755    ${WORKDIR}/var/www/tpl/navi/system/install.sh						${D}${localstatedir}/www/tpl/navi/system
-    install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/10_headline.sh					${D}${localstatedir}/www/tpl/setup/0Install
-    install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/27_reboot.sh					${D}${localstatedir}/www/tpl/setup/0Install
-    install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/95_reboot.sh					${D}${localstatedir}/www/tpl/setup/0Install
-    install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/Manual/80_warning.sh			${D}${localstatedir}/www/tpl/setup/0Install/Manual
+    install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/10_headline.sh					${D}${localstatedir}/www/tpl/setup.d/0Install
+    install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/27_reboot.sh					${D}${localstatedir}/www/tpl/setup.d/0Install
+    install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/95_reboot.sh					${D}${localstatedir}/www/tpl/setup.d/0Install
+    install -m 0755    ${WORKDIR}/var/www/tpl/setup/0Install/Manual/80_warning.sh			${D}${localstatedir}/www/tpl/setup.d/0Install/Manual
 	
 }
 

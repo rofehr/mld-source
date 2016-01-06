@@ -37,7 +37,7 @@ do_install () {
 	# Directory erstellen
 	#
 	install -d ${D}${sysconfdir}/init.d
-	install -d ${D}${sysconfdir}/setup
+	install -d ${D}${sysconfdir}/setup.d
 	install -d ${D}${sbindir}
 
 	
@@ -54,8 +54,8 @@ do_install () {
     install -m 0755    ${WORKDIR}/etc/init.d/rc.poweroff					${D}${sysconfdir}/init.d
     install -m 0755    ${WORKDIR}/etc/init.d/rc.sysinit						${D}${sysconfdir}/init.d
 
-    install -m 0755    ${WORKDIR}/etc/setup/init.sh							${D}${sysconfdir}/setup
-    install -m 0755    ${WORKDIR}/etc/setup/init.xml						${D}${sysconfdir}/setup
+    install -m 0755    ${WORKDIR}/etc/setup/init.sh							${D}${sysconfdir}/setup.d
+    install -m 0755    ${WORKDIR}/etc/setup/init.xml						${D}${sysconfdir}/setup.d
     
     install -m 0755    ${WORKDIR}/sbin/restart								${D}${sbindir}
     install -m 0755    ${WORKDIR}/sbin/shutdown								${D}${sbindir}
