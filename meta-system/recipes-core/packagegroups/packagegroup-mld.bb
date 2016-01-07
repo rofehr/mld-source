@@ -36,10 +36,12 @@ RDEPENDS_packagegroup-mld-base = " \
 	hdparm \
 	extlinux \
 	syslinux-extlinux \
+	modutils-initscripts \
 "
 
 RDEPENDS_packagegroup-mld-network = " \
-	avahi-daemon \
+	init-ifupdown \
+	dhcp-client \
 "
 
 

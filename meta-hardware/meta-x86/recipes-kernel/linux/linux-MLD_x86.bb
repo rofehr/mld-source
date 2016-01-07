@@ -3,7 +3,7 @@ SECTION = "kernel"
 LICENSE = "GPLv2"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 KCONFIG_MODE = "--allnoconfig"
-PR = "r0"
+PR ?= "r0"
 SRC = "20151106"
 
 

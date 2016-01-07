@@ -30,6 +30,6 @@ do_install () {
 	#
 	# Dateien installieren
 	#
-    install -m 0755    ${WORKDIR}/usr/lib/extlinux/extlinux.conf				${D}/usr/lib/extlinux
-    install -m 0755    ${WORKDIR}/usr/lib/extlinux/vesamenu.c32					${D}/usr/lib/extlinux
+    install -m 0755    ${WORKDIR}/usr/lib/extlinux/extlinux.conf				${D}/usr/lib/extlinux/extlinux.conf
+    install -m 0755    ${WORKDIR}/usr/lib/extlinux/vesamenu.c32					${D}/usr/lib/extlinux/vesamenu.c32	
 }

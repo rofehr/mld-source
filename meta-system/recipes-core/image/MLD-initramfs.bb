@@ -4,6 +4,8 @@ DESCRIPTION = "Simple initramfs image for the MLD Distro."
 
 PACKAGE_INSTALL = " packagegroup-mld-base \
     				packagegroup-mld-install \
+    				packagegroup-mld-network \
+    				packagegroup-mld-kernel-modules \
 "
 
 
