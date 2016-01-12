@@ -1,0 +1,20 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+dialog --clear --backtitle "$SYSTEM_NAME" --title "$(gt 'Static network setup')" --ok-label "$(gt 'Save')" --cancel-label "$(gt 'Use DHCP')" --form "$(gt 'Please enter your static network setup')" 11 45 0 \
+	"$(gt 'IP'):" 1 1 "${NETWORK_IP:-192.168.0.200}" 1 24 16 15 \
+	"$(gt 'Netmask'):" 2 1 "${NETWORK_NETMASK:-255.255.255.0}" 2 24 16 15 \
+	"$(gt 'Gateway'):" 3 1 "${NETWORK_GATEWAY:-192.168.0.1}" 3 24 16 15 \
+	"$(gt 'DNS'):" 4 1 "${NETWORK_DNS:-8.8.8.8}" 4 24 16 15 \
+	2>/tmp/$$
+if [ $? = 0 ]; then
+	update_setting "NETWORK_DHCP" ""
+	update_setting "NETWORK_IP" "$(sed -n 1p /tmp/$$ | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")"
+	update_setting "NETWORK_NETMASK" "$(sed -n 2p /tmp/$$ | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")"
+	update_setting "NETWORK_GATEWAY" "$(sed -n 3p /tmp/$$ | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")"
+	update_setting "NETWORK_DNS" "$(sed -n 4p /tmp/$$ | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")"
+else
+	update_setting "NETWORK_DHCP" "1"
+fi
+rm -f /tmp/$$

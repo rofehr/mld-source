@@ -1,0 +1,134 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+nfsboot=$(sed "s/.*nfsboot=\(\S\+\).*\|.*/\1/" /proc/cmdline) #"
+
+case "$1" in
+	start)
+		echo "Init network"
+
+		if [ -n "$NETWORK_DNS" ]; then
+			update_config "nameserver " "nameserver $NETWORK_DNS" /etc/resolv.conf
+		fi
+
+		# Aktiviere Notfall IP
+#		ifconfig eth0:0 169.254.1.5 netmask 255.255.0.0 up &>/dev/null
+
+		if [ "$NETWORK_DHCP" = "1" ]; then
+			echo "Starting DHCP-client"
+			ls /sys/class/net | grep ${NETWORK_INTERFACE:-eth} | while read interface; do
+				start-stop-daemon -S -q -p /var/run/network_udhcpc.pid -b -x udhcpc -- -b -i $interface -x hostname:$HOST_NAME -p /var/run/network_udhcpc_$interface.pid
+			done
+			check_status
+		elif [ "$NETWORK_IP" -a "$NETWORK_NETMASK" ]; then
+			echo "Connecting to network"
+			interface=${NETWORK_INTERFACE:-eth0}
+			ifconfig $interface up $NETWORK_IP netmask $NETWORK_NETMASK
+			if [ -n "$NETWORK_GATEWAY" ]; then
+				route add default gw $NETWORK_GATEWAY dev $interface
+			fi
+			route add -net 224.0.0.0 netmask 240.0.0.0 dev $interface
+			update_hostname
+			check_status
+		fi
+
+		rm -f /tmp/network.interface
+		i=0
+		while [ $i -lt 30 ]; do
+			i=$(($i+1))
+			ls /sys/class/net | grep -v lo | while read interface; do
+				ip="$(ifconfig $interface 2>/dev/null | grep "inet addr" | sed "s/.*inet addr:\([0-9.]*\).*/\1/")" #"
+				if [ "$ip" -a "$(cat /sys/class/net/$interface/carrier 2>/dev/null)" = "1" ]; then
+					echo -n "$interface" > /tmp/network.interface
+					mv /etc/hosts /etc/hosts.bak
+					update_setting NETWORK_DOM_NAME "$({ nslookup $ip 2>/dev/null || echo $ip; } | tail -n1 | sed "s/.* //;s/\.localdom$//")"
+					mv /etc/hosts.bak /etc/hosts
+					if [ "$NETWORK_DHCP" = "1" -a "$NETWORK_DOM_NAME" != "$ip" ]; then
+						update_hostname "${NETWORK_DOM_NAME%%.*}"
+					fi
+				fi
+			done
+			if [ -e /tmp/network.interface ]; then
+				echo
+				$0 resume
+				break
+			fi
+			if [ $i -gt 5 -a $(cat /sys/class/net/*/carrier 2>/dev/null | grep 1 | wc -l) -le 1 ]; then
+				echo "No network cable connected        "
+				check_status 1
+				break
+			fi
+			echo -en "Waiting for network connection: $(show_step) \r"
+			sleep 1
+		done
+		if [ ! -e /tmp/network.interface ]; then
+			echo "Network not reachable             "
+			check_status 1
+		fi
+		;;
+	resume)
+		if [ "$NETWORK_SERVER_WAKEUP" = "1" -a -n "$NETWORK_SERVER_MAC" ]; then
+			# Startet Server per Wake-On-Lan
+			echo "Wakeup server"
+			ether-wake -b $NETWORK_SERVER_MAC
+			check_status
+		fi
+		if [ "$NETWORK_SERVER_WAKEUP" = "1" -a -n "$NETWORK_SERVER_IP" ]; then
+			# Startet VDR auf 24-7 Server wenn suspend Paket auf diesem installiert und auf vdr-only eingestellt ist
+			echo "RESU" | nc $NETWORK_SERVER_IP 6419 &>/dev/null
+		fi
+		;;
+	stop | halt)
+		if [ -n "$init" ]; then
+			update_server.sh
+
+			if [ "$NETWORK_SERVER_SHUTDOWN" = "1" -a -n "$NETWORK_SERVER_IP" ]; then
+				echo "Stopping server"
+				echo -e "HITK Power\nQUIT" | nc $NETWORK_SERVER_IP 6419 &>/dev/null
+				check_status
+			fi
+
+			if [ "$NETWORK_WOL" = "1" ]; then
+				echo "Activating WOL"
+				ls /sys/class/net | grep ${NETWORK_INTERFACE:-eth} | while read interface; do
+					ethtool -s $interface wol g
+				done
+				check_status
+			fi
+		else
+			echo "Stopping DHCP-client"
+			ls /sys/class/net | grep eth | while read interface; do
+				start-stop-daemon -K -R 1 -p /var/run/network_udhcpc_$interface.pid &>/dev/null
+			done
+			check_status
+
+			echo "Disconnecting from network"
+			ls /sys/class/net | grep eth | while read interface; do
+				ifconfig $interface down &>/dev/null
+			done
+			check_status
+
+			# Deaktiviere Notfall IP
+#			ifconfig eth0:0 down &>/dev/null
+
+			rm -f /tmp/network.interface
+		fi
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	init)
+		start=1
+		stop=1
+		halt=1
+		resume=1
+		if [ "$nfsboot" ]; then
+			after=udev
+		fi
+		;;
+	*)
+		echo "Usage $0 {start | stop | restart}" >&2
+		exit 1
+esac
