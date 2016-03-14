@@ -11,10 +11,6 @@ inherit packagegroup
 
 PACKAGES = " \
  packagegroup-mld-base \
- packagegroup-mld-kernel-modules \
- packagegroup-mld-install \
- packagegroup-mld-tools \
- packagegroup-mld-network \
 "
 
 RDEPENDS_packagegroup-mld-base = " \
@@ -34,14 +30,18 @@ RDEPENDS_packagegroup-mld-base = " \
 	gettext-runtime \
 	ssh \
 	hdparm \
-	extlinux \
-	syslinux-extlinux \
 	modutils-initscripts \
+	base \
+"
+
+RDEPENDS_packagegroup-mld-x86 = " \
+    extlinux \
+    syslinux-extlinux \
 "
 
 RDEPENDS_packagegroup-mld-network = " \
 	init-ifupdown \
-	dhcp-client \
+	network \
 "
 
 
@@ -59,4 +59,10 @@ RDEPENDS_packagegroup-mld-tools = " \
 	nano \
 "
 
+RDEPENDS_packagegroup-mld-test-new-recipes = " \
+	vtunerc \
+	satip-client \
+	packagegroup-core-eclipse-debug \
+	packagegroup-core-ssh-openssh \
+"
 

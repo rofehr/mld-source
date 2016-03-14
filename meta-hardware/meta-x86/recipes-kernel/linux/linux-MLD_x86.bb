@@ -21,6 +21,9 @@ PKG_kernel-image = "kernel-image"
 RPROVIDES_kernel-base = "kernel-${KERNEL_VERSION}"
 RPROVIDES_kernel-image = "kernel-image-${KERNEL_VERSION}"
 
+KMACHINE_genericx86 ?= "common-pc"
+KMACHINE_genericx86-64 ?= "common-pc-64"
+
 # Kernel 3.19.8
 #LINUX_VERSION ?= "3.19.8"
 #SRCREV = "fcf4fe0e3e820408890ae137a684e56010c55f99"

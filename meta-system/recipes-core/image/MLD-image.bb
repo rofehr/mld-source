@@ -29,7 +29,7 @@ SPLASH_IMAGE = "silent.png"
 
 export IMAGE_BASENAME="MLD-Base-image"
 
-inherit bootimg  
+#inherit bootimg  
 
 do_bootimg[depends] += "${INITRD_IMAGE}:do_build"
 do_bootimg[depends] += "virtual/kernel:do_populate_sysroot"

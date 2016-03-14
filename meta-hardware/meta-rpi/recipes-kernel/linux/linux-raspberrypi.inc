@@ -53,15 +53,31 @@ do_install_prepend() {
 do_deploy_append() {
     # Deploy cmdline.txt
     install -d ${DEPLOYDIR}/bcm2835-bootfiles
-    echo "${CMDLINE}" > ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
+    PITFT="${@bb.utils.contains("MACHINE_FEATURES", "pitft", "1", "0", d)}"
+    if [ ${PITFT} = "1" ]; then
+        PITFT_PARAMS="fbcon=map:10 fbcon=font:VGA8x8"
+    fi
+    echo "${CMDLINE}${PITFT_PARAMS}" > ${DEPLOYDIR}/bcm2835-bootfiles/cmdline.txt
 }
 
 do_rpiboot_mkimage() {
     if test "x${KERNEL_IMAGETYPE}" != "xuImage" ; then
         if test -n "${KERNEL_DEVICETREE}"; then
             # Add RPi bootloader trailer to kernel image to enable DeviceTree support
-            ${STAGING_DIR_NATIVE}/usr/lib/rpi-mkimage/mkknlimg --dtok ${KERNEL_OUTPUT} ${KERNEL_OUTPUT}
+            ${STAGING_BINDIR_NATIVE}/mkknlimg --dtok ${KERNEL_OUTPUT} ${KERNEL_OUTPUT}
         fi
     fi
 }
+
+do_bundle_initramfs_append() {
+    if [ ! -z "${INITRAMFS_IMAGE}" -a x"${INITRAMFS_IMAGE_BUNDLE}" = x1 ]; then
+        if test "x${KERNEL_IMAGETYPE}" != "xuImage" ; then
+            if test -n "${KERNEL_DEVICETREE}"; then
+                # Add RPi bootloader trailer to kernel image to enable DeviceTree support
+                ${STAGING_BINDIR_NATIVE}/mkknlimg --dtok ${KERNEL_OUTPUT}.initramfs ${KERNEL_OUTPUT}.initramfs
+            fi
+        fi
+    fi
+}
+
 addtask rpiboot_mkimage before do_install after do_compile
