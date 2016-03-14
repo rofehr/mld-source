@@ -24,7 +24,7 @@ LABELS = "MLD"
 SPLASH_IMAGE = "silent.png"
 
 
-IMAGE_FEATURES += "ssh-server-dropbear"
+IMAGE_FEATURES += "splash"
 
-export IMAGE_BASENAME="MLD-Base-image"
+export IMAGE_BASENAME="MLD-Base-image-rpi2"
 

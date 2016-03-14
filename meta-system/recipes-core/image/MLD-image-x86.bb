@@ -26,6 +26,8 @@ INITRD = "${DEPLOY_DIR_IMAGE}/${INITRD_IMAGE}-${MACHINE}.cpio.gz"
 #APPEND = "console=ttyS0,115200 console=ttyPCH0,115200"
 SPLASH_IMAGE = "silent.png"
 
+IMAGE_FEATURES += "splash"
+
 # Roor Passwort setzen :)
 #inherit extrausers 
 #EXTRA_USERS_PARAMS = "usermod -P mld600 root;"
@@ -38,5 +40,5 @@ do_bootimg[depends] += "virtual/kernel:do_populate_sysroot"
 addtask do_bootimg before do_build
 addtask do_unpack before do_build
 
-export IMAGE_BASENAME="MLD-Base-image"
+export IMAGE_BASENAME="MLD-Base-image-x86"
 
