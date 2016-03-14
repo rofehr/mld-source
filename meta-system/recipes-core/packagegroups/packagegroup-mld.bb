@@ -11,6 +11,7 @@ inherit packagegroup
 
 PACKAGES = " \
  packagegroup-mld-base \
+ packagegroup-mld-network \
 "
 
 RDEPENDS_packagegroup-mld-base = " \
@@ -32,6 +33,7 @@ RDEPENDS_packagegroup-mld-base = " \
 	hdparm \
 	modutils-initscripts \
 	base \
+	psplash \
 "
 
 RDEPENDS_packagegroup-mld-x86 = " \
@@ -65,4 +67,5 @@ RDEPENDS_packagegroup-mld-test-new-recipes = " \
 	packagegroup-core-eclipse-debug \
 	packagegroup-core-ssh-openssh \
 "
+
 
