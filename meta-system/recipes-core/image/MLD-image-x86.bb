@@ -1,13 +1,9 @@
 ##############################################################
 #
 #  conten: mld-base-image
-#  arch:   i386, amd64  
+#  arch:   x86  
 #   
 ##############################################################
-
-# in dem MLD-netinstall image wurden ursprünglich folgende Pakete benötigt. Vernachlässigt werden könnten für den 1.Start die Plugins: locales backup live webserver
-# netinstall        = locales backup install install-net live webserver ssh
-# base              = xfs extlinux busybox initramfs
 
 SUMMARY = "A MLD base image ."
 
@@ -21,34 +17,15 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
-
+                 
 LABELS = "MLD"
-
-INITRD_IMAGE = "MLD-initramfs"
-
-INITRAMFS_IMAGE_BUNDLE = "1"
-
-IMAGE_FSTYPES = "cpio.gz"
-
-INITRD = "${DEPLOY_DIR_IMAGE}/${INITRD_IMAGE}-${MACHINE}.cpio.gz"
-
-#APPEND = "console=ttyS0,115200 console=ttyPCH0,115200"
 
 SPLASH_IMAGE = "silent.png"
 
-# Packete die mit ins Image sollen
-PACKAGE_INSTALL = " packagegroup-mld-base \
-"
+# Base this image on core-image-minimal
+include recipes-core/images/core-image-minimal.bb
 
-inherit bootimg  
-
-do_bootimg[depends] += "${INITRD_IMAGE}:do_build"
-
-do_bootimg[depends] += "virtual/kernel:do_populate_sysroot"
-
-addtask do_bootimg before do_build
-
-addtask do_unpack before do_build
+IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
 
 export IMAGE_BASENAME="MLD-Base-image-x86"
 
