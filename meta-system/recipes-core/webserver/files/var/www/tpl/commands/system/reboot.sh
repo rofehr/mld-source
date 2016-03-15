@@ -1,0 +1,1 @@
+<li><a href='?site=commands&section=system&command=sleep 1;reboot'>$(TEXTDOMAIN="webserver-www" gt 'Reboot system')</a></li>

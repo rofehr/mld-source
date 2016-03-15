@@ -1,0 +1,728 @@
+Version 06e55b8 at 2015-11-22 by Claus Muus
+	update about page
+
+Version 7d997b7 at 2015-11-22 by Claus Muus
+	update about page
+
+Version ccb8e2c at 2015-11-22 by Claus Muus
+	update about page
+
+Version 0342977 at 2015-11-22 by Claus Muus
+	update about page
+
+Version 8914371 at 2015-11-22 by Claus Muus
+	update about page
+
+Version ee31aad at 2015-11-03 by Peter Pfeifer
+	fix typo
+
+Version 7cc9a81 at 2015-10-12 by Claus Muus
+	update quicksetup struktur
+
+Version e682458 at 2015-09-19 by Claus Muus
+	fix help page selection
+
+Version 803a04f at 2015-09-06 by Claus Muus
+	fix missing save button
+
+Version 838d6f6 at 2015-08-31 by Claus Muus
+	fix help page if no help is available
+
+Version 2bc3a68 at 2015-08-31 by Claus Muus
+	add IDs to setup elements
+
+Version 7d815f8 at 2015-08-26 by Claus Muus
+	fix help detection
+
+Version adce385 at 2015-08-17 by Peter Pfeifer
+	add vdpau information to debuglog
+
+Version c63f46a at 2015-08-06 by Claus Muus
+	fix map template
+
+Version fa783f8 at 2015-08-05 by Claus Muus
+	fix quicksetup help
+
+Version eab97ae at 2015-07-31 by Claus Muus
+	update help font size
+
+Version 2d93e95 at 2015-07-30 by Claus Muus
+	update setup help selection
+
+Version 27d66af at 2015-07-30 by Claus Muus
+	update file upload script
+
+Version b867a73 at 2015-07-29 by Claus Muus
+	update help page handling
+
+Version b1ed577 at 2015-07-24 by Claus Muus
+	update background image size for netsurf
+
+Version 9841d7a at 2015-07-24 by Claus Muus
+	update styles for netsurf
+
+Version 264f695 at 2015-07-24 by Claus Muus
+	update styles for netsurf
+
+Version 0a24e09 at 2015-07-24 by claus
+	update styles for netsurf
+
+Version 98e96d1 at 2015-07-24 by claus
+	fix server start
+
+Version c061ad4 at 2015-07-22 by Claus Muus
+	add vdrmanager to portlist
+
+Version cbe665f at 2015-07-20 by Claus Muus
+	fix help
+
+Version d4a0222 at 2015-07-20 by Claus Muus
+	update locales
+
+Version 0803c92 at 2015-07-20 by Claus Muus
+	update setup help
+
+Version a095bcb at 2015-07-20 by Claus Muus
+	update locales
+
+Version ed0782f at 2015-07-20 by Claus Muus
+	update help page id handling
+
+Version f54bc10 at 2015-07-20 by Claus Muus
+	update help page id handling
+
+Version 1047449 at 2015-07-20 by Claus Muus
+	update help page
+
+Version 77d597e at 2015-07-17 by Claus Muus
+	show wiki help pages beside the setup
+
+Version bde9627 at 2015-07-17 by Claus Muus
+	update setup update check
+
+Version 78bddfc at 2015-07-17 by Claus Muus
+	make the webif password request configuable
+
+Version 860633a at 2015-07-17 by Claus Muus
+	make the webif password request configuable
+
+Version 39f2105 at 2015-07-17 by Claus Muus
+	make the webif password request configuable
+
+Version 379ad6b at 2015-07-08 by Peter Pfeifer
+	fix Typo at DE language
+
+Version 01cf610 at 2015-07-07 by Claus Muus
+	fix post request handling
+
+Version 3e83833 at 2015-06-29 by Claus Muus
+	update for new default root passwort
+
+Version 76c22f7 at 2015-06-28 by Claus Muus
+	fix quicksetup command call
+
+Version 775669d at 2015-06-27 by Claus Muus
+	update locales
+
+Version 5c196a5 at 2015-06-27 by Claus Muus
+	fix bug redirect
+
+Version b0d3276 at 2015-06-19 by Claus Muus
+	update web setup
+
+Version 6d81e43 at 2015-06-17 by Peter Pfeifer
+	update install scripts
+
+Version e4b14f5 at 2015-06-16 by Peter Pfeifer
+	added SYSTEM_TYPE to Debuglog-Name
+
+Version 854e8ab at 2015-06-13 by Claus Muus
+	update package list style
+
+Version 425da2a at 2015-06-12 by Claus Muus
+	fix quickstart VDR restart
+
+Version 0f697eb at 2015-05-29 by Claus Muus
+	update to dpkg packagemanager
+
+Version db6ebac at 2015-05-07 by Claus Muus
+	update locales
+
+Version 052f144 at 2015-02-16 by Claus Muus
+	update handling of web apps
+
+Version 797f30b at 2015-02-15 by Claus Muus
+	do not add headers on pure scripts
+
+Version feeced6 at 2015-02-15 by Claus Muus
+	fix last extension
+
+Version 15bc86d at 2015-02-15 by Claus Muus
+	update headline style
+
+Version b554778 at 2015-02-13 by Claus Muus
+	update setup updater
+
+Version 7badb63 at 2015-02-13 by Claus Muus
+	add short errorhandling url
+
+Version 95e7aea at 2015-02-13 by Claus Muus
+	add short errorhandling url
+
+Version 1b651f9 at 2015-02-06 by Claus Muus
+	Update upgrade message
+
+Version e487655 at 2015-02-06 by Claus Muus
+	Update webif message
+
+Version 57112bd at 2015-02-02 by Claus Muus
+	show also xorg-driver packages in package list, if no driver package is installed
+
+Version f24174d at 2015-02-02 by Claus Muus
+	show also xorg-driver packages in package list, if no driver package is installed
+
+Version 1ddc319 at 2015-01-01 by Claus Muus
+	add reboot handling
+
+Version c06181e at 2014-12-31 by Claus Muus
+	add reboot script
+
+Version 482818a at 2014-12-31 by Claus Muus
+	update package list
+
+Version 2db4c6a at 2014-11-13 by Claus Muus
+	update locales
+
+Version e7a0bb8 at 2014-11-13 by Claus Muus
+	extend debug log by further opkg logs
+
+Version fb9992a at 2014-10-05 by Claus Muus
+	fix session handling
+
+Version 21a2dd3 at 2014-10-02 by Claus Muus
+	update locales
+
+Version cf205e1 at 2014-10-01 by Claus Muus
+	add button and info types to setup
+
+Version 53a074c at 2014-09-11 by Claus Muus
+	update log archive
+
+Version a8c4d49 at 2014-09-11 by Claus Muus
+	update package handling
+
+Version 33a4c48 at 2014-09-11 by Claus Muus
+	update style
+
+Version 72e2a7f at 2014-09-11 by Claus Muus
+	update debug log
+
+Version dd029c7 at 2014-09-10 by Claus Muus
+	update sysinit log in log collection
+
+Version ae7b9c8 at 2014-09-10 by Claus Muus
+	add package grouping
+
+Version 624da07 at 2014-09-10 by Claus Muus
+	add package grouping
+
+Version be1a371 at 2014-09-09 by Claus Muus
+	add errorhandling script
+
+Version 7012e03 at 2014-09-08 by Claus Muus
+	update übersetzungen
+
+Version ac9aa17 at 2014-09-08 by Claus Muus
+	update conrol section
+
+Version f087089 at 2014-09-07 by Claus Muus
+	add long setup help
+
+Version 14154c0 at 2014-09-07 by Claus Muus
+	add long help to setup
+
+Version 598c038 at 2014-09-07 by Claus Muus
+	use setup help2 for extended help
+
+Version 845b52a at 2014-09-07 by Claus Muus
+	update translations
+
+Version 16da079 at 2014-09-07 by Claus Muus
+	update translations
+
+Version 0e7ce2d at 2014-09-07 by Claus Muus
+	update debug log upload
+
+Version 74b6e4b at 2014-09-05 by Claus Muus
+	fix debug log upload
+
+Version 089fbc7 at 2014-09-05 by Nightbuild2
+	fix upload of logfiles to webserver function
+
+Version 21ea2db at 2014-09-05 by Nightbuild2
+	add upload of logfiles to webserver function
+
+Version b56abbc at 2014-09-03 by Peter Pfeifer
+	remove Portinfo vdrmanager
+
+Version 6c5f915 at 2014-08-28 by Claus Muus
+	fix webif package list
+
+Version 71c3ee9 at 2014-08-28 by Andreas McPherson
+	add optional order of setup entries in quicksetup
+
+Version 8671af8 at 2014-08-27 by Claus Muus
+	add optional order of setup entries
+
+Version 977bb6c at 2014-08-20 by Claus Muus
+	hide lib packages in webif
+
+Version 9459c28 at 2014-08-20 by Claus Muus
+	fix filename of log collection
+
+Version 3ede71f at 2014-08-15 by Claus Muus
+	rename function tr to gt
+
+Version 4ba9e08 at 2014-08-13 by Claus Muus
+	rename function tr to gt
+
+Version cdf855c at 2014-08-13 by Claus Muus
+	use new gt function in stad of tr
+
+Version 2c0f711 at 2014-08-09 by Claus Muus
+	fix webif upgrade list
+
+Version ef13f13 at 2014-08-08 by Claus Muus
+	fix webif upgrade list
+
+Version 02dcecc at 2014-08-08 by Claus Muus
+	fix webif upgrade list
+
+Version f6dbc86 at 2014-08-04 by Claus Muus
+	update locales
+
+Version 842b689 at 2014-08-04 by Claus Muus
+	fix about webif
+
+Version c928d0d at 2014-08-04 by Claus Muus
+	fix about webif
+
+Version ce7fe8e at 2014-08-04 by Claus Muus
+	add copyright text and about handling to the webif
+
+Version e8d4463 at 2014-07-19 by Andreas McPherson
+	add postrm to stop webserver before uninstall
+
+Version bf28012 at 2014-07-18 by Claus Muus
+	fix webif services list
+
+Version 38bc735 at 2014-07-16 by Claus Muus
+	clean up init script
+
+Version 42896c4 at 2014-07-16 by Andreas McPherson
+	changed init script to start-stop-daemon
+
+Version 1440a90 at 2014-07-15 by Claus Muus
+	update index (welcome) page
+
+Version 93e67f7 at 2014-07-15 by Claus Muus
+	update index (welcome) page
+
+Version a3acff2 at 2014-07-15 by Andreas McPherson
+	fix webserver.sh
+
+Version 3938ca6 at 2014-07-14 by Andreas McPherson
+	add pid processhandling
+
+Version 9d682e6 at 2014-07-13 by Claus Muus
+	update locales
+
+Version bad1524 at 2014-07-10 by Claus Muus
+	update german translations
+
+Version 979e3c2 at 2014-07-10 by Claus Muus
+	update german translations
+
+Version 8b6dc17 at 2014-07-09 by Peter Pfeifer
+	add translation for Webinterface
+
+Version b5d4d67 at 2014-07-07 by Claus Muus
+	unset init variable befor webserver start
+
+Version 3035966 at 2014-07-05 by Claus Muus
+	fix setup update detection
+
+Version 29cfbe6 at 2014-06-30 by Nightbuild2
+	fix quickstart sub navi style
+
+Version 5fa0c8b at 2014-06-19 by det
+	TVH port2
+
+Version 376ce35 at 2014-06-17 by Claus Muus
+	fix marking of installed packages
+
+Version fe8de0e at 2014-06-15 by Peter Pfeifer
+	add README.port for new Port of Addon restfulapi
+
+Version 1d098f5 at 2014-06-13 by Claus Muus
+	remove xbmc log
+
+Version dfc1e19 at 2014-06-13 by Claus Muus
+	update hdd info
+
+Version bf78b74 at 2014-06-12 by det
+	xbmclogseite hinzugefügt
+
+Version ca84402 at 2014-06-07 by Claus Muus
+	reload upgrad list after update
+
+Version e9360c1 at 2014-06-07 by Claus Muus
+	remove detection of domain name and use global value instat
+
+Version 2eb2c39 at 2014-06-07 by Claus Muus
+	fix handling of comments in loggings
+
+Version 01a373c at 2014-06-07 by Claus Muus
+	fix handling of comments in loggings
+
+Version 3514bec at 2014-06-03 by Andreas McPherson
+	add vdrmanager port to README.ports
+
+Version a2ad7d8 at 2014-05-17 by Claus Muus
+	remove urldecode binary on make clean
+
+Version 3c76fcc at 2014-05-12 by Peter Pfeifer
+	added fstab and extra directory of /var/log/*
+
+Version 8699fba at 2014-05-12 by Claus Muus
+	remove urldecode binary
+
+Version 7aba7fb at 2014-05-07 by Peter Pfeifer
+	new function Download DEBUG Log
+
+Version 5080503 at 2014-04-14 by Claus Muus
+	speed up package management
+
+Version 171a0d7 at 2014-04-14 by Claus Muus
+	clean up code
+
+Version b78c5c8 at 2014-04-14 by Claus Muus
+	speed up package management
+
+Version 6996229 at 2014-04-14 by Claus Muus
+	fix sitemap
+
+Version 4b9b304 at 2014-04-14 by claus
+	update cache control
+
+Version 3d81cd9 at 2014-04-14 by claus
+	speed up the web server
+
+Version 2a9708d at 2014-04-14 by claus
+	fix last update
+
+Version 218e5c1 at 2014-04-14 by Claus Muus
+	clean up webserver
+
+Version 2f0b852 at 2014-03-27 by Claus Muus
+	update locales
+
+Version 5bb8bae at 2014-03-27 by Claus Muus
+	add network info to info page
+
+Version bb5b637 at 2014-03-26 by Claus Muus
+	fix logout function
+
+Version f62f451 at 2014-03-23 by Claus Muus
+	update webif value style
+
+Version da16293 at 2014-03-20 by Claus Muus
+	update setup update handling
+
+Version 6d0d7c4 at 2014-03-05 by Claus Muus
+	add list of used ports
+
+Version 835beca at 2014-02-27 by Claus Muus
+	fix setup view
+
+Version 9e54fce at 2014-02-20 by Claus Muus
+	fix package installation status on safari
+
+Version 7a8400b at 2014-02-18 by Claus Muus
+	update setup menu creation
+
+Version 721ac44 at 2014-02-15 by Claus Muus
+	fix selectAndInput style
+
+Version 5718ddc at 2014-02-15 by Claus Muus
+	fix font size
+
+Version 6cd95af at 2014-02-14 by Claus Muus
+	fix autoscroll of install status
+
+Version 877819a at 2014-02-13 by Claus Muus
+	auto scroll on package installation
+
+Version afd7ab2 at 2014-02-13 by Claus Muus
+	update opkg lock waiting
+
+Version eacfe26 at 2014-02-13 by Claus Muus
+	fix handling of bad cookies
+
+Version 09bf471 at 2014-02-13 by Claus Muus
+	fix app start
+
+Version 77ca9a9 at 2014-02-13 by Claus Muus
+	extend system info
+
+Version d302f94 at 2014-02-08 by Claus Muus
+	update package status headline
+
+Version fc66235 at 2014-02-08 by Claus Muus
+	update selectAndInput style
+
+Version c6cd9e8 at 2014-02-08 by Claus Muus
+	fix checkbox style
+
+Version 04fe2db at 2014-02-07 by Claus Muus
+	update locales
+
+Version fe322c5 at 2014-02-07 by Claus Muus
+	fix package installer
+
+Version 01a60ff at 2014-02-06 by claus
+	update styles
+
+Version 67ef41f at 2014-02-06 by claus
+	update styles
+
+Version f6c434c at 2014-02-05 by claus
+	update package management page
+
+Version ae03a96 at 2014-02-05 by Claus Muus
+	add vdr package management
+
+Version aba45a9 at 2014-02-01 by Claus Muus
+	fix MLD URL
+
+Version 9523a0f at 2014-01-30 by claus
+	decrees bg image size
+
+Version 725cb1b at 2014-01-24 by claus
+	add iframe expand button
+
+Version 3143eaa at 2014-01-18 by Peter Pfeifer
+	update control/control
+
+Version 25c58ea at 2014-01-16 by Claus Muus
+	remove wakeup install option, since this is a default package
+
+Version 98551df at 2014-01-16 by Claus Muus
+	Merge branch 'master' of http://minidvblinux.de/git-4/webserver
+
+Version 530d8c9 at 2014-01-15 by claus
+	fix navi padding
+
+Version 5507c69 at 2014-01-15 by Claus Muus
+	scale up the system tab
+
+Version 966b8f8 at 2014-01-14 by claus
+	add map for location selection
+
+Version 8aff412 at 2014-01-13 by Peter Pfeifer
+	update control/control
+
+Version 9422cc2 at 2014-01-13 by Claus Muus
+	update locales
+
+Version 5b05e1d at 2014-01-13 by claus
+	- update package navi - fix sitemap
+
+Version 1c87896 at 2014-01-13 by claus
+	- update package navi - fix sitemap
+
+Version c7046f3 at 2014-01-13 by claus
+	fix headline link
+
+Version 649770e at 2014-01-13 by Claus Muus
+	update package management status message style
+
+Version b2007fd at 2014-01-11 by claus
+	fix apps url
+
+Version 723dc08 at 2014-01-11 by claus
+	remove tv style
+
+Version 0103425 at 2014-01-11 by Claus Muus
+	move vdr plugin package management to vdr package
+
+Version 4db7b3c at 2014-01-11 by claus
+	update package handling
+
+Version a8d21b4 at 2014-01-11 by Claus Muus
+	Merge branch 'master' of http://minidvblinux.de/git-4/webserver
+
+Version 7a00fc4 at 2014-01-11 by Claus Muus
+	update app registration
+
+Version 4396a1c at 2014-01-11 by claus
+	update package handling
+
+Version b9abccb at 2014-01-11 by claus
+	update pre style
+
+Version 6e6e9de at 2014-01-11 by claus
+	refix login
+
+Version 0c5771f at 2014-01-11 by claus
+	update package handling
+
+Version 0f2b4bb at 2014-01-11 by Claus Muus
+	refix makefile
+
+Version a9a0d98 at 2014-01-11 by Claus Muus
+	Merge branch 'master' of http://minidvblinux.de/git-4/webserver
+
+Version ba56427 at 2014-01-11 by claus
+	update webif structure
+
+Version 69bd1b3 at 2014-01-11 by Claus Muus
+	update favicon
+
+Version be2a72e at 2014-01-11 by claus
+	update favicon
+
+Version bdd13ed at 2014-01-11 by Claus Muus
+	move webif remote control to vdr package
+
+Version 12bfb0d at 2014-01-11 by Claus Muus
+	update favicon color
+
+Version a7a2737 at 2014-01-10 by claus
+	set tv position
+
+Version b24838e at 2014-01-10 by claus
+	disable tv template output
+
+Version 240395b at 2014-01-10 by claus
+	add tv template
+
+Version 75534c7 at 2014-01-10 by Claus Muus
+	remove include level since it should not be necessary
+
+Version 730263b at 2014-01-10 by Claus Muus
+	fix some pages
+
+Version c06df59 at 2014-01-10 by Claus Muus
+	add cookie handling
+
+Version 474f0f3 at 2014-01-09 by Claus Muus
+	fix system site section
+
+Version 8a77c58 at 2014-01-09 by claus
+	update remote
+
+Version 63233bd at 2014-01-09 by claus
+	add remote
+
+Version 25c055c at 2014-01-09 by claus
+	update to new web design
+
+Version 8f445cf at 2014-01-09 by claus
+	- update file type handling - add htaccess handling
+
+Version 7cf3647 at 2014-01-09 by claus
+	add htaccess rules
+
+Version b9807b0 at 2014-01-08 by claus
+	Merge branch 'master' of http://minidvblinux.de/git-4/webserver
+
+Version e0d6e44 at 2014-01-08 by claus
+	fix include of rc.functions
+
+Version 7862889 at 2014-01-07 by Claus Muus
+	add start call after install and stop call before remove
+
+Version 79487d9 at 2014-01-07 by Claus Muus
+	move testserver start and stop to makefile
+
+Version 277c2e3 at 2014-01-07 by claus
+	extend testserver script
+
+Version 75b3e52 at 2014-01-07 by Claus Muus
+	make some devel changes
+
+Version ccc9ff9 at 2014-01-04 by Claus Muus
+	fix package installer
+
+Version 18c5534 at 2014-01-04 by Claus Muus
+	fix info page
+
+Version 2865ce9 at 2014-01-03 by Claus Muus
+	fix setup command execution
+
+Version 7f7674d at 2014-01-03 by Claus Muus
+	fix wakeup install setup
+
+Version f49021f at 2014-01-02 by Claus Muus
+	add package management
+
+Version dd98636 at 2013-12-29 by Claus Muus
+	fix quicksetup
+
+Version 040d556 at 2013-12-28 by Claus Muus
+	fix quick start
+
+Version d840878 at 2013-12-27 by Claus Muus
+	fix setup update
+
+Version 9612331 at 2013-12-26 by Claus Muus
+	update web setup update scripts
+
+Version fa68663 at 2013-12-26 by Claus Muus
+	update web setup update scripts
+
+Version d84e7b5 at 2013-12-26 by Claus Muus
+	update locales
+
+Version ee2df09 at 2013-12-26 by Claus Muus
+	update quick setup
+
+Version 587bb07 at 2013-12-26 by Claus Muus
+	update package management
+
+Version 759ec29 at 2013-12-26 by Claus Muus
+	update package management
+
+Version 199760f at 2013-12-26 by Claus Muus
+	update package management
+
+Version 0d7df18 at 2013-12-26 by Claus Muus
+	update package management
+
+Version 5da1933 at 2013-12-25 by Claus Muus
+	update package management
+
+Version 6ddee7f at 2013-12-24 by Claus Muus
+	remove depends
+
+Version 6e9ffd8 at 2012-05-21 by Claus
+	add empty dirs
+
+Version 402ed2c at 2012-05-21 by Claus
+	add urldecode src
+
+Version e5a287f at 2012-05-21 by Claus
+	fix wakeup check
+
+Version 52fa321 at 2012-05-21 by Claus
+	update setup generation
+
+Version fb62c44 at 2012-05-20 by Claus
+	fix web setup generation
+
+Version c0d2bfb at 2012-05-18 by Claus
+	add locales
+
+Version 1e7b146 at 2012-05-18 by Claus Muus
+	Initial import

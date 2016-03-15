@@ -1,0 +1,1 @@
+<li><a href='?site=commands&section=system'>$(TEXTDOMAIN="webserver-www" gt 'System')</a></li>

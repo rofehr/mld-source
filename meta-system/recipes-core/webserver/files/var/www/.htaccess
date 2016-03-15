@@ -1,0 +1,11 @@
+# redirect site requests to iframe page
+test "$uri" = "index.sh" && echo -n "$query" | grep -q "\(^\|&\)site=[^&]" && { uri=iframe.sh; }
+
+# redirect to bug report page
+test "$uri" = "bug" && { while read line && test "$line" != $'\r'; do :;done; header "HTTP/1.0 302"; header "Location: /system?site=errorhandling"; header; exit; }
+
+# redirect unknown urls to the index page
+test ! -e "$uri" && { request_uri="$uri"; uri=index.sh; type=sh; }
+
+# .sh that not start with #!/bin/sh handle as .shtml
+test "$type" = "sh" -a "$(head -n1 "${uri}")" != "#!/bin/sh" && type=shtml

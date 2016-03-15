@@ -1,0 +1,6 @@
+<menu name="$(gt 'Miscellaneous')">
+	<entry name="$(gt 'Webserver port')" sysconfig="WEBSERVER_PORT" type="numtext" value="80" help1="$(gt 'Set the port on that the webserver should listen')" help2="$(gt 'Webserver port long help')" />
+</menu>
+<menu name="$(gt 'System')">
+	<entry name="$(gt 'Webif password check')" sysconfig="WEBSERVER_PASSWORD_CHECK" type="bool" value="" help1="$(gt 'Check the password to enter the system setup')" />
+</menu>

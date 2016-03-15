@@ -1,0 +1,1 @@
+<li class="plugin"><a href="?site=commands">$(TEXTDOMAIN="webserver-www" gt 'Commands')</a></li>

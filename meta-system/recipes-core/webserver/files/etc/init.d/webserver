@@ -1,0 +1,43 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+TEXTDOMAIN="webserver-webserver"
+
+NAME=${0##*/}
+DAEMON=tcpsvd
+ARGS="-l0 0 ${WEBSERVER_PORT:-80} /bin/sh /usr/bin/webserver.sh"
+PID_FILE=/var/run/$NAME.pid
+
+case "$1" in
+	start)
+		echo "Starting $NAME:"
+		export init=
+		cd /var/www
+		start-stop-daemon -S -q -p $PID_FILE -m -b -x $DAEMON -- $ARGS
+		check_status
+
+		if [ ! -e /var/spool/webifmsg ]; then
+			if [ -x /usr/bin/svdrpsend.sh ]; then
+				svdrpsend.sh "PLUG apt ASK $(gt 'You can find the webinterface at http://$NETWORK_DOM_NAME') $(gt 'OK?')" | grep -q yes && touch /var/spool/webifmsg
+			else
+				echo "  $(gt 'You can find the webinterface at http://$NETWORK_DOM_NAME')" && touch /var/spool/webifmsg
+			fi
+		fi
+		;;
+	stop)
+		echo "Stopping $NAME:"
+		start-stop-daemon -K -R 1 -p $PID_FILE >/dev/null 2>&1
+		check_status
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	init)
+		start=1
+		after=network
+		;;
+	*)
+		echo "Usage $0 {start | stop | restart}" >&2
+		exit 1
+esac

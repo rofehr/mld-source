@@ -1,0 +1,10 @@
+--- a/Makefile	2014-01-20 14:01:10.000000000 +0100
++++ b/Makefile	2014-01-22 21:54:51.068369537 +0100
+@@ -50,6 +50,7 @@
+ INCLUDES +=
+ 
+ DEFINES += -DPLUGIN_NAME_I18N='"$(PLUGIN)"'
++LIBDVBCSA = 1
+ 
+ ### The object files (add further files here):
+ 

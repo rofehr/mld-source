@@ -1,0 +1,1 @@
+<li class="plugin"><a href="?site=info">$(TEXTDOMAIN="webserver-www" gt 'System info')</a></li>

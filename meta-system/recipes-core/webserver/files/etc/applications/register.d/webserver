@@ -1,0 +1,15 @@
+#!/bin/sh
+
+action="$1"
+name="$2"
+command="$3"
+conffile="$4"
+
+case "$action" in
+	add)
+		echo "<li><a href='?site=apps&app=$name'>$name</a></li>" > /var/www/tpl/apps/$name.sh
+		;;
+	del)
+		rm -f /var/www/tpl/apps/$name.sh
+		;;
+esac

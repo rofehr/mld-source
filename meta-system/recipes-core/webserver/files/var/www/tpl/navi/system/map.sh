@@ -1,0 +1,1 @@
+<li class="plugin"><a href="?site=map">$(TEXTDOMAIN="webserver-www" gt 'Map')</a></li>

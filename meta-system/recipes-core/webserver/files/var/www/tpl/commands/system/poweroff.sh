@@ -1,0 +1,1 @@
+<li><a href='?site=commands&section=system&command=sleep 1;poweroff'>$(TEXTDOMAIN="webserver-www" gt 'Power off system')</a></li>

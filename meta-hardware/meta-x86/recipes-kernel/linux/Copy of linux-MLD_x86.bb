@@ -49,7 +49,7 @@ KMACHINE_genericx86-64 ?= "common-pc-64"
 #LINUX_VERSION ?= "3.17.1"
 #SRCREV = "9db8a8bb98cf75b0a51d66f560c87028e93a8ed8"
 #SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-3.17.y"
-    
+	
 # Kernel 3.19.1
 #LINUX_VERSION ?= "3.19.1"
 #SRCREV = "5392bc6bce5ff16ca78d7d3780bde272f9119bb8"
@@ -58,17 +58,17 @@ KMACHINE_genericx86-64 ?= "common-pc-64"
 # Kernel 4.3.3
 #LINUX_VERSION ?= "4.3.3"
 #SRCREV = "09f6b0600c331c69cdc8ba5d9152fe171745d8fd"
-#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.3.y"       
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.3.y"		 
 
 # Kernel 4.4
 LINUX_VERSION ?= "4.4"
 SRCREV = "afd2ff9b7e1b367172f18ba7f693dfb62bdcb2dc"
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.4.y"       
+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.4.y"		
  
-             
+		 	 
 
 SRC_URI += " file://defconfig \
-             file://COPYING.GPL \
+        	 file://COPYING.GPL \
         "
 
 PV = "${LINUX_VERSION}+git${SRCPV}"

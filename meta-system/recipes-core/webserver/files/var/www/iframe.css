@@ -1,0 +1,383 @@
+body {
+	margin: 0;
+	color: #000000;
+	font-size: 10px;
+	font-family: Geneva, verdana, sans-serif;
+	background-color: rgba(230,230,230,0.01);
+}
+#body.window {
+	background-color: #e5e5e5;
+}
+
+img {
+	border: 0;
+}
+
+
+#body .text {
+	position: relative;
+	color: #000000;
+	font-size: 1.2em;
+}
+#body.iframe .text {
+	padding: 1em 2.5em 1em 0;
+}
+#body.window .text {
+	padding: 1em 2em;
+}
+#body .text ul {
+	padding-left: 0;
+	margin: 0 0 0.5em 0;
+}
+#body .text li {
+	background: url(images/icon_list.png) no-repeat left top transparent;
+	list-style-type: none;
+	padding-left: 24px;
+	margin-bottom: 7px;
+}
+
+#body .text h1 {
+	background: url(images/bg_headline.png) no-repeat scroll -20px 0 ;
+	margin: 0 0 0.7em -8px;
+	padding: 6px 4px 6px 8px;
+	font-size: 1.2em;
+	color: #ffffff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#body.iframe .text h1 {
+	display: none;
+}
+#body .text h2 {
+	margin: 0 0 0.5em 0;
+	font-size: 1.2em;
+}
+#body .text h3 {
+	margin: 0 0 0.5em 0;
+	font-size: 1.0em;
+}
+#body .text h4 {
+	margin: 0 0 0.2em 0;
+	font-size: 0.8em;
+}
+#body .text p {
+	margin: 0 0 0.5em 0;
+}
+#body .text blockquote {
+	margin: 0 0 0 2em;
+}
+#body .text * + h2 {
+	margin-top: 1.5em;
+}
+#body .text ul + h2 {
+	margin-top: -7px;
+}
+#body .text * + h3 {
+	margin-top: 1em;
+}
+#body .text a,  #body .news a {
+	color: #994411;
+	text-decoration: none;
+}
+#body .text a:hover, #body .news a:hover {
+	text-decoration: underline;
+}
+#body .text pre {
+	margin: 0 0 0.5em -0.2em;
+	padding: 0.5em 1em 0.4em 1em;
+	background: rgba(230,230,230,0.9);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6f0f0f0,endColorstr=#e6f0f0f0); 
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	box-shadow: 0 0 0.5em #ccc inset;
+	/*max-height: 20em;*/
+	font-size: 0.9em;
+	overflow: auto;
+}
+#body .text pre::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+#body .text .flow span {
+	background-color: #777;
+	display: inline-block;
+}
+#body .text .flow {
+	text-align: right;
+	overflow: hidden;
+}
+#body .text small {
+	font-weight: normal;
+}
+::i-block-chrome, #body .text .flow div {
+	/* Safari only */
+	margin-left:-100%;
+}
+
+#body .download {
+	color: #000;
+	list-style: none;
+	margin: 1em 2.5em;
+	padding: 0;
+}
+#body .download h2 {
+	margin: 0;
+	line-height: 1.7em;
+}
+#body .download .group h2 {
+	font-size: 1.3em;
+	text-transform: capitalize;
+	margin-left: -12px;
+}
+#body .download p {
+	margin: 0.2em 0 1.5em 7px;
+	min-height: 1em;
+}
+#body .download li {
+	background: transparent;
+	list-style-type: none;
+	padding-left: 14px;
+	margin-bottom: 0;
+}
+#body .download input {
+	float: left;
+	margin: 6px 8px 0 -13px;
+	padding: 0;
+	text-align: center;
+	background: #f7f7f7;
+}
+#body ul.group {
+	margin-bottom: 3em;
+}
+
+#body .frame .logout {
+	background: #dddddd url(images/icon_logout_2.png) center center;
+}
+
+#body .icon {
+	display: none;
+}
+
+/*
+#body .submit {
+	font-weight: bold;
+	text-align: right;
+}
+#body .login input[type=submit] {
+	position:absolute;
+	top: -1000px;
+	left: -1000px;
+}
+*/
+#body #login-message.show {
+	margin: 0.7em -9px 0.2em -2px;
+	background-color: #eeeeee;
+	border: 1px solid #bbb;
+	border-radius: 5px;
+	box-shadow: 0 0 0.5em #bbb inset;
+	color: #dd0000;
+	padding: 0.4em 0.6em;
+}
+#login-password-forgotten {
+	display: none;
+}
+#login-password-forgotten.show {
+	display: table-cell;
+	text-align: right;
+	font-size: 0.9em;
+}
+
+::-webkit-scrollbar { background: rgba(0,0,0,0.01); width: 8px; height: 9px; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.01); border-radius: 10px; box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
+::-webkit-scrollbar-thumb { background: rgba(50,50,50,0.2); border-radius: 10px; sbox-shadow: inset 0 0 6px rgba(0,0,0,0.5); }
+::-webkit-scrollbar-thumb:hover { background: rgba(50,50,50,0.4); }
+
+@-moz-document url-prefix(http://) {
+scrollbar { -moz-appearance: none !important; background: rgba(0,0,0,0.01) !important; width: 12px !important; }
+thumb,scrollbarbutton { -moz-appearance: none !important; background: rgba(50,50,50,0.8) !important; border-radius: 10px !important; sbox-shadow: inset 0 0 6px rgba(0,0,0,0.5) !important; }
+thumb:hover,scrollbarbutton:hover { -moz-appearance: none !important; }
+scrollbarbutton { display: none !important; }
+scrollbar[orient="vertical"] { min-width: 12px !important; }
+}
+
+
+
+.row:after, .header:after, form:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+ul.navi {
+	border: 0;
+	margin: -10px 0 0 0;
+	padding: 7px 0 7px 12px;
+	font-size: 13px;
+	color: #000000;
+}
+ul.subnavi {
+	float: right;
+	width: 65.3%;
+	margin: 0.5em 0 0 0 !important;
+}
+
+form {
+	max-width: 500px;
+}
+form .row {
+	width: 100%;
+	float: left;
+}
+form .button {
+	float: right;
+	padding: 1px 1px 1px 12px;
+}
+form .button.bottom {
+	clear: both;
+	margin-top: -29px
+}
+label {
+	float: left;
+	width: 30%;
+	text-align: right;
+	margin: 8px 0 8px 0;
+}
+
+label[title*=" "] {
+	cursor: help;
+}
+.info {
+	float: left;
+	width: 80%;
+	margin: 8px 0 8px 10px;
+}
+
+input, textarea, select {
+	float: right;
+	width: 63%;
+	position: relative;
+	font-size: 1.1em;
+	padding: 2px 4px;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	box-shadow: 0 0 1px #aaa inset;
+	background: #f7f7f7;
+	margin: 5px 0 3px 0;
+}
+
+select {
+	padding: 0 0 0 1px;
+	height: 1.7em;
+	width: 65.3%;
+}
+textarea {
+ 	height: 70px;
+}
+form .value input {
+	float: left;
+	margin: -4px 4px -4px 0;
+}
+
+input[type=submit], input[type=button] {
+	width: auto;
+	text-align: center;
+	background-color: #F5F5F5;
+	margin: 4px 0;
+	padding: 1px 15px 1px 15px;
+	cursor: pointer;
+}
+input[type=submit]:hover, input[type=button]:hover {
+	background-color: #e5e5e5;
+}
+input[type=submit] {
+	font-weight: bold;
+}
+input[type=checkbox] {
+	border: none;
+	float: left;
+	width: auto;
+	margin: 6px 0 5px 12px;
+}
+input.invalid, textarea.invalid, select.invalid {
+	border-color: #CC3300;
+}
+input:focus, textarea:focus, select:focus {
+	box-shadow: 0 0 3px #7d7d7d;
+	-moz-box-shadow: 0 0 3px #7d7d7d;
+	-webkit-box-shadow: 0 0 3px #7d7d7d;
+}
+input.invalid:focus, textarea.invalid:focus, select.invalid:focus {
+	box-shadow: 0 0 3px #CC3300;
+	-moz-box-shadow: 0 0 3px #CC3300;
+	-webkit-box-shadow: 0 0 3px #CC3300;
+}
+#body form .value {
+	float: left;
+	font-weight: bold;
+	margin: 8px 0 8px 26px;
+	max-width: 289px;
+}
+form .value a {
+	font-weight: normal;
+}
+form .value ul {
+	margin: -2px 0 0 15px;
+}
+form h3 .value img {
+	position: absolute;
+	right: 22px;
+	margin-top: -7px;
+}
+.invalid.message {
+	margin: 0 0 7px 125px;
+}
+.value .invalid.message {
+	margin: 4px 0 -4px 4px;
+	font-weight: normal;
+}
+
+.log .state {
+	margin-top: -14px;
+	float: right;	
+	font-weight: bold;
+}
+.log .state.color1 {
+	color: red;
+}
+.log .state.color2 {
+	color: green;
+}
+.log .state.color7 {
+	color: gray;
+}
+.navi .log {
+	font-size: 9px;
+	color: #525759; 
+	margin: 0 5px -1px 5px;
+} 
+.navi .log .state {
+	margin-top: 0;
+	float: left;
+}
+
+hr {
+	margin-left: -10px;
+	border-top: 1px solid #aaaaaa;
+}
+
+
+.progress {
+	height:5px;
+	width: 0;
+	background: #FF5555;
+}
+#status {
+	/*overflow: auto;*/
+}
+
+.error {
+	color: red;
+}
