@@ -2,7 +2,7 @@ DESCRIPTION = "Amlogic Kernel"
 SECTION = "kernel"
 LICENSE = "GPLv2"
 
-LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
+#LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 
 inherit kernel
 
@@ -28,18 +28,6 @@ SRC_URI[sha256sum] = "128648e4e8d053b5bfda229a61535f7a41438cfdd69d5f65711750de66
 SRC_URI = " \
     http://sources.openelec.tv/devel/linux-amlogic-3.10-fa4c242.tar.xz \
     file://defconfig \
-    file://000-svn_rev.patch \
-    file://10-arm-show-present-cpu-instead-of-online-cpu-in-proc-c.patch \
-    file://20-wetek_dvb_code.patch \
-    file://40-no_dev_console.patch \
-    file://50-turn_power_led_into_standby_mode_after_poweroff.patch \
-    file://60-xattr.patch \
-    file://70-amports_ignore_fec_control.patch \
-    file://70-remove-amvideocap-spam.patch \
-    file://100-fix-23hzpixelclock.patch \
-    file://110-add_wetekplay_led.patch \
-    file://111-add-remote-control-ledtrigger.patch \
-    file://130-switch_irq_to_CPU1.patch \
     file://wetekplay.dtd "
 
 do_configure_prepend () {
