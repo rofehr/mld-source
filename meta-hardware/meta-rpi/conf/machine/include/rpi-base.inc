@@ -16,6 +16,14 @@ XSERVER = " \
     xf86-input-keyboard \
     xf86-video-fbdev \
     "
+# Really supported starting from linux-raspberrypi 3.18.y only
+KERNEL_DEVICETREE ?= " \
+    bcm2708-rpi-b.dtb \
+    bcm2708-rpi-b-plus.dtb \
+    bcm2709-rpi-2-b.dtb \
+    bcm2710-rpi-3-b.dtb \
+    "
+
 KERNEL_IMAGETYPE ?= "Image"
 
 MACHINE_FEATURES += "kernel26 apm usbhost keyboard vfat ext2 screen touchscreen alsa bluetooth wifi sdio"
