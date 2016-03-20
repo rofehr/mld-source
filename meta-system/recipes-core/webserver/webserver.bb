@@ -18,10 +18,8 @@ SRC_URI = " file://etc/applications/register.d/webserver \
 "
 
 SRC_URI += " file://usr/bin/get_debug_log_collection.sh \
-			 file://usr/bin/tcpsvd \
 			 file://usr/bin/update_quick_start.sh \
 			 file://usr/bin/update_web_setup.sh \
-			 file://usr/bin/urldecode \
 			 file://usr/bin/webserver.sh \
 "
 
@@ -161,10 +159,8 @@ do_install () {
     install -m 0755    ${WORKDIR}/etc/setup/webserver.xml										${D}${sysconfdir}/setup
     
     install -m 0755    ${WORKDIR}/usr/bin/get_debug_log_collection.sh							${D}${bindir}
-    install -m 0755    ${WORKDIR}/usr/bin/tcpsvd												${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/update_quick_start.sh									${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/update_web_setup.sh									${D}${bindir}
-    install -m 0755    ${WORKDIR}/usr/bin/urldecode												${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/webserver.sh											${D}${bindir}
 
     install -m 0755    ${WORKDIR}/usr/share/doc/webserver/copyright								${D}${docdir}/webserver

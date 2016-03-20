@@ -23,6 +23,7 @@ SRC_URI = " \
 	file://0002-gcc5-fixes.patch \
 	"
 
+
 PE = "1"
 
 PV = "v2014.04+git${SRCPV}"
