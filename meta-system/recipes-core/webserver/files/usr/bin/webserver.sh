@@ -98,6 +98,7 @@ test -n "$HTTP_Cookie" && eval "$(echo $HTTP_Cookie | sed 's/\(; \)\?\([^=]\+\)\
 
 # parse body
 if [ "$HTTP_ContentLength" ]; then
+	HTTP_ContentType=${HTTP_ContentType:-$HTTP_Contenttype}
 	dd bs=1 count=$HTTP_ContentLength >/tmp/webserver.$$.body 2>/dev/null
 	if [ -z "${HTTP_ContentType##multipart/form-data*}" ]; then
 		# multipart form data

@@ -4,7 +4,7 @@
 TEXTDOMAIN="webserver-webserver"
 
 NAME=${0##*/}
-DAEMON=tcpsvd
+DAEMON=/usr/bin/tcpsvd
 ARGS="-l0 0 ${WEBSERVER_PORT:-80} /bin/sh /usr/bin/webserver.sh"
 PID_FILE=/var/run/$NAME.pid
 
