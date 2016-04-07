@@ -24,6 +24,8 @@ RPROVIDES_kernel-image = "kernel-image-${KERNEL_VERSION}"
 KMACHINE_genericx86 ?= "common-pc"
 KMACHINE_genericx86-64 ?= "common-pc-64"
 
+
+
 # Kernel 3.19.8
 #LINUX_VERSION ?= "3.19.8"
 #SRCREV = "fcf4fe0e3e820408890ae137a684e56010c55f99"
@@ -61,9 +63,14 @@ KMACHINE_genericx86-64 ?= "common-pc-64"
 #SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.3.y"       
 
 # Kernel 4.4
-LINUX_VERSION ?= "4.4"
-SRCREV = "afd2ff9b7e1b367172f18ba7f693dfb62bdcb2dc"
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.4.y"       
+#LINUX_VERSION ?= "4.4"
+#SRCREV = "afd2ff9b7e1b367172f18ba7f693dfb62bdcb2dc"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.4.y"       
+ 
+# Kernel 4.5
+LINUX_VERSION ?= "4.5"
+SRCREV = "a26555498849489fb87139a15abe2eeb8a366ae7"
+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.5.y"       
  
              
 
