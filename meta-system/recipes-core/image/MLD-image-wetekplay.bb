@@ -24,7 +24,7 @@ SPLASH_IMAGE = "silent.png"
 
 # Base this image on core-image-minimal
 include recipes-core/images/core-image-minimal.bb
-#include recipes-core/images/wetek-image-minimal.bb
+
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
 
