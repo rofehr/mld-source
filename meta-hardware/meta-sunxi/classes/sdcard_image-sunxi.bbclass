@@ -43,6 +43,7 @@ rootfs[depends] += "virtual/kernel:do_deploy sunxi-board-fex:do_deploy"
 # SD card image name
 SDIMG = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.sunxi-sdimg"
 
+
 IMAGEDATESTAMP = "${@time.strftime('%Y.%m.%d',time.gmtime())}"
 
 IMAGE_CMD_sunxi-sdimg () {

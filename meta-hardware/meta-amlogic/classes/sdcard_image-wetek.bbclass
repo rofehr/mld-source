@@ -35,7 +35,8 @@ BOOTDD_VOLUME_ID ?= "${MACHINE}"
 BOOT_SPACE ?= "20480"
 
 # Set alignment to 4MB [in KiB]
-IMAGE_ROOTFS_ALIGNMENT = "4096"
+IMAGE_ROOTFS_ALIGNMENT = "2048"
+
 
 # Use an uncompressed ext4 by default as rootfs
 SDIMG_ROOTFS_TYPE ?= "ext4"
@@ -45,6 +46,7 @@ IMAGE_DEPENDS_wetek-sdimg = " \
 			parted-native \
 			mtools-native \
 			dosfstools-native \
+			e2fsprogs-native \
 			virtual/kernel \
 			${@base_contains("KERNEL_IMAGETYPE", "uImage", "u-boot", "",d)} \
 			"
@@ -84,6 +86,8 @@ IMAGE_CMD_wetek-sdimg () {
 
 	# Create a vfat image with boot files
 	BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDIMG} unit b print | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 512 /2 }')
+    echo "Step 1"
+    #rm  ${WORKDIR}/boot.img
 	mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img $BOOT_BLOCKS
     mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}${KERNEL_INITRAMFS}-${MACHINE}.bin ::kernel.img
 
