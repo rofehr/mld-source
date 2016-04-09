@@ -27,5 +27,5 @@ include recipes-core/images/core-image-minimal.bb
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
 
-export IMAGE_BASENAME="MLD-Base-image-rpi"
+export IMAGE_BASENAME="rpi"
 

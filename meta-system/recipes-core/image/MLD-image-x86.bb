@@ -29,5 +29,5 @@ IMAGE_INSTALL += "kernel-modules init webserver alsa-utils nano mc"
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
 
-export IMAGE_BASENAME="MLD-Base-image-x86"
+export IMAGE_BASENAME="x86"
 

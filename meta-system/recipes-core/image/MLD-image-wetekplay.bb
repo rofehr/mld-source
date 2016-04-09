@@ -25,7 +25,8 @@ SPLASH_IMAGE = "silent.png"
 # Base this image on core-image-minimal
 include recipes-core/images/core-image-minimal.bb
 
+IMAGE_INSTALL += "kernel-modules init webserver alsa-utils nano mc v4l-utils yavta libamcodec"
 
-IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
+IMAGE_FEATURES += "splash package-management ssh-server-dropbear "
 
-export IMAGE_BASENAME="MLD-Base-image-wetekplay"
+export IMAGE_BASENAME="wetekplay"

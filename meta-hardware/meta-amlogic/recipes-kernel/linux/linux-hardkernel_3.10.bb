@@ -27,6 +27,7 @@ SRC_URI = " \
   ${KERNEL_REPO_URI};branch=${KBRANCH} \
   file://defconfig \
   file://0001-Revert-amlogic-s-dtb-make-modification.patch \
+  file://0001-compiler-gcc5.patch \
 "
 S = "${WORKDIR}/git/"
 
