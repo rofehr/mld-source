@@ -23,6 +23,7 @@ SRC_URI_append = " \
 	file://vdr-1.7.29-menuselection.patch \
 	file://MainMenuHooks-v1_0_3.patch \
 	file://vdr-2.2.0_horizontal_menu.patch \
+    file://0_jpeg.patch \	
 "
 
 DEPENDS = " \
