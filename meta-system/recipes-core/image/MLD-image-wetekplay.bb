@@ -25,7 +25,7 @@ SPLASH_IMAGE = "silent.png"
 # Base this image on core-image-minimal
 include recipes-core/images/core-image-minimal.bb
 
-IMAGE_INSTALL += "vdr vdr-plugin-satip"
+IMAGE_INSTALL += "vdr vdr-plugin-amlhddevice"
 
 IMAGE_INSTALL += "kernel-modules init webserver alsa-utils nano mc v4l-utils yavta libamcodec perl"
 
