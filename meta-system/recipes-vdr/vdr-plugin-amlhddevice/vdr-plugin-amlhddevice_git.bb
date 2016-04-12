@@ -8,6 +8,7 @@ PR = "r9"
 SRCREV = "b0fe61c70c862afcb5defb2cede3dac32587f475"
 SRC_URI = "git://projects.vdr-developer.org/vdr-plugin-amlhddevice.git \
            file://codec.h \
+           file://10_include.patch \
 "
 
 
