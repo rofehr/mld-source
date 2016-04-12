@@ -25,7 +25,7 @@ SPLASH_IMAGE = "silent.png"
 # Base this image on core-image-minimal
 include recipes-core/images/core-image-minimal.bb
 
-IMAGE_INSTALL += "vdr"
+IMAGE_INSTALL += "vdr "
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
 

@@ -15,6 +15,11 @@ SRCREV = "ce8a124314bd0410ecbcc288810d6dc71cc6c845"
 S = "${WORKDIR}/git"
 
 
+SRC_URI_append = " \
+   file://10_dvbapi_libdvbcsa.patch \   
+   file://11_dvbapi_mld.patch \   
+"
+
 DEPENDS = "vdr"
 
 CXXFLAGS_append = " -fPIC -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE"
