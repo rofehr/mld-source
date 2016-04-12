@@ -1,5 +1,4 @@
 #!/bin/sh
-exec > >(tee --append /var/log/daemon.log)
 
 . /etc/init.d/rc.functions
 TEXTDOMAIN="webserver-webserver"

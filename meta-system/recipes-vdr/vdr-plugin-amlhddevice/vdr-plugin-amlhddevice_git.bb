@@ -30,9 +30,6 @@ FILES_${PN}-dbg += " \
 FILES_${PN}-locale = "${datadir}/locale"
 
 
-
-#cp ${WORKDIR}/codec.h ${S}
-
 do_copy() {
   cp ${WORKDIR}/codec.h ${S}
 }    

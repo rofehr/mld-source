@@ -4,7 +4,8 @@ HOMEPAGE ="http://www.minidvblinux.de"
 SECTION = "base"
 PN = "webserver"
 
-#DEPENDS ="btrfs xfs"
+DEPENDS =" gettext \
+"
 
 LICENSE = "CLOSED"
 #LICENSE = "GPLv2"
