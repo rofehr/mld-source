@@ -13,6 +13,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
  
 
 SRC_URI = " file://etc/rc.config \
+            file://etc/profile \
+            file://etc/inittab \
 "
 
 SRC_URI_append_arm = " file://alignment.sh"
@@ -29,5 +31,7 @@ do_install () {
 	# Dateien installieren
 	#
     install -m 0755    ${WORKDIR}/etc/rc.config							${D}${sysconfdir}
+    install -m 0755    ${WORKDIR}/etc/profile                           ${D}${sysconfdir}
+    install -m 0755    ${WORKDIR}/etc/inittab                           ${D}${sysconfdir}
 	
 }
