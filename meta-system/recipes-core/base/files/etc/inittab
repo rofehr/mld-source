@@ -1,0 +1,7 @@
+::sysinit:/etc/init.d/rc.sysinit
+tty1::respawn:/bin/login -f root
+tty2::respawn:/bin/login -f root
+tty3::respawn:/bin/login -f root
+tty4::respawn:/bin/login -f root
+::shutdown:/etc/init.d/rc.poweroff
+::ctrlaltdel:/sbin/reboot
