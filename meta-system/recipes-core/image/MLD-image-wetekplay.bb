@@ -27,7 +27,7 @@ include recipes-core/images/core-image-minimal.bb
 
 #IMAGE_INSTALL += "libamcodec vdr vdr-plugin-amlhddevice vdr-font-symbols "
 
-IMAGE_INSTALL += "init network webserver base base-files"
+IMAGE_INSTALL += "init network webserver base base-files findutils"
 
 IMAGE_INSTALL += "kernel-modules alsa-utils nano mc gettext gettext-runtime"
 
