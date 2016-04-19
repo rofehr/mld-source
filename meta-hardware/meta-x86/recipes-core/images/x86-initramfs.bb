@@ -3,12 +3,13 @@ DESCRIPTION = "Small image capable of booting a device. The kernel includes \
 the Minimal RAM-based Initial Root Filesystem (initramfs), which finds the \
 first 'init' program more efficiently."
 
-PACKAGE_INSTALL = "initramfs-boot-am parted e2fsprogs busybox udev base-passwd ${ROOTFS_BOOTSTRAP_INSTALL}"
+#PACKAGE_INSTALL = "parted e2fsprogs busybox udev base-passwd ${ROOTFS_BOOTSTRAP_INSTALL}"
+PACKAGE_INSTALL = "init network webserver base findutils"
 
 # Do not pollute the initrd image with rootfs features
 IMAGE_FEATURES = ""
 
-export IMAGE_BASENAME = "amlogic-initramfs"
+export IMAGE_BASENAME = "x86-initramfs"
 IMAGE_LINGUAS = ""
 
 LICENSE = "MIT"
@@ -18,4 +19,3 @@ inherit core-image
 
 IMAGE_ROOTFS_SIZE = "8192"
 
-#BAD_RECOMMENDATIONS += "busybox-syslog"

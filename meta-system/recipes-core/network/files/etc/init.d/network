@@ -8,30 +8,29 @@ case "$1" in
 	start)
 		echo "Init network"
 
-		if [ -n "$NETWORK_DNS" ]; then
-			update_config "nameserver " "nameserver $NETWORK_DNS" /etc/resolv.conf
-		fi
-
 		# Aktiviere Notfall IP
 #		ifconfig eth0:0 169.254.1.5 netmask 255.255.0.0 up &>/dev/null
 
-		if [ "$NETWORK_DHCP" = "1" ]; then
-			echo "Starting DHCP-client"
-			ls /sys/class/net | grep ${NETWORK_INTERFACE:-eth} | while read interface; do
+		ls /sys/class/net | grep eth | while read interface; do
+			if [ "$interface" = "$NETWORK_STATIC_INTERFACE" -a "$NETWORK_STATIC_IP" -a "$NETWORK_STATIC_NETMASK" ]; then
+				echo "  Starting static connection for: $interface"
+				update_setting "NETWORK_IP" "$NETWORK_STATIC_IP"
+				ifconfig $interface up $NETWORK_STATIC_IP netmask $NETWORK_STATIC_NETMASK || failed
+				if [ -n "$NETWORK_STATIC_DNS" ]; then
+					update_config "nameserver " "nameserver $NETWORK_STATIC_DNS" /etc/resolv.conf
+				fi
+				if [ -n "$NETWORK_STATIC_GATEWAY" ]; then
+					route add default gw $NETWORK_STATIC_GATEWAY dev $interface || failed
+				fi
+				route add -net 224.0.0.0 netmask 240.0.0.0 dev $interface || failed
+				update_hostname
+				check_status
+			else
+				echo "  Starting DHCP connection for: $interface"
 				start-stop-daemon -S -q -p /var/run/network_udhcpc.pid -b -x udhcpc -- -b -i $interface -x hostname:$HOST_NAME -p /var/run/network_udhcpc_$interface.pid
-			done
-			check_status
-		elif [ "$NETWORK_IP" -a "$NETWORK_NETMASK" ]; then
-			echo "Connecting to network"
-			interface=${NETWORK_INTERFACE:-eth0}
-			ifconfig $interface up $NETWORK_IP netmask $NETWORK_NETMASK
-			if [ -n "$NETWORK_GATEWAY" ]; then
-				route add default gw $NETWORK_GATEWAY dev $interface
+				check_status
 			fi
-			route add -net 224.0.0.0 netmask 240.0.0.0 dev $interface
-			update_hostname
-			check_status
-		fi
+		done
 
 		rm -f /tmp/network.interface
 		i=0
@@ -44,7 +43,7 @@ case "$1" in
 					mv /etc/hosts /etc/hosts.bak
 					update_setting NETWORK_DOM_NAME "$({ nslookup $ip 2>/dev/null || echo $ip; } | tail -n1 | sed "s/.* //;s/\.localdom$//")"
 					mv /etc/hosts.bak /etc/hosts
-					if [ "$NETWORK_DHCP" = "1" -a "$NETWORK_DOM_NAME" != "$ip" ]; then
+					if [ "$interface" != "$NETWORK_STATIC_INTERFACE" -a "$NETWORK_DOM_NAME" != "$ip" ]; then
 						update_hostname "${NETWORK_DOM_NAME%%.*}"
 					fi
 				fi
@@ -55,15 +54,15 @@ case "$1" in
 				break
 			fi
 			if [ $i -gt 5 -a $(cat /sys/class/net/*/carrier 2>/dev/null | grep 1 | wc -l) -le 1 ]; then
-				echo "No network cable connected        "
+				echo "  No network cable connected        "
 				check_status 1
 				break
 			fi
-			echo -en "Waiting for network connection: $(show_step) \r"
+			echo -en "  Waiting for network connection: $(show_step) \r"
 			sleep 1
 		done
 		if [ ! -e /tmp/network.interface ]; then
-			echo "Network not reachable             "
+			echo "  Network not reachable             "
 			check_status 1
 		fi
 		;;
@@ -71,7 +70,9 @@ case "$1" in
 		if [ "$NETWORK_SERVER_WAKEUP" = "1" -a -n "$NETWORK_SERVER_MAC" ]; then
 			# Startet Server per Wake-On-Lan
 			echo "Wakeup server"
-			ether-wake -b $NETWORK_SERVER_MAC
+			ls /sys/class/net | grep ${NETWORK_INTERFACE:-eth} | while read interface; do
+				ether-wake -b -i $interface $NETWORK_SERVER_MAC
+			done
 			check_status
 		fi
 		if [ "$NETWORK_SERVER_WAKEUP" = "1" -a -n "$NETWORK_SERVER_IP" ]; then

@@ -22,12 +22,14 @@ LABELS = "MLD"
 
 SPLASH_IMAGE = "silent.png"
 
+
 # Base this image on core-image-minimal
 include recipes-core/images/core-image-minimal.bb
 
-IMAGE_INSTALL += "kernel-modules init webserver alsa-utils nano mc"
+#IMAGE_INSTALL += "init network webserver base findutils"
+IMAGE_INSTALL += "kernel-modules alsa-utils nano mc gettext gettext-runtime"
 
-IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
+IMAGE_FEATURES += "splash package-management ssh-server-dropbear "
 
 export IMAGE_BASENAME="x86"
 

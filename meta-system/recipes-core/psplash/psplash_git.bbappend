@@ -5,7 +5,9 @@ DEPENDS += "gdk-pixbuf-native"
 PRINC = "8"
 
 SRC_URI += "file://psplash-colors.h \
-	    file://psplash-bar-img.png"
+	    file://psplash-bar-img.png \
+        file://etc/init.d/rc.splash \
+"
 
 # NB: this is only for the main logo image; if you add multiple images here,
 #     poky will build multiple psplash packages with 'outsuffix' in name for
@@ -23,4 +25,18 @@ do_configure_append () {
 	# for anyone updating the assets
 	cp ../psplash-bar-img.png ./psplash-bar.png
 	./make-image-header.sh ./psplash-bar.png BAR
+}
+
+do_install () {
+    #
+    # Directory erstellen
+    #
+    install -d ${D}${sysconfdir}
+    install -d ${D}${sysconfdir}/init.d
+    
+    
+    #
+    # Dateien installieren
+    #
+    install -m 0755    ${WORKDIR}/etc/init.d/rc.splash                      ${D}${sysconfdir}/init.d
 }

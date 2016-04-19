@@ -26,10 +26,10 @@ SPLASH_IMAGE = "silent.png"
 include recipes-core/images/core-image-minimal.bb
 
 #IMAGE_INSTALL += "libamcodec vdr vdr-plugin-amlhddevice vdr-font-symbols "
-
-IMAGE_INSTALL += "sysvinit sysvinit-inittab init network webserver base base-files findutils"
-
+ 
+IMAGE_INSTALL += "init network webserver base findutils"
 IMAGE_INSTALL += "kernel-modules alsa-utils nano mc gettext gettext-runtime"
+
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear "
 

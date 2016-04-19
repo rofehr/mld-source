@@ -1,0 +1,43 @@
+#!/bin/sh
+# udhcpc script
+
+. /etc/init.d/rc.functions
+
+
+[ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1
+
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+[ -n "$subnet" ] && NETMASK="netmask $subnet"
+
+case "$1" in
+	deconfig)
+		ifconfig $interface 0.0.0.0
+		;;
+
+	renew|bound)
+		ifconfig $interface $ip $BROADCAST $NETMASK
+		update_setting "NETWORK_IP" "$ip"
+
+		if [ -n "$router" ]; then
+			while route del default gw 0.0.0.0 dev $interface 2>/dev/null; do :; done
+
+			for i in $router; do
+				route add default gw $i dev $interface
+			done
+		fi
+
+		if [ -n "$domain" ]; then
+			echo search $domain > /etc/resolv.conf
+			update_setting "NETWORK_DOM" "$domain"
+		else
+			echo -n > /etc/resolv.conf
+		fi
+		for i in $dns; do
+			echo nameserver $i >> /etc/resolv.conf
+		done
+
+		update_hostname
+		;;
+esac
+
+exit 0

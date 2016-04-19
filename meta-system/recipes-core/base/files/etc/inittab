@@ -1,4 +1,3 @@
-id:5:initdefault:
 ::sysinit:/etc/init.d/rc.sysinit
 tty1::respawn:/bin/login -f root
 tty2::respawn:/bin/login -f root

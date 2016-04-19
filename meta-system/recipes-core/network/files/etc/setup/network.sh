@@ -5,13 +5,18 @@ case $1 in
 		update_server.sh
 		;;
 	interfaces)
-		ls /sys/class/net/ | grep eth
+		echo "-"
+		ls /sys/class/net/ | grep -v lo
 		;;
 	restart)
-		NETWORK_IP=$(echo "$NETWORK_IP" | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")
-		NETWORK_NETMASK=$(echo "$NETWORK_NETMASK" | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")
-		NETWORK_GATEWAY=$(echo "$NETWORK_GATEWAY" | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")
-		NETWORK_DNS=$(echo "$NETWORK_DNS" | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")
-		restart network
+		NETWORK_STATIC_IP=$(echo "$NETWORK_STATIC_IP" | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")
+		NETWORK_STATIC_NETMASK=$(echo "$NETWORK_STATIC_NETMASK" | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")
+		NETWORK_STATIC_GATEWAY=$(echo "$NETWORK_STATIC_GATEWAY" | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")
+		NETWORK_STATIC_DNS=$(echo "$NETWORK_STATIC_DNS" | sed "s/\(^\|\.\)0\+\([^\.]\)/\1\2/g")
+		if [ -z "${NETWORK_STATIC_INTERFACE##eth*}" ]; then
+			restart network
+		else
+			restart network-wireless
+		fi
 		;;
 esac

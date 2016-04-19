@@ -4,6 +4,7 @@ HOMEPAGE ="http://www.minidvblinux.de"
 SECTION = "base"
 PN = "network"
 
+DEPENDS += "ethtool ifupdown"
 
 LICENSE = "MIT"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
@@ -20,7 +21,6 @@ SRC_URI = " file://etc/nsswitch.conf \
 "
 
 SRC_URI_append_arm = " file://alignment.sh"
-
 
 do_install () {
 	#
@@ -42,7 +42,7 @@ do_install () {
 
     install -m 0755    ${WORKDIR}/usr/bin/update_network					${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/update_server.sh					${D}${bindir}
-
+    
 }
 
 

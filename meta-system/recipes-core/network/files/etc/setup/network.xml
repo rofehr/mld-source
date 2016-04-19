@@ -1,15 +1,12 @@
 <menu name="Network"> 
-	<menu name="LAN" command="/etc/setup/network.sh restart">
-		<entry name="Wakeup on lan" sysconfig="NETWORK_WOL" type="bool" value="no" help1="Allow wake on lan" />
-		<menu name="Connection details" command="/etc/setup/network.sh restart">
-			<entry name="Domain" sysconfig="NETWORK_DOM" type="text" value="localdom" help1="Name of the domain" />
-			<entry name="Use DHCP" sysconfig="NETWORK_DHCP" type="bool" value="1" help1="Activate DHCP" />
-			<entry name="Interface" sysconfig="NETWORK_INTERFACE" type="selection" setup="/etc/setup/network.sh interfaces" value="eth0" help1="Network interface" />
-			<entry name="IP address" sysconfig="NETWORK_IP" type="ip" value="192.168.0.200" help1="IP addresse of this PC" />
-			<entry name="Network mask" sysconfig="NETWORK_NETMASK" type="ip" value="255.255.255.0" help1="Network maske of this network" />
-			<entry name="Gateway" sysconfig="NETWORK_GATEWAY" type="ip" value="192.168.0.1" help1="IP address of the default gateway" />
-			<entry name="Nameserver" sysconfig="NETWORK_DNS" type="ip" value="8.8.8.8" help1="IP address of the nameserver" />
-		</menu>
+	<entry name="Domain" sysconfig="NETWORK_DOM" type="text" value="" help1="Name of the domain" />
+	<entry name="Wakeup on lan" sysconfig="NETWORK_WOL" type="bool" value="" help1="Allow wake on lan" />
+	<menu name="Static" command="/etc/setup/network.sh restart">
+		<entry name="Interface" sysconfig="NETWORK_STATIC_INTERFACE" type="selection" setup="/etc/setup/network.sh interfaces" value="" help1="Network interface" />
+		<entry name="IP address" sysconfig="NETWORK_STATIC_IP" type="ip" value="" help1="IP addresse of this PC" />
+		<entry name="Network mask" sysconfig="NETWORK_STATIC_NETMASK" type="ip" value="" help1="Network maske of this network" />
+		<entry name="Gateway" sysconfig="NETWORK_STATIC_GATEWAY" type="ip" value="" help1="IP address of the default gateway" />
+		<entry name="Nameserver" sysconfig="NETWORK_STATIC_DNS" type="ip" value="" help1="IP address of the nameserver" />
 	</menu>
 	<menu name="Server">
 		<entry name="Server IP" sysconfig="NETWORK_SERVER_IP" type="ip" command="/etc/setup/network.sh setserver" value="" help1="IP address of the server" />
