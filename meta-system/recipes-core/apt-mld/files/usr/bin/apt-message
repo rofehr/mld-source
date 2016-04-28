@@ -1,0 +1,29 @@
+#!/bin/sh
+# call apt-get and show the output as splash progress and message
+
+. /etc/init.d/rc.functions
+
+stat=$(mktemp)
+
+if [ "$1" = "--short" ]; then
+	shift
+	(lock apt-get $@; echo $?>$stat) | while read line; do
+		test "${line##Get*}" || (test "${line##*Packages*}" || echo "Downloading updates" && echo "Downloading $(echo "$line" | cut -d " " -f4)")
+		test "${line##Unpacking*}" || echo "$(echo "$line" | cut -d " " -f1-2)"
+		test "${line##Setting up*}" || echo "$(echo "$line" | cut -d " " -f1-3)"
+		test "${line##Removing*}" || echo "$(echo "$line" | cut -d " " -f1-2)"
+		test "${line##*is not installable}" || echo "$line"
+	done
+else
+	(lock apt-get $@; echo $?>$stat) | while read line; do
+		echo -e "$line\r"
+		show_step -q
+		test "${line##Get*}" || (test "${line##*Packages*}" || show_message "Downloading updates" && show_message "Downloading $(echo "$line" | cut -d " " -f4)")
+		test "${line##Unpacking*}" || show_message "$(echo "$line" | cut -d " " -f1-2)"
+		test "${line##Setting up*}" || show_message "$(echo "$line" | cut -d " " -f1-3)"
+		test "${line##Removing*}" || show_message "$(echo "$line" | cut -d " " -f1-2)"
+	done
+	show_message
+fi
+
+exit $(cat $stat; rm $stat)

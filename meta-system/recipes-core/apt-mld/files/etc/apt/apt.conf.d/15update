@@ -1,0 +1,2 @@
+APT::Update::Pre-Invoke {"DPKG_HOOK_ACTION=update /etc/dpkg/dpkg.invoke pre";};
+APT::Update::Post-Invoke-Success {"DPKG_HOOK_ACTION=update /etc/dpkg/dpkg.invoke post";};

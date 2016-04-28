@@ -1,0 +1,3 @@
+#!/bin/sh
+
+for script in /etc/dpkg.d/*; do $script $1 $DPKG_HOOK_ACTION; done

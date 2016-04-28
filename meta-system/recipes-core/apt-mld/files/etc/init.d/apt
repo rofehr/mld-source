@@ -1,0 +1,58 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+
+case "$1" in
+	start)
+		if [ -n "$APT_UPGRADE_CHECK" ]; then
+			test -e /var/lock/apt-get || lock apt-get update >>/var/log/apt.log 2>&1
+		fi
+
+		{
+			sleep 60
+			if [ "$APT_SYSTEM_ID" = "1" ]; then
+				update_setting "APT_SYSTEM_ID" "$(ifconfig | grep HWadd | md5sum | cut -d " " -f1)"
+			fi
+			if [ -n "$APT_SYSTEM_ID" ]; then
+				# register system
+				query="id=$APT_SYSTEM_ID&version=$SYSTEM_VERSION-$SYSTEM_TYPE"
+				# used network driver
+				query="$query&landriver=$( (pcimodules network; pcimodules network-drivers; usbmodules network-drivers) | head -n1)"
+				query="$query&wlandriver=$( (pcimodules network-wireless-drivers; usbmodules network-wireless-drivers) | head -n1)"
+				# used dvb-cards
+				for dvb in $( (pcimodules -v dvb; usbmodules -v dvb) | cut -d " " -f1); do
+					query="$query&dvb[]=$dvb"
+				done
+				# installed packages
+				packages=/tmp/packages.$$
+				dpkg -l | grep "^ii" | cut -d" " -f3 | grep -v "^lib" | sed "s/\(.*\)/\&packages[]=\1/" | tr -d $'\n' > $packages
+				# send data
+				wget "http://www.minidvblinux.de/active.php?$query" --post-file=$packages -O - -q &>/dev/null
+				rm $packages
+
+				# VDR Kanalliste
+				if [ 0$(grep UpdateChannels /etc/vdr/setup.conf 2>/dev/null | cut -d " " -f 3) -ge 3 ]; then
+					if svdrpsend.sh LSTE 1 now | grep -q "^215-T"; then
+						# nur wenn zum Kanal 1 epg Daten vorliegen, der Kanal also getuned werden konnte
+						query="id=$APT_SYSTEM_ID&version=$SYSTEM_VERSION-$SYSTEM_TYPE&channels"
+						wget "http://www.minidvblinux.de/channel.php?$query" --post-file /etc/vdr/channels.conf -O - -q &>/dev/null
+					fi
+				fi
+			fi
+		} >>/var/log/sysinit 2>&1 </dev/null &
+		;;
+	stop)
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	init)
+		start=1
+		after="network"
+		;;
+	*)
+		echo "Usage: $0 {start | stop | restart}" >&2
+		exit 1
+esac

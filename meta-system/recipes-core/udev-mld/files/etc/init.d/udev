@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# Startet den avahi-daemon
+
+. /etc/init.d/rc.functions
+
+case "$1" in
+	start)
+		echo "Starting udev Daemon"
+		mkdir -p /dev/.udev
+		udevd --daemon 
+		udevadm trigger --action=add
+		#udevadm trigger --action=add --type=subsystems
+		#udevadm trigger --action=add --type=devices
+		#udevadm trigger
+		udevadm settle
+		check_status
+		;;
+	stop)
+		echo "Stopping udev Daemon"
+		udevadm control --timeout=60 --exit
+		sleep 1
+		killall udevd 2>/dev/null
+		check_status
+		;;
+	restart)
+		$0 stop
+		sleep 1
+		$0 start
+		;;
+	init)
+		start=1
+		priority=9
+		;;
+	*)
+		echo "Usage $0 {start | stop | restart}" >&2
+		exit 1
+esac

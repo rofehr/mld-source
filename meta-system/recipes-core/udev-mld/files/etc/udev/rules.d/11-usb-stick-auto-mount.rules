@@ -1,0 +1,31 @@
+ENV{UDISKS_AUTOMOUNT_HINT}=="never", GOTO="usb_stick_auto_mount_end"
+
+KERNEL!="sd[a-z][0-9]", KERNEL!="mmcblk[0-9]p[0-9]", GOTO="usb_stick_auto_mount_end"
+
+# Import FS infos
+IMPORT{parent}="ID_BUS"
+IMPORT{parent}="ID_NAME"
+IMPORT{program}="/sbin/blkid -o udev -p %N"
+# Get a label if present, otherwise specify one
+ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+ENV{ID_FS_LABEL}=="", ENV{ID_BUS}!="", ENV{dir_name}="%E{ID_BUS}-%k"
+ENV{ID_FS_LABEL}=="", ENV{ID_BUS}=="", ENV{dir_name}="%E{ID_NAME}-%k"
+
+# Clean up after removal
+ACTION=="remove", ENV{dir_name}!="", RUN+="/bin/umount -l /media/%E{dir_name}", RUN+="/bin/rmdir /media/%E{dir_name}"
+
+# skip already mounted device
+PROGRAM="/bin/grep -q '\s/dev/%k\s' /proc/self/mountinfo", GOTO="usb_stick_auto_mount_end"
+# skip devicees of the fstab
+PROGRAM="/bin/grep -q '^/dev/%k\s' /etc/fstab", GOTO="usb_stick_auto_mount_end"
+ENV{ID_FS_UUID}!="", PROGRAM="/bin/grep -q '^UUID=%E{ID_FS_UUID}\s' /etc/fstab", GOTO="usb_stick_auto_mount_end"
+
+# Global mount options
+ACTION=="add", ENV{mount_options}="relatime"
+# Filesystem-specific mount options
+ACTION=="add", ENV{ID_FS_TYPE}=="vfat|ntfs", ENV{mount_options}="$env{mount_options},utf8,gid=100,umask=002"
+# Mount the device
+ACTION=="add", RUN+="/bin/mkdir -p /media/%E{dir_name}", RUN+="/bin/mount -o $env{mount_options} /dev/%k /media/%E{dir_name}"
+
+# Exit
+LABEL="usb_stick_auto_mount_end"

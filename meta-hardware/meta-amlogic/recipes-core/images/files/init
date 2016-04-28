@@ -71,7 +71,8 @@ init="/sbin/init.sysvinit"
 root="/dev/mmcblk0p2"
 firmware=""
 rootfstype=
-
+logo="osd0,0x87100000,720p,full"
+ 
 #Process command line options
 for i in $(cat /proc/cmdline); do
     case $i in
@@ -82,6 +83,9 @@ for i in $(cat /proc/cmdline); do
             firmware=$(get_opt $i)
             ;;
         rootfstype\=*)
+            rootfstype=$(get_opt $i)
+            ;;
+        logo\=*)
             rootfstype=$(get_opt $i)
             ;;
     esac

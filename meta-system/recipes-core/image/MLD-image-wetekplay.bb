@@ -27,8 +27,12 @@ include recipes-core/images/core-image-minimal.bb
 
 #IMAGE_INSTALL += "libamcodec vdr vdr-plugin-amlhddevice vdr-font-symbols "
  
-IMAGE_INSTALL += "init network webserver base findutils"
 IMAGE_INSTALL += "kernel-modules alsa-utils nano mc gettext gettext-runtime"
+
+#MLD-STUFF
+IMAGE_INSTALL += " init-mld dpkg-mld udev-mld apt apt-mld network webserver base findutils \
+                   udev-mld busybox nano mc ethtool ifupdown gettext gettext-runtime kernel-modules \
+                   bash udev"
 
 
 IMAGE_FEATURES += "splash package-management ssh-server-dropbear "

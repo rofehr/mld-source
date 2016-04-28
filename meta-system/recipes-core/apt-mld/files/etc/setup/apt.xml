@@ -1,0 +1,8 @@
+<menu name="System">
+	<entry name="Check for upgrades" sysconfig="APT_UPGRADE_CHECK" type="bool" value="yes" help1="Check at boot time if upgrades available" />
+	<entry name="Announce system" sysconfig="APT_SYSTEM_ID" type="bool" value="yes" help1="Send list of installed packages to server" />
+	<entry name="Package class" sysconfig="APT_PACKAGE_CLASS" type="selection" value="" command="/etc/setup/apt.sh setclass" help1="Install only packages of the selected class">
+		<value>stable</value>
+		<value>testing</value>
+	</entry>
+</menu>

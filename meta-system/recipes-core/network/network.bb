@@ -18,6 +18,7 @@ SRC_URI = " file://etc/nsswitch.conf \
             file://etc/setup/network.xml \
             file://usr/bin/update_network \
             file://usr/bin/update_server.sh \
+            file://usr/share/udhcpc/default.script \           
 "
 
 SRC_URI_append_arm = " file://alignment.sh"
@@ -30,6 +31,7 @@ do_install () {
 	install -d ${D}${sysconfdir}/init.d
 	install -d ${D}${sysconfdir}/setup
 	install -d ${D}${bindir}
+	install -d ${D}${datadir}
 	
 	
 	#
@@ -43,6 +45,7 @@ do_install () {
     install -m 0755    ${WORKDIR}/usr/bin/update_network					${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/update_server.sh					${D}${bindir}
     
+    install -m 0755    ${WORKDIR}/usr/share/udhcpc/default.script            ${D}${datadir}
 }
 
 

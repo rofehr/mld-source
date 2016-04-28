@@ -1,0 +1,3 @@
+# cdrom
+SUBSYSTEM=="block", KERNEL=="hd*", SUBSYSTEMS=="ide", ATTRS{media}=="cdrom", SYMLINK+="cdrom dvd cdrw/%k"
+

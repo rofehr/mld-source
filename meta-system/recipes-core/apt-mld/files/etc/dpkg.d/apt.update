@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case "$1" in
+	pre)
+		if [ "$2" = "update" ]; then
+			. /etc/rc.config
+			for template in /etc/apt/sources.list.d/*.save; do
+				sed "s/{VERSION}/$SYSTEM_VERSION/" $template > ${template%.save}
+			done
+			if [ -n "$APT_DEVELOPER" ]; then
+				sed "s/{DEVELOPER}/$APT_DEVELOPER/" -i /etc/apt/sources.list.d/devel.list
+			else
+				rm -f /etc/apt/sources.list.d/devel.list
+			fi
+		fi
+		;;
+	post)
+		;;
+esac

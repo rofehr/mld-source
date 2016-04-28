@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. /etc/rc.config
+
+test $LOG_LEVEL -ge 1 && echo $@ >> /var/log/dpkg.d.log

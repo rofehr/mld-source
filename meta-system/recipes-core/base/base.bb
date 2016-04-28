@@ -37,11 +37,11 @@ SRC_URI = " file://etc/adjtime \
 
 SRC_URI_append_arm = " file://alignment.sh"
 
-
 do_install () {
 	#
 	# Directory erstellen
 	#
+
 	install -d ${D}${sysconfdir}
 
 	

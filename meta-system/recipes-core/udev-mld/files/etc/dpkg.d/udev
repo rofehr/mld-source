@@ -1,0 +1,13 @@
+#!/bin/sh
+
+case "$1" in
+	pre)
+		;;
+	post)
+		if [ "$2" != "update" ]; then
+			udevadm control --reload-rules
+			udevadm trigger --action=add
+#			udevadm trigger --action=add --type=subsystems
+		fi
+		;;
+esac
