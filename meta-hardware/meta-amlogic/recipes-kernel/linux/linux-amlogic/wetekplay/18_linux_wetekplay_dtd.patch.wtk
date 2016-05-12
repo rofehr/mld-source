@@ -1,0 +1,11 @@
+--- linux/arch/arm/boot/dts/amlogic/wetek_play.dtd.orig	2015-08-25 00:51:22.929248670 +0200
++++ linux/arch/arm/boot/dts/amlogic/wetek_play.dtd	2015-08-24 23:08:53.631380190 +0200
+@@ -111,7 +111,7 @@
+ 		compatible = "amlogic,mesonfb";
+ 		dev_name = "mesonfb";
+ 		status = "okay";
+-		reserve-memory = <0x01000000 0x00100000>;
++		reserve-memory = <0x01000000 0x01000000>;
+ 		reserve-iomap = "true";
+ 	  vmode = <0>; /*0:VMODE_720P 1:VMODE_LCD  2:VMODE_LVDS_1080P 3:VMODE_1080P*/
+ 	  scale_mode = <0>; /*0:default 1:new*/

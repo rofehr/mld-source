@@ -54,6 +54,7 @@ do_install () {
     install -d ${D}${base_libdir}/udev/
 
     install -m 0755    ${WORKDIR}/lib/udev/*.*                                      ${D}${base_libdir}/udev/
+    
 
 }
 

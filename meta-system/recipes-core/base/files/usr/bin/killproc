@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# beendet alle Processe mit dem angegebenem Namen und wartet eine angegebene zeit bevor die Processe engültig abgeschossen werden
+#
+
+proc=$1
+maxwait=${2:-5}
+
+if [ -z "$proc" ]; then
+	echo "usage: `basename $0` processname [max_wait]"
+	exit 1
+fi
+
+pids()
+{
+	ps -w | grep " $1\( \|$\)" | grep -v grep | grep -v killproc | cut -b1-5 | while read pid; do ppid=self; while [ "$ppid" != "1" ]; do echo $ppid; ppid=$(cut -f4 -d" " /proc/$ppid/stat 2>/dev/null); done | grep -q $pid || echo "$pid"; done | tac
+}
+
+if [ $maxwait -ne 0 ]; then
+	for pid in `pids "$proc"`; do
+		kill $pid 2>/dev/null
+	done
+
+	date=$(date +%s)
+	while [ $(date +%s) -lt $(($date+$maxwait)) -a -n "`pids "$proc"`" ]; do
+		i=$(( $i + 1 ))
+		usleep 100000
+	done
+fi
+
+for pid in `pids "$proc"`; do
+	kill -9 $pid 2>/dev/null
+done
+
+i=0
+while [ $i -lt 50 -a -n "`pids "$proc"`" ]; do
+	i=$(( $i + 1 ))
+	usleep 100000
+done

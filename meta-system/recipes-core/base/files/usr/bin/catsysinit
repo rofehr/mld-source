@@ -1,0 +1,4 @@
+#!/bin/sh
+
+x=`echo -en "\\033"`
+cat /var/log/sysinit | sed "s/$x.*;3.m\(.\+\)$x.*/===\1===/"

@@ -489,7 +489,7 @@ CONFIG_ARM_ATAG_DTB_COMPAT=y
 # CONFIG_ARM_ATAG_DTB_COMPAT_CMDLINE_EXTEND is not set
 CONFIG_ARM_ATAG_DTB_COMPAT_CMDLINE_APPEND=y
 # CONFIG_CMDLINE=""
-CONFIG_CMDLINE="root=/dev/mmcblk0p2 rootwait splash=silent quiet nodialog logo=osd0,0x87100000,720p,full hdmitx=cecf hdmimode=720p cvbsmode=576cvbs vmalloc=256m mem=1024m a9_clk_max=1512000000 vdachwswitch=component scaling_min_freq=200000 scaling_max_freq=1512000 console=tty0 consoleblank=0"
+# CONFIG_CMDLINE="root=/dev/mmcblk0p2 rootwait splash=silent quiet nodialog logo=osd0,0x87100000,720p,full hdmitx=cecf hdmimode=720p cvbsmode=576cvbs vmalloc=256m mem=1024m a9_clk_max=1512000000 vdachwswitch=component scaling_min_freq=200000 scaling_max_freq=1512000 console=tty0 consoleblank=0"
 # CONFIG_XIP_KERNEL is not set
 # CONFIG_KEXEC is not set
 # CONFIG_CRASH_DUMP is not set

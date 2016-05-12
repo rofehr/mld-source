@@ -76,6 +76,6 @@ do_install () {
 }
 
 FILES_${PN} += " \
-        ${base_sbindir}/init \
+       ${base_sbindir}/init \
         "
 

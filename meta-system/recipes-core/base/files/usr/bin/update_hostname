@@ -1,0 +1,23 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+if [ "$1" ]; then
+	update_setting "HOST_NAME" "$1"
+fi
+
+if [ "$NETWORK_DOM" ]; then
+	dom=" $HOST_NAME.$NETWORK_DOM"
+fi
+update_config "127.0.0.1.localhost" "127.0.0.1\tlocalhost $HOST_NAME$dom" /etc/hosts
+if [ "$NETWORK_IP" ]; then
+	update_config "^[0-9.]*.$HOST_NAME\|^$NETWORK_IP\s" "$NETWORK_IP\t$HOST_NAME$dom" /etc/hosts
+fi
+
+if ! grep -q "^$HOST_NAME$" /etc/hostname; then
+	echo $HOST_NAME > /etc/hostname
+	echo $HOST_NAME > /proc/sys/kernel/hostname
+	hostname $HOST_NAME
+	killall syslogd
+	syslogd -m 0 $SYSLOG_ARGS
+fi

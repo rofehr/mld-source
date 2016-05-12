@@ -40,3 +40,4 @@ do_install () {
     #
     install -m 0755    ${WORKDIR}/etc/init.d/rc.splash                      ${D}${sysconfdir}/init.d
 }
+

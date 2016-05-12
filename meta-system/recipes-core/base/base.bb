@@ -33,6 +33,12 @@ SRC_URI = " file://etc/adjtime \
             file://etc/rc.config \
             file://etc/resolv.conf \
             file://etc/services \
+            file://usr/bin/update_hostname \
+            file://usr/bin/catsysinit \
+            file://usr/bin/chkpasswd \
+            file://usr/bin/killproc \
+            file://usr/bin/mount.sh \
+            file://usr/bin/pcimodules \
 "
 
 SRC_URI_append_arm = " file://alignment.sh"
@@ -43,7 +49,7 @@ do_install () {
 	#
 
 	install -d ${D}${sysconfdir}
-
+    install -d ${D}${bindir}
 	
 	#
 	# Dateien installieren
@@ -69,4 +75,13 @@ do_install () {
     install -m 0755    ${WORKDIR}/etc/rc.config                 ${D}${sysconfdir}
     install -m 0755    ${WORKDIR}/etc/resolv.conf               ${D}${sysconfdir}
     install -m 0755    ${WORKDIR}/etc/services                  ${D}${sysconfdir}
+
+    install -m 0755    ${WORKDIR}/usr/bin/update_hostname       ${D}${bindir}
+    install -m 0755    ${WORKDIR}/usr/bin/catsysinit            ${D}${bindir}
+    install -m 0755    ${WORKDIR}/usr/bin/chkpasswd             ${D}${bindir}
+    install -m 0755    ${WORKDIR}/usr/bin/killproc              ${D}${bindir}
+    install -m 0755    ${WORKDIR}/usr/bin/mount.sh              ${D}${bindir}
+    install -m 0755    ${WORKDIR}/usr/bin/pcimodules            ${D}${bindir}
+    
+    
 }

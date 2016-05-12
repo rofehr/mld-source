@@ -6,7 +6,7 @@ first 'init' program more efficiently."
 #PACKAGE_INSTALL = " udev-mld init-mld network webserver base findutils busybox nano mc ethtool ifupdown gettext gettext-runtime kernel-modules \
 #                    apt apt-mld dpkg-mld bash udev util-linux-blkid btrfs-tools"
 
-PACKAGE_INSTALL = " udev udev-mld init-mld network webserver base findutils busybox nano mc gettext gettext-runtime kernel-modules \
+PACKAGE_INSTALL = " ethtool ifupdown e2fsprogs udev udev-mld init-mld network webserver base findutils busybox nano mc gettext gettext-runtime kernel-modules \
                     apt apt-mld dpkg-mld bash util-linux-blkid btrfs-tools"
 
 

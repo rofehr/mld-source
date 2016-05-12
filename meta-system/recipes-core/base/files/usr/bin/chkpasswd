@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ $# != 2 ];then
+	echo "Usage: ${0##*/} USERNAME PASSWORD"
+	exit 1
+fi
+
+username="$1"
+password="$2"
+
+salt=$(grep "^$username:" /etc/passwd | cut -d ':' -f 2 | cut -b 4-11)
+grep -q "^$username:$(mkpasswd -m md5 -S $salt "$password")" /etc/passwd
+
+exit $?

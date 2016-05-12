@@ -8,7 +8,7 @@ case "$1" in
 	start)
 		echo "Starting udev Daemon"
 		mkdir -p /dev/.udev
-		udevd --daemon 
+		./lib/udev/udevd --daemon 
 		udevadm trigger --action=add
 		#udevadm trigger --action=add --type=subsystems
 		#udevadm trigger --action=add --type=devices

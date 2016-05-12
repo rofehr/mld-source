@@ -27,7 +27,7 @@ case "$1" in
 				check_status
 			else
 				echo "  Starting DHCP connection for: $interface"
-				start-stop-daemon -S -q -p /var/run/network_udhcpc.pid -b -x udhcpc -- -b -i $interface -x hostname:$HOST_NAME -p /var/run/network_udhcpc_$interface.pid
+				start-stop-daemon -S -q -p /var/run/network_udhcpc.pid -b -x /sbin/udhcpc -- -b -i $interface -x hostname:$HOST_NAME -p /var/run/network_udhcpc_$interface.pid
 				check_status
 			fi
 		done
@@ -53,7 +53,7 @@ case "$1" in
 				$0 resume
 				break
 			fi
-			if [ $i -gt 5 -a $(cat /sys/class/net/*/carrier 2>/dev/null | grep 1 | wc -l) -le 1 ]; then
+			if [ $i -gt 0 -a $(cat /sys/class/net/*/carrier 2>/dev/null | grep 1 | wc -l) -le 1 ]; then
 				echo "  No network cable connected        "
 				check_status 1
 				break

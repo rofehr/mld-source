@@ -1,7 +1,7 @@
 ##############################################################
 #
 #  conten: mld-base-image
-#  arch:   bananapi  
+#  arch:   x86  
 #   
 ##############################################################
 
@@ -22,14 +22,42 @@ LABELS = "MLD"
 
 SPLASH_IMAGE = "silent.png"
 
+
 # Base this image on core-image-minimal
-include recipes-core/images/core-image-minimal.bb
+#include recipes-core/images/core-image-minimal.bb
 
-IMAGE_INSTALL += "vdr"
+SYSLINUX_ROOT = "root=/dev/mmcblk0p2"
 
-IMAGE_INSTALL += "kernel-modules init webserver alsa-utils nano mc"
+#DISTRO_FEATURES += "systemd"
 
-IMAGE_FEATURES += "splash package-management ssh-server-dropbear"
+#VIRTUAL-RUNTIME_login_manager = "busybox"
+#VIRTUAL-RUNTIME_init_manager = "busybox"
+#VIRTUAL-RUNTIME_initscripts = "init"
+
+
+IMAGE_DEV_MANAGER   = "udev"
+IMAGE_INIT_MANAGER  = "systemd"
+IMAGE_INITSCRIPTS   = "init"
+IMAGE_LOGIN_MANAGER = "busybox"
+
+
+#IMAGE_INSTALL += " udev-mld init-mld network webserver base findutils busybox nano mc ethtool ifupdown gettext gettext-runtime kernel-modules \
+#                   apt apt-mld dpkg-mld bash udev util-linux-blkid btrfs-tools"
+
+IMAGE_INSTALL += " ethtool ifupdown e2fsprogs udev udev-mld init-mld network webserver \
+                   base findutils busybox nano mc gettext gettext-runtime kernel-modules \
+                   apt apt-mld dpkg-mld bash util-linux-blkid btrfs-tools psplash "
+
+
+#IMAGE_INSTALL += " modutils-initscripts init-ifupdown"
+
+#IMAGE_INSTALL += " packagegroup-core-eclipse-debug"
+
+                 
+IMAGE_FEATURES += " splash package-management ssh-server-dropbear"
+
+
+inherit core-image
 
 export IMAGE_BASENAME="bpi"
 

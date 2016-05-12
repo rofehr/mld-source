@@ -22,19 +22,32 @@ LABELS = "MLD"
 
 SPLASH_IMAGE = "silent.png"
 
+
+SYSLINUX_ROOT = "root=/"
+
+DISTRO_FEATURES += "systemd"
+
+VIRTUAL-RUNTIME_login_manager = "busybox"
+VIRTUAL-RUNTIME_init_manager = "busybox"
+VIRTUAL-RUNTIME_initscripts = "init"
+
 # Base this image on core-image-minimal
-include recipes-core/images/core-image-minimal.bb
+#include recipes-core/images/core-image-minimal.bb
 
-#IMAGE_INSTALL += "libamcodec vdr vdr-plugin-amlhddevice vdr-font-symbols "
  
-IMAGE_INSTALL += "kernel-modules alsa-utils nano mc gettext gettext-runtime"
-
-#MLD-STUFF
-IMAGE_INSTALL += " init-mld dpkg-mld udev-mld apt apt-mld network webserver base findutils \
-                   udev-mld busybox nano mc ethtool ifupdown gettext gettext-runtime kernel-modules \
-                   bash udev"
+IMAGE_INSTALL += " initramfs-boot-am "
+IMAGE_INSTALL += " kernel-modules alsa-utils nano mc gettext gettext-runtime"
 
 
-IMAGE_FEATURES += "splash package-management ssh-server-dropbear "
+IMAGE_INSTALL += " ethtool ifupdown e2fsprogs udev udev-mld init-mld network webserver \
+                   base findutils busybox nano mc gettext gettext-runtime kernel-modules \
+                   apt apt-mld dpkg-mld bash util-linux-blkid btrfs-tools"
+             
+IMAGE_INSTALL += " libamcodec vdr vdr-plugin-amlhddevice"
+
+
+IMAGE_FEATURES += " splash package-management ssh-server-dropbear "
+
+inherit core-image
 
 export IMAGE_BASENAME="wtk"

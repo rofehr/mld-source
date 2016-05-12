@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ "$1" = "-v" ]; then
+	shift
+	verbose=2-
+fi
+suffix=${1:+.$1}
+
+busybox lspci -m 2>/dev/null | sed 's/\S\+ \S\+ \S\+ "\(\S\+\)" "\(\S\+\)" "\(\S\+\)" "\(\S\+\)"/\1 \2 \3 \4/' | while read vendor device subvendor subdevice; do
+	grep -ih "alias pci:v\(0000$vendor\|\*\)d\(0000$device\|\*\)sv\(0000$subvendor\|\*\)sd\(0000$subdevice\|\*\)" /lib/modules/$(uname -r)/modules.alias$suffix 2>/dev/null | cut -d " " -f${verbose}3
+done | sort -u

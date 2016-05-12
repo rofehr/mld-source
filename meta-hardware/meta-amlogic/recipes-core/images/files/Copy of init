@@ -67,8 +67,7 @@ get_opt() {
 }
 
 #Defaults
-#init="/sbin/init.sysvinit"
-init="/init"
+init="/sbin/init.sysvinit"
 root="/dev/mmcblk0p2"
 firmware=""
 rootfstype=
@@ -95,8 +94,7 @@ done
 # FIXME-ce dirty hack to overwrite commandline....
 root="/dev/mmcblk0p2"
 rootfstype="ext4"
-#init="/sbin/init.sysvinit"
-init="/init"
+init="/sbin/init.sysvinit"
 
 #Mount the root device
 if [ "${rootfstype}" != "" ]; then
