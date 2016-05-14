@@ -119,6 +119,7 @@ SRC_URI += " file://var/www/functions.sh \
 			 file://var/www/index.css \
 			 file://var/www/index.js \
 			 file://var/www/index.sh \
+             file://var/www/.htaccess \
 "
 
 #SRC_URI_append_arm = " file://alignment.sh"
@@ -248,6 +249,7 @@ do_install () {
     install -m 0755    ${WORKDIR}/var/www/index.css											${D}${localstatedir}/www	
     install -m 0755    ${WORKDIR}/var/www/index.js											${D}${localstatedir}/www	
     install -m 0755    ${WORKDIR}/var/www/index.sh											${D}${localstatedir}/www	
+    install -m 0755    ${WORKDIR}/var/www/.htaccess                                         ${D}${localstatedir}/www    
 
 	
 }

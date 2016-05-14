@@ -15,9 +15,7 @@ export init=1
 #dpkg --configure --pending
 check_status
 
-root=$(sed "s/.*root=\(\S\+\).*\|.*/\1/" /proc/cmdline) #"
-
-echo "1.)ROOT  $root"
+#root=$(sed "s/.*root=\(\S\+\).*\|.*/\1/" /proc/cmdline) #"
 
 for _ in $(seq 10); do
 	blkid -t $root &>/dev/null && root=$(blkid -o device -l -t $root)
@@ -38,34 +36,32 @@ else
 		check_status 1
 	fi
 	echo "Copy initramfs to tmpfs:  "
+	echo "Root device is: $root     "
 	mkdir /rootfs || failed
-	echo "mkdir /rootfs || failed"
+	check_status
 	
 	mount -n rootfs /rootfs -t tmpfs -o size=80% || failed
-	echo "mount -n rootfs /rootfs -t tmpfs -o size=80% || failed"
+	check_status
 	
-	#find / -maxdepth 1 ! -wholename / ! -name rootfs ! -name proc ! -name sys -exec cp -a {} /rootfs ";" || failed
-	find / -maxdepth 1 ! -wholename / ! -name rootfs ! -name proc ! -name sys -exec cp -a {} /rootfs || failed
-	echo "find / -maxdepth 1 ! -wholename / ! -name rootfs ! -name proc ! -name sys -exec cp -a {} /rootfs || failed"
+	find / -maxdepth 1 ! -wholename / ! -name rootfs ! -name proc ! -name sys -exec cp -a {} /rootfs ";" || failed
+	check_status
 
 	
 	mkdir -p /rootfs/proc /rootfs/sys /rootfs/tmp || failed
-	echo "mkdir -p /rootfs/proc /rootfs/sys || failed"
-	
-	chmod 1777 /rootfs/tmp || failed
-	echo "chmod 1777 /rootfs/tmp || failed"
-	
 	check_status
-	
+	chmod 1777 /rootfs/tmp || failed
+	check_status
+	check_status
 fi
 
-stop_splash
-umount dev
-umount sys
-umount proc
+stop_splash || failed
+umount dev || failed
+umount sys || failed
+umount proc || failed
 
 } 2>&1 | tee -a /var/log/sysinit
-test -e /rootfs/var/log/sysinit && mv /rootfs/var/log/sysinit /rootfs/var/log/sysinit.old
-mv /var/log/sysinit /rootfs/var/log/sysinit
 
-exec switch_root /rootfs /sbin/init
+test -e /rootfs/var/log/sysinit && mv /rootfs/var/log/sysinit /rootfs/var/log/sysinit.old || failed
+mv /var/log/sysinit /rootfs/var/log/sysinit || failed
+
+exec switch_root /rootfs /sbin/init || failed

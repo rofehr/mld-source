@@ -12,7 +12,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 
  
 
-SRC_URI = " file://etc/adjtime \
+SRC_URI = " file://bin/mountdev \
+            file://etc/adjtime \
             file://etc/dialogrc \
             file://etc/fstab \
             file://etc/group \
@@ -50,6 +51,7 @@ do_install () {
 
 	install -d ${D}${sysconfdir}
     install -d ${D}${bindir}
+    install -d ${D}${base_bindir}
 	
 	#
 	# Dateien installieren
@@ -83,5 +85,12 @@ do_install () {
     install -m 0755    ${WORKDIR}/usr/bin/mount.sh              ${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/pcimodules            ${D}${bindir}
     
+    install -m 0755    ${WORKDIR}/bin/mountdev                  ${D}${base_bindir}
+    
     
 }
+
+FILES_${PN} += " \
+       ${base_bindir}/mountdev \
+        "
+

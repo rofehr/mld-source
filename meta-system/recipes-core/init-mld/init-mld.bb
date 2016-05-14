@@ -40,7 +40,7 @@ do_install () {
 	# Directory erstellen
 	#
     
-    #install -d ${D}${base_sbindir}
+    install -d ${D}${base_prefix}
 	
 	install -d ${D}${sysconfdir}/init.d
 	install -d ${D}${sysconfdir}/setup.d
@@ -72,10 +72,11 @@ do_install () {
     install -m 0755    ${WORKDIR}/sbin/shutdown								${D}${sbindir}
     install -m 0755    ${WORKDIR}/sbin/start								${D}${sbindir}
     install -m 0755    ${WORKDIR}/sbin/stop									${D}${sbindir}
-	
+    
+    install -m 0755    ${WORKDIR}/init                                      ${D}${base_prefix}
 }
 
 FILES_${PN} += " \
-       ${base_sbindir}/init \
+       ${base_prefix}/init \
         "
 

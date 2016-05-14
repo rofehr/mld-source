@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# Filesystem detection
+
+auto=true
+while [ $# -gt 1 ]; do
+	case "$1" in
+		-n)
+			auto=false
+			shift
+			;;
+		-d)
+			dest=$2
+			shift 2
+			;;
+		*)
+			echo "${0##*/}: invalid option: $1" >&2
+	esac
+done
+
+# zu erkennendes device
+dev=${1##*/}
+dest=${dest:-/mnt/$dev}
+dev=/dev/$dev
+
+fstype="$(fsck -NT $dev 2>&1 | grep $dev | sed 's/.*fsck\.\(\S\+\).*/\1/')"
+test "$fstype" != "ext2" || blkid | grep -q $dev: || fstype=""
+
+case $fstype in
+	ext2 | ext3 | ext4 | btrfs | xfs | vfat)
+		type=$fstype
+		;;
+	*)
+		test -e /sbin/mount.$fstype && type=$fstype
+		;;
+esac
+
+#for script in $(ls $0.* 2>/dev/null); do
+#	. $script
+#done
+
+if [ -z "$type" ]; then
+	if [ -n "$fstype" ]; then
+		echo "unsupported filesystem $fstype found on $dev"
+	fi
+	exit 255
+fi
+
+$auto && ! grep -q "^$dev " /etc/fstab && echo "$dev   $dest       $type    ${options:-defaults}         0 0" >> /etc/fstab
+mkdir -p $dest
+echo "$fstype filesystem found on $dev"
+echo "  Mounting to $dest: "
+mount $dev $dest -t $type -o ${options:-defaults} 1>&2
+exit $?
