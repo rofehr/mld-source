@@ -4,15 +4,14 @@ the Minimal RAM-based Initial Root Filesystem (initramfs), which finds the \
 first 'init' program more efficiently."
 
 
-#PACKAGE_INSTALL = " ethtool ifupdown e2fsprogs udev udev-mld init-mld network webserver \
-#                    base findutils busybox nano mc gettext gettext-runtime kernel-modules \
-#                    apt apt-mld dpkg-mld bash util-linux-blkid btrfs-tools"
-
+# Base Packages
 PACKAGE_INSTALL = " ethtool ifupdown e2fsprogs udev udev-mld init-mld network webserver \
-                    base findutils busybox nano mc gettext gettext-runtime kernel-modules \
+                    base findutils busybox gettext gettext-runtime kernel-modules \
                     apt apt-mld util-linux-blkid "
+
+#Only for Testing
+PACKAGE_INSTALL += " nano mc"
                     
-#PACKAGE_INSTALL = " ssh-server-dropbear"
 
 # Do not pollute the initrd image with rootfs features
 IMAGE_FEATURES = " "
