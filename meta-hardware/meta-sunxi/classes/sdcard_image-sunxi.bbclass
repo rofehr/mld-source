@@ -36,7 +36,6 @@ IMAGE_DEPENDS_sunxi-sdimg += " \
 			virtual/kernel \
 			virtual/bootloader \
 			sunxi-board-fex \
-			init-mld \
 			"
 
 rootfs[depends] += "virtual/kernel:do_deploy"

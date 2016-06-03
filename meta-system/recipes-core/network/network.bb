@@ -45,7 +45,7 @@ do_install () {
     install -m 0755    ${WORKDIR}/usr/bin/update_network					${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/update_server.sh					${D}${bindir}
     
-    install -m 0755    ${WORKDIR}/usr/share/udhcpc/default.script            ${D}${datadir}
+    install -m 0755    ${WORKDIR}/usr/share/udhcpc/default.script           ${D}${datadir}
 }
 
 
