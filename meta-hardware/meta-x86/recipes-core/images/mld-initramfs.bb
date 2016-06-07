@@ -5,9 +5,14 @@ first 'init' program more efficiently."
 
 
 # Base Packages
-PACKAGE_INSTALL = " ethtool ifupdown e2fsprogs udev udev-mld init-mld network webserver \
+#PACKAGE_INSTALL = " ethtool ifupdown e2fsprogs udev udev-mld init-mld network webserver \
+#                    base findutils busybox gettext gettext-runtime kernel-modules \
+#                    apt apt-mld util-linux-blkid install"
+
+PACKAGE_INSTALL = " urldecode e2fsprogs udev udev-mld init-mld network webserver \
                     base findutils busybox gettext gettext-runtime kernel-modules \
                     apt apt-mld util-linux-blkid install"
+
 
 #Only for Testing
 PACKAGE_INSTALL += " nano mc"
@@ -25,6 +30,13 @@ IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 #inherit core-image
 inherit image
 
+do_package_append() {
+        #os.remove(${STAGING_DIR_NATIVE}/usr/sbin/start-stop-daemon)
+        rm ${STAGING_DIR_NATIVE}/usr/sbin/start-stop-daemon
+}
+
+
 IMAGE_ROOTFS_SIZE = "8192"
 
 export IMAGE_BASENAME = "mld-initramfs"
+

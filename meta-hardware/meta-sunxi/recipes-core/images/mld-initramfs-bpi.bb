@@ -27,4 +27,4 @@ inherit image
 
 IMAGE_ROOTFS_SIZE = "8192"
 
-export IMAGE_BASENAME = "mld-initramfs"
+export IMAGE_BASENAME = "mld-initramfs-bpi"

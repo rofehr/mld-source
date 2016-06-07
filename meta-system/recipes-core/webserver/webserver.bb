@@ -13,6 +13,10 @@ LICENSE = "CLOSED"
 
 SRC_URI_append_arm = " file://alignment.sh"
 
+#SRC_URI = " file://usr/bin/urldecode \
+#"
+
+
 SRC_URI = " file://etc/applications/register.d/webserver \
 			file://etc/init.d/webserver \
 			file://etc/setup/webserver.sh \
@@ -165,6 +169,9 @@ do_install () {
     install -m 0755    ${WORKDIR}/usr/bin/update_quick_start.sh									${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/update_web_setup.sh									${D}${bindir}
     install -m 0755    ${WORKDIR}/usr/bin/webserver.sh											${D}${bindir}
+
+    #install -m 0755    ${WORKDIR}/usr/bin/urldecode                                             ${D}${bindir}
+
 
     install -m 0755    ${WORKDIR}/usr/share/doc/webserver/copyright								${D}${docdir}/webserver
     install -m 0755    ${WORKDIR}/usr/share/doc/webserver/history								${D}${docdir}/webserver
