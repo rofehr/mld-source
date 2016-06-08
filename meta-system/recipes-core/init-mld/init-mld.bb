@@ -47,6 +47,7 @@ do_install () {
 	install -d ${D}${sbindir}
     install -d ${D}/var/log
     install -d ${D}/var/spool
+    install -d ${D}/var/lib/dpkg
 	
 
 	
