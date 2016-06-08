@@ -1,0 +1,15 @@
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+ulimit -c 0
+umask 002
+USER=$(id -un)
+HOME=$(grep "^$USER:" /etc/passwd | cut -d : -f 6)
+PS1="$(hostname)> "
+LOGNAME=$USER
+HISTSIZE=1000
+HISTFILE="/etc/.history"
+EDITOR=vi
+INPUTRC=/etc/inputrc
+export PATH PS1 USER HOME LOGNAME HISTSIZE INPUTRC EDITOR
+export LANG='de_DE.UTF-8'
+export LC_ALL='de_DE.UTF-8'
+export KEYMAP=de-latin1-nodeadkeys 

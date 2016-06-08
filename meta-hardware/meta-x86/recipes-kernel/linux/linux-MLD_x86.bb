@@ -72,6 +72,11 @@ LINUX_VERSION ?= "4.5"
 SRCREV = "a26555498849489fb87139a15abe2eeb8a366ae7"
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.5.y"       
  
+# Kernel 4.6
+#LINUX_VERSION ?= "4.6"
+#SRCREV = "a26555498849489fb87139a15abe2eeb8a366ae7"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.6.y"       
+ 
              
 
 SRC_URI += " file://defconfig \

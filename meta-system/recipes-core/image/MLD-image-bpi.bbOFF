@@ -48,7 +48,7 @@ VIRTUAL-RUNTIME_initscripts = "init"
 #IMAGE_FEATURES += " package-management ssh-server-dropbear"
 
 
-IMAGE_FEATURES = " ssh-server-dropbear"
+IMAGE_FEATURES += " ssh-server-dropbear"
 
 ROOTFS = " "
 

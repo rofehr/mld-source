@@ -17,7 +17,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
               
-#IMAGE_LINGUAS = " "
+IMAGE_LINGUAS = "de-de"
 LABELS = "MLD"
 
 INITRD_IMAGE = "mld-initramfs"
@@ -27,6 +27,7 @@ VIRTUAL-RUNTIME_login_manager = "busybox"
 VIRTUAL-RUNTIME_init_manager = "busybox"
 VIRTUAL-RUNTIME_initscripts = "init"
 
+IMAGE_FEATURES = " "
 
 IMAGE_INSTALL = " "
 ROOTFS = " "

@@ -252,12 +252,12 @@ do_install () {
 	install -m 0755    ${WORKDIR}/var/www/tpl/system.sh										${D}${localstatedir}/www/tpl	
 
     install -m 0755    ${WORKDIR}/var/www/functions.sh										${D}${localstatedir}/www	
-    install -m 0755    ${WORKDIR}/var/www/iframe.css										${D}${localstatedir}/www	
-    install -m 0755    ${WORKDIR}/var/www/iframe.sh											${D}${localstatedir}/www	
-    install -m 0755    ${WORKDIR}/var/www/index.css											${D}${localstatedir}/www	
-    install -m 0755    ${WORKDIR}/var/www/index.js											${D}${localstatedir}/www	
-    install -m 0755    ${WORKDIR}/var/www/index.sh											${D}${localstatedir}/www	
-    install -m 0755    ${WORKDIR}/var/www/.htaccess                                         ${D}${localstatedir}/www    
+    install -m 0644    ${WORKDIR}/var/www/iframe.css										${D}${localstatedir}/www	
+    install -m 0644    ${WORKDIR}/var/www/iframe.sh											${D}${localstatedir}/www	
+    install -m 0644    ${WORKDIR}/var/www/index.css											${D}${localstatedir}/www	
+    install -m 0644    ${WORKDIR}/var/www/index.js											${D}${localstatedir}/www	
+    install -m 0644    ${WORKDIR}/var/www/index.sh											${D}${localstatedir}/www	
+    install -m 0644    ${WORKDIR}/var/www/.htaccess                                         ${D}${localstatedir}/www    
 
 	
 }

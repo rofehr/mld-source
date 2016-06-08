@@ -45,6 +45,9 @@ do_install () {
 	install -d ${D}${sysconfdir}/init.d
 	install -d ${D}${sysconfdir}/setup.d
 	install -d ${D}${sbindir}
+    install -d ${D}/var/log
+    install -d ${D}/var/spool
+	
 
 	
 	#
