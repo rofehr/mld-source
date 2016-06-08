@@ -12,4 +12,3 @@ INPUTRC=/etc/inputrc
 export PATH PS1 USER HOME LOGNAME HISTSIZE INPUTRC EDITOR
 export LANG='de_DE.UTF-8'
 export LC_ALL='de_DE.UTF-8'
-export KEYMAP=de-latin1-nodeadkeys 
