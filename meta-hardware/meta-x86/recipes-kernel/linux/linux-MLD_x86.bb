@@ -68,14 +68,14 @@ KMACHINE_genericx86-64 ?= "common-pc-64"
 #SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.4.y"       
  
 # Kernel 4.5
-LINUX_VERSION ?= "4.5"
-SRCREV = "a26555498849489fb87139a15abe2eeb8a366ae7"
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.5.y"       
+#LINUX_VERSION ?= "4.5"
+#SRCREV = "a26555498849489fb87139a15abe2eeb8a366ae7"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.5.y"       
  
 # Kernel 4.6
-#LINUX_VERSION ?= "4.6"
-#SRCREV = "a26555498849489fb87139a15abe2eeb8a366ae7"
-#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.6.y"       
+LINUX_VERSION ?= "4.6"
+SRCREV = "536b1f59b9b2be80e5cdc02ca3300d7fe9f44cc1"
+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.6.y"       
  
              
 

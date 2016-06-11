@@ -1,0 +1,35 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+DAEMON=dropbear
+ARGS="-E"
+NAME=${0##*/}
+PID_FILE=/var/run/dropbear.pid
+
+case "$1" in
+	start)
+		echo "Starting $NAME: "
+		touch /var/log/lastlog
+		start-stop-daemon -S -q -p $PID_FILE -b -x $DAEMON -- $ARGS || failed
+		echo -n "  Listen on IP: "; ifconfig | grep inet | grep -v 127.0.0.1 | cut -d ":" -f2 | cut -d " " -f1
+		check_status
+		;;
+	stop)
+		echo "Stopping $NAME: "
+		start-stop-daemon -K -q -p $PID_FILE -R 10
+		check_status
+		;;
+	restart)
+		$0 stop
+		$0 start
+		;;
+	init)
+		start=1
+		after=network
+		;;
+	*)
+		echo "Usage $0 {start | stop | restart}" >&2
+		exit 1
+esac
+

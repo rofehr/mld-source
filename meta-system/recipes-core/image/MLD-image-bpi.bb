@@ -26,6 +26,7 @@ VIRTUAL-RUNTIME_login_manager = "busybox"
 VIRTUAL-RUNTIME_init_manager = "busybox"
 VIRTUAL-RUNTIME_initscripts = "init"
 
+SYSLINUX_ROOT = "root=/dev/mmcblk0p2"
 
 IMAGE_INSTALL = " "
 ROOTFS = " "
@@ -35,7 +36,8 @@ AUTO_SYSLINUXMENU = "1"
 #APPEND = "vga=0x314 splash=verbose nobg apm=off"
 
 #inherit core-image
-inherit image
+include recipes-core/images/core-image-minimal.bb
+#inherit image
 
 export IMAGE_BASENAME="bpi"
 

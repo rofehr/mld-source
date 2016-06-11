@@ -1,4 +1,4 @@
-SUMMARY = "MLD patch for dpkg4 package"
+SUMMARY = "MLD patch for dpkg package"
 HOMEPAGE = "http://www.minidvblinux.de"
 
 EXTRA_OECONF = "\
@@ -9,4 +9,3 @@ EXTRA_OECONF = "\
         --without-liblzma \
         --without-selinux \
         "
-        

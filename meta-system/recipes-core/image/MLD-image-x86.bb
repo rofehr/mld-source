@@ -32,13 +32,16 @@ IMAGE_FEATURES = " "
 IMAGE_INSTALL = " "
 ROOTFS = " "
 
+# Alle Einstellungen die sich auf das Syslinux beziehen
 AUTO_SYSLINUXMENU = "1"
 #SYSLINUX_SPLASH = "${WORKDIR}/silent.png"
 SYSLINUX_ROOT = "root=/"
 APPEND = "vga=0x314 splash=verbose nobg apm=off"
 
+
 #inherit core-image
 inherit image
+#include recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME="x86"
 

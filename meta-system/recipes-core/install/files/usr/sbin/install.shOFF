@@ -92,73 +92,53 @@ partitionDisk()
 {
 	parttype=$1
 	disk=$2
-	system=$3
 	if [ $(($(grep " $disk$" /proc/partitions | sed "s/.* \(.*\) .*/\1/")/1024/1024/1024)) -ge 2 ]; then #"
 		if [ -e /sbin/sgdisk ]; then
 			gdisk=1
 		else
 			message "$(gt 'install gdisk')" 1
-			lock apt-get -y install gdisk && gdisk=1
+			lock apt -y install gdisk && gdisk=1
 		fi
 	fi
 	message "$(gt 'partitioning disk $disk')" 1
 	(
 	set -e
+	dd if=/dev/zero of=/dev/$disk bs=1024 count=1024
 	case "$parttype" in
 		single)
 			# Nur eine Patition anlegen
 			if [ "$gdisk" = "1" ]; then
-				sgdisk -o /dev/$disk
 				sgdisk -n 1 -c 1:Data -A 1:set:2 /dev/$disk
 			else
-				echo -e "o\n n\np\n4\n\n+1K\n n\np\n1\n\n\n d\n4\n w" | fdisk -H 64 -S 32 /dev/$disk
+				echo -e "n\np\n4\n\n+1K\n n\np\n1\n\n\n d\n4\n w" | fdisk -H 64 -S 32 /dev/$disk
 			fi
 			;;
 		single_vfat)
 			# Nur eine VFAT Patition anlegen
-			echo -e "o\n n\np\n4\n\n+1K\n n\np\n1\n\n\n d\n4\n t\nb\n w" | fdisk -H 64 -S 32 /dev/$disk
+			echo -e "n\np\n4\n\n+1K\n n\np\n1\n\n\n d\n4\n t\nb\n w" | fdisk -H 64 -S 32 /dev/$disk
 			;;
 		system)
 			if [ $(($(fdisk -l /dev/$disk | grep "^Disk" | head -n1 | cut -d " " -f 5)/1000000)) -lt 30000 ]; then
-				echo -e "o\n n\np\n4\n\n+1K\n n\np\n1\n\n\n d\n4\n a\n1\n w" | fdisk -H 64 -S 32 /dev/$disk
+				echo -e "n\np\n4\n\n+1K\n n\np\n1\n\n\n d\n4\n a\n1\n w" | fdisk -H 64 -S 32 /dev/$disk
 			else
 				if [ "$gdisk" = "1" ]; then
 					sgdisk -o /dev/$disk
 					sgdisk -n 1::+10G -c 1:System -n 2 -c 2:Data -A 1:set:2 /dev/$disk
 				else
-					echo -e "o\n n\np\n4\n\n+1K\n n\np\n1\n\n+10G\n n\np\n2\n\n\n d\n4\n a\n1\n w" | fdisk -H 64 -S 32 /dev/$disk
+					echo -e "n\np\n4\n\n+1K\n n\np\n1\n\n+10G\n n\np\n2\n\n\n d\n4\n a\n1\n w" | fdisk -H 64 -S 32 /dev/$disk
 				fi
 			fi
 			;;
 		system_with_vfat)
 			if [ $(($(fdisk -l /dev/$disk | grep "^Disk" | head -n1 | cut -d " " -f 5)/1000000)) -lt 30000 ]; then
-				echo -e "o\n n\np\n4\n\n+1K\n n\np\n1\n\n+100M\n n\np\n2\n\n\n d\n4\n t\n1\nb\n w" | fdisk -H 64 -S 32 /dev/$disk
+				echo -e "n\np\n4\n\n+1K\n n\np\n1\n\n+100M\n n\np\n2\n\n\n d\n4\n t\n1\nb\n w" | fdisk -H 64 -S 32 /dev/$disk
 			else
 				if [ "$gdisk" = "1" ]; then
 					sgdisk -o /dev/$disk
 					sgdisk -n 1::+100M -c 1:Boot -n 2::+10G -c 2:System -n 3 -c 3:Data -A 1:set:2 /dev/$disk
 				else
-					echo -e "o\n n\np\n4\n\n+1K\n n\np\n1\n\n+100M\n n\np\n2\n\n+10G\n n\np\n3\n\n\n d\n4\n t\n1\nb\n w" | fdisk -H 64 -S 32 /dev/$disk
+					echo -e "n\np\n4\n\n+1K\n n\np\n1\n\n+100M\n n\np\n2\n\n+10G\n n\np\n3\n\n\n d\n4\n t\n1\nb\n w" | fdisk -H 64 -S 32 /dev/$disk
 				fi
-			fi
-			;;
-		activate)
-			if [ "$gdisk" = "1" ]; then
-				ls /dev/$disk?* | while read dev; do
-					partition=$(echo $dev | sed "s/.*\([0-9]\)/\1/") #"
-					sgdisk -A $partition:clear:2 /dev/$disk
-				done
-				partition=$(echo $system | sed "s/.*\([0-9]\)/\1/") #"
-				sgdisk -A $partition:set:2 /dev/$disk
-			else
-				ls /dev/$disk?* | while read dev; do
-					if fdisk -l | grep -q "^$dev *\*"; then
-						partition=$(echo $dev | sed "s/.*\([0-9]\)/\1/") #"
-						echo -e "a\n$partition\n w" | fdisk -H 64 -S 32 /dev/$disk
-					fi
-				done
-				partition=$(echo $system | sed "s/.*\([0-9]\)/\1/") #"
-				echo -e "a\n$partition\n w" | fdisk -H 64 -S 32 /dev/$disk
 			fi
 			;;
 	esac
@@ -215,7 +195,8 @@ copySystem()
 	mkdir -p dev media mnt proc sys
 	cp -a /dev/tty5 /dev/null dev
 
-	rm -f var/spool/bootstep etc/udev/rules.d/00-no-auto-mount.rules
+	rm -f var/spool/bootstep
+	rm -f etc/udev/rules.d/00-no-auto-mount.rules
 
 	if [ -e etc/vdr/menu.xml ]; then
 		sed "/Install MiniDVBLinux/d" -i etc/vdr/menu.xml
@@ -286,7 +267,7 @@ writeBootFilesBpi()
 	system=$1
 	boot=$2
 	dev=$3
-	message "$(gt 'write boot files on $boot')" 1
+	message "$(gt 'write bootblock on $dev and boot files on $boot')" 1
 	(
 	set -e
 	mkdir -p /mnt/$boot /mnt/$system
@@ -294,7 +275,8 @@ writeBootFilesBpi()
 	mount /dev/$system /mnt/$system
 
 	rm -rf /mnt/$boot/* /mnt/$system/boot/*
-	cp -r /boot/* /mnt/$boot
+	find /boot -maxdepth 1 -type f -exec cp -a {} /mnt/$boot ";"
+	cp -r /boot/linux /mnt/$boot/ 2>/dev/null || true
 	uuid=$(blkid /dev/$system -o value -s UUID)
 	sed -e "s/bootargs=/bootargs=root=UUID=$uuid /" -i /mnt/$boot/uEnv.txt
 	# mv /mnt/$boot/boot.scr_after_install /mnt/$boot/boot.scr
@@ -306,7 +288,7 @@ writeBootFilesBpi()
 	umount /mnt/$system
 	umount /mnt/$boot
 
-	dd if=/boot/u-boot.bin of=/dev/$(echo $boot | sed "s/p\?.$//") bs=1024 seek=8
+	dd if=/boot/u-boot.bin of=/dev/$dev bs=1024 seek=8
 	); check_status
 	return $?
 }
@@ -324,8 +306,13 @@ writeBootFilesRpi()
 	mount /dev/$system /mnt/$system
 
 	rm -rf /mnt/$boot/* /mnt/$system/boot/*
-	cp -r /boot/* /mnt/$boot
-	uuid=$(blkid /dev/$system -o value -s UUID)
+	find /boot -maxdepth 1 -type f -exec cp -a {} /mnt/$boot ";"
+	if [ ${system%?} = ${boot%?} ]; then
+		rootdev=mmcblk0p$(echo $system | sed "s/.*\(.\)/\1/") #"
+	else
+		rootdev=$system
+	fi
+	uuid=$(blkid /dev/$rootdev -o value -s UUID)
 	{ echo -n "root=UUID=$uuid "; cat /boot/cmdline; } > /mnt/$boot/cmdline
 	cp -r /mnt/$boot/* /mnt/$system/boot
 
@@ -351,7 +338,7 @@ writeBootFilesWtk()
 	mount /dev/$system /mnt/$system
 
 	rm -rf /mnt/$boot/* /mnt/$system/boot/*
-	cp -r /boot/* /mnt/$boot
+	find /boot -maxdepth 1 -type f -exec cp -a {} /mnt/$boot ";"
 	cp -r /mnt/$boot/* /mnt/$system/boot
 
 	uuid=$(blkid /dev/$boot -o value -s UUID)
@@ -547,7 +534,6 @@ manual()
 
 	if [ "$INSTALL_COPY_BOOT" = 1 -a -n "$INSTALL_BOOT_PARTITION" -a -n "$INSTALL_SYSTEM_PARTITION" ] || [ -n "$INSTALL_BOOTBLOCK_HDD" -a -n "$INSTALL_SYSTEM_PARTITION" ]; then
 		INSTALL_BOOTBLOCK_HDD=${INSTALL_BOOTBLOCK_HDD%%:*}
-		partitionDisk activate $INSTALL_BOOTBLOCK_HDD "$INSTALL_SYSTEM_PARTITION" || exit 1
 		writeBootFiles "$SYSTEM_TYPE" "$INSTALL_SYSTEM_PARTITION" "$INSTALL_BOOT_PARTITION" "$INSTALL_BOOTBLOCK_HDD" || exit 5
 	fi
 	
@@ -563,8 +549,6 @@ status=0
 echo 'ACTION=="add|change", SUBSYSTEM=="block", ENV{UDISKS_AUTOMOUNT_HINT}="never"' > /etc/udev/rules.d/00-no-auto-mount.rules
 udevadm control --reload-rules
 sleep 1
-
-date -u '+%Y-%m-%d %H:%M:%S' > /etc/lasttime
 
 case $1 in
 	automatic)

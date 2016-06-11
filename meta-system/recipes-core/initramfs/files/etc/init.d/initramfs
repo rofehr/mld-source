@@ -1,0 +1,98 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+nfsboot=$(sed "s/.*nfsboot=\(\S\+\).*\|.*/\1/" /proc/cmdline)
+
+case "$1" in
+	start)
+		mkdir /mnt/bootfs
+		# searching for nfs boot device
+		if [ "$nfsboot" ]; then
+			apt-message update
+			apt-message -y install nfs-client
+			/etc/init.d/nfs-client start
+			if mount -t nfs $nfsboot /mnt/bootfs -o ro 2>/dev/null; then
+				echo "Boot device is: $nfsboot"; check_status
+				ln -s /mnt/bootfs /dev/boot
+			else
+				echo "nfs boot device not found: $nfsboot"; check_status 1
+			fi
+		else
+			# searching for boot device
+			for _ in $(seq 20); do
+				echo -en "Searching for boot device: $(show_step) \r"
+				blkid -o device | while read device; do
+					if mount $device /mnt/bootfs -o ro 2>/dev/null; then
+						if [ "$isofile" ]; then
+							if mount -o loop /mnt/bootfs/$isofile /mnt/bootfs 2>/dev/null; then
+								echo "Boot device is: $device / $isofile   "; check_status
+								ln -s $device /dev/boot
+								break
+							fi
+						else
+							if grep -q "MLD-${SYSTEM_VERSION}" /mnt/bootfs/VERSION 2>/dev/null; then
+								echo "Boot device is: $device    "; check_status
+								ln -s $device /dev/boot
+								break
+							fi
+						fi
+						umount $device
+					fi
+				done
+				test -e /dev/boot && break
+				# wait for slow boot devices
+				sleep 1
+			done
+		fi
+		if [ ! -e /dev/boot ]; then
+			hide_splash
+			chvt 2
+			echo "Boot device not found" >/dev/console
+			echo "You can now try to mount it manually to /mnt/bootfs and than call exit" >/dev/console
+			sh </dev/console &>/dev/console
+			chvt 1
+			show_splash
+		fi
+
+		find /mnt/bootfs -maxdepth 1 ! -wholename /mnt/bootfs ! -regex '/mnt/bootfs/\..*' ! -name dpkg -exec cp -a {} /boot ";"
+
+		# installing packages
+		if ls /mnt/bootfs/dpkg/*.deb >/dev/null 2>&1; then
+			echo "Install packages:"
+			(dpkg --install /mnt/bootfs/dpkg/*.deb || failed) | while read line; do
+				echo "$line"
+				show_step > /dev/null
+				echo "$line" | grep -q "^Unpacking" && show_message "$(echo "$line" | cut -d " " -f1-2)"
+				echo "$line" | grep -q "^Setting up" && show_message "$(echo "$line" | cut -d " " -f1-3)"
+			done
+			show_message
+			check_status
+		fi
+
+		grep -q /mnt/bootfs /proc/mounts && umount /mnt/bootfs
+		grep -q /mnt/bootfs /proc/mounts && umount /mnt/bootfs
+		rmdir /mnt/bootfs
+
+		. /etc/profile
+		/etc/init.d/rc.init restart
+		;;
+	stop)
+		;;
+	restart)
+		;;
+	init)
+		if [ -z "$(ls /boot)" -a ! -e "/dev/root" ]; then
+			start=nobg
+			priority=9
+			if [ "$nfsboot" ]; then
+				after=network
+			else
+				before=udev
+			fi
+		fi
+		;;
+	*)
+		echo "Usage $0 { start | stop | restart }" >&2
+		exit 1
+esac

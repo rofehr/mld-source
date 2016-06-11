@@ -45,12 +45,9 @@ do_install () {
 	install -d ${D}${sysconfdir}/init.d
 	install -d ${D}${sysconfdir}/setup.d
 	install -d ${D}${sbindir}
+    install -d ${D}/var/
     install -d ${D}/var/log
     install -d ${D}/var/spool
-    install -d ${D}/var/lib
-    install -d ${D}/var/lib/dpkg
-	
-
 	
 	#
 	# Dateien installieren

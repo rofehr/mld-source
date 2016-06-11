@@ -26,18 +26,18 @@ VIRTUAL-RUNTIME_login_manager = "busybox"
 VIRTUAL-RUNTIME_init_manager = "busybox"
 VIRTUAL-RUNTIME_initscripts = "init"
 
+SYSLINUX_ROOT = "root=/dev/mmcblk0p2"
 
 IMAGE_INSTALL = " "
 ROOTFS = " "
 
 AUTO_SYSLINUXMENU = "1"
-#SYSLINUX_ROOT = "root=/dev/mmcblk0p2"
-
 #SYSLINUX_SPLASH = "${WORKDIR}/silent.png"
 #APPEND = "vga=0x314 splash=verbose nobg apm=off"
 
 #inherit core-image
-inherit image
+#inherit image
+include recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME="rpi"
 

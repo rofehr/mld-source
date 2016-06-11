@@ -12,11 +12,10 @@ show_splash
 
 echo "Configure packages:"
 export init=1
-#dpkg --configure --pending
+dpkg --configure --pending
 check_status
 
-#root=$(sed "s/.*root=\(\S\+\).*\|.*/\1/" /proc/cmdline) #"
-
+root=$(sed "s/.*root=\(\S\+\).*\|.*/\1/" /proc/cmdline) #"
 for _ in $(seq 10); do
 	blkid -t $root &>/dev/null && root=$(blkid -o device -l -t $root)
 	test -e /$root && break

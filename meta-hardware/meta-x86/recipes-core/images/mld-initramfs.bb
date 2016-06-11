@@ -7,17 +7,19 @@ first 'init' program more efficiently."
 # Base Packages
 PACKAGE_INSTALL = " urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
                     base findutils busybox gettext gettext-runtime kernel-modules \
-                    apt debianutils apt-mld util-linux-blkid install"
+                    apt apt-mld dpkg-mld util-linux-blkid install btrfs-tools gptfdisk \
+                    syslinux extlinux initramfs ssh-mld dropbear btrfs-tools"
                     
-#PACKAGE_INSTALL += " btrfs-tools dropbear kbd-keymaps "
+PACKAGE_INSTALL += "  "
  
 #Only for Testing
 PACKAGE_INSTALL += " nano mc"
-                    
 
 # Do not pollute the initrd image with rootfs features
 #IMAGE_FEATURES = "package-management"
-IMAGE_FEATURES = " "
+#IMAGE_FEATURES = " splash"
+
+EXTRA_IMAGE_FEATURES = " "
 IMAGE_LINGUAS = "de-de"
 
 
@@ -27,12 +29,6 @@ IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 
 #inherit core-image
 inherit image
-
-do_populate_sysroot_append() {
-        #os.remove(${STAGING_DIR_NATIVE}/usr/sbin/start-stop-daemon)
-        rm ${STAGING_DIR_NATIVE}/usr/sbin/start-stop-daemon
-}
-
 
 IMAGE_ROOTFS_SIZE = "8192"
 

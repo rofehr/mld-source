@@ -32,6 +32,7 @@ do_install () {
 	install -d ${D}${sysconfdir}/setup
 	install -d ${D}${bindir}
 	install -d ${D}${datadir}
+	install -d ${D}${localstatedir}/run    
 	
 	
 	#
