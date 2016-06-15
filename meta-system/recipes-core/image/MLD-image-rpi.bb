@@ -36,8 +36,8 @@ AUTO_SYSLINUXMENU = "1"
 #APPEND = "vga=0x314 splash=verbose nobg apm=off"
 
 #inherit core-image
-#inherit image
 include recipes-core/images/core-image-minimal.bb
+#inherit image
 
 export IMAGE_BASENAME="rpi"
 
