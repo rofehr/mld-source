@@ -28,7 +28,17 @@ VIRTUAL-RUNTIME_initscripts = "init"
 
 SYSLINUX_ROOT = "root=/dev/mmcblk0p2"
 
-IMAGE_INSTALL = " "
+# Base Packages
+IMAGE_INSTALL += " urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
+                    base findutils busybox gettext gettext-runtime kernel-modules \
+                    apt apt-mld dpkg-mld util-linux-blkid install btrfs-tools gptfdisk \
+                    syslinux extlinux initramfs ssh-mld dropbear btrfs-tools"
+                    
+ 
+#Only for Testing
+IMAGE_INSTALL += " nano mc"
+
+#IMAGE_INSTALL = " "
 ROOTFS = " "
 
 AUTO_SYSLINUXMENU = "1"
@@ -36,8 +46,8 @@ AUTO_SYSLINUXMENU = "1"
 #APPEND = "vga=0x314 splash=verbose nobg apm=off"
 
 #inherit core-image
-include recipes-core/images/core-image-minimal.bb
 #inherit image
+include recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME="bpi"
 

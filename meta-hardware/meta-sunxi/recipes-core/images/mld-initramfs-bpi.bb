@@ -26,7 +26,8 @@ LICENSE = "MIT"
 IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 
 #inherit core-image
-inherit image
+#inherit image
+include recipes-core/images/core-image-minimal.bb
 
 
 IMAGE_ROOTFS_SIZE = "8192"
