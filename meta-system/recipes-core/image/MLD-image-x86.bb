@@ -22,6 +22,7 @@ IMAGE_LINGUAS ?= "de-de"
 
 LABELS = "MLD"
 
+
 INITRD_IMAGE = "mld-initramfs-x86"
 IMAGE_FSTYPES = "iso"
 
@@ -42,8 +43,8 @@ APPEND = "vga=0x314 splash=verbose nobg apm=off"
 
 
 #inherit core-image
-inherit image
-#include recipes-core/images/core-image-minimal.bb
+#inherit image
+include recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME="x86"
 
