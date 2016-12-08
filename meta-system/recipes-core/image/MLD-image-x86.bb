@@ -22,7 +22,7 @@ IMAGE_LINGUAS ?= "de-de"
 
 LABELS = "MLD"
 
-INITRD_IMAGE = "mld-initramfs"
+INITRD_IMAGE = "mld-initramfs-x86"
 IMAGE_FSTYPES = "iso"
 
 VIRTUAL-RUNTIME_login_manager = "busybox"

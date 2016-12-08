@@ -8,7 +8,8 @@ first 'init' program more efficiently."
 PACKAGE_INSTALL = " urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
                     base findutils busybox gettext gettext-runtime kernel-modules \
                     apt apt-mld dpkg-mld util-linux-blkid install btrfs-tools gptfdisk \
-                    syslinux extlinux initramfs ssh-mld dropbear btrfs-tools"
+                    syslinux extlinux initramfs ssh-mld dropbear "
+                   
                     
 PACKAGE_INSTALL += "  "
  

@@ -17,29 +17,37 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
               
-#IMAGE_LINGUAS = " "
+GLIBC_GENERATE_LOCALES = "de_DE.UTF-8"
+IMAGE_LINGUAS ?= "de-de"
+
 LABELS = "MLD"
 
-INITRD_IMAGE = "mld-initramfs-bpi"
+#INITRD_IMAGE = "mld-initramfs-bpi"
 
-VIRTUAL-RUNTIME_login_manager = "busybox"
-VIRTUAL-RUNTIME_init_manager = "busybox"
+#VIRTUAL-RUNTIME_login_manager = "busybox"
+#VIRTUAL-RUNTIME_init_manager = "busybox"
 VIRTUAL-RUNTIME_initscripts = "init"
 
-SYSLINUX_ROOT = "root=/dev/mmcblk0p2"
+#SYSLINUX_ROOT = "root=/dev/mmcblk0p2"
 
 # Base Packages
-IMAGE_INSTALL += " urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
-                    base findutils busybox gettext gettext-runtime kernel-modules \
-                    apt apt-mld dpkg-mld util-linux-blkid install btrfs-tools gptfdisk \
-                    syslinux extlinux initramfs ssh-mld dropbear btrfs-tools"
+#IMAGE_INSTALL += " urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
+#                   base findutils busybox gettext gettext-runtime kernel-modules \
+#                   apt apt-mld dpkg-mld util-linux-blkid install btrfs-tools gptfdisk \
+#                   syslinux extlinux initramfs ssh-mld dropbear "
                     
+                    
+IMAGE_INSTALL = " urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
+                  base findutils busybox gettext gettext-runtime kernel-modules \
+                   apt apt-mld dpkg-mld util-linux-blkid install btrfs-tools gptfdisk \
+                   syslinux extlinux initramfs ssh-mld dropbear "
+                   
  
 #Only for Testing
 IMAGE_INSTALL += " nano mc"
 
 #IMAGE_INSTALL = " "
-ROOTFS = " "
+ROOTFS = "root=/dev/mmcblk0p2"
 
 AUTO_SYSLINUXMENU = "1"
 #SYSLINUX_SPLASH = "${WORKDIR}/silent.png"
