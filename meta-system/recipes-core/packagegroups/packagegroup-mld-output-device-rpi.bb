@@ -7,10 +7,9 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 inherit packagegroup 
 
 PACKAGES = " \
- packagegroup-mld-satip-client \
+ packagegroup-mld-output-device-rpi \
 "
 
-RDEPENDS_packagegroup-mld-satip = " \
-    vdr \
-    vdr-plugin-satip \
+RDEPENDS_packagegroup-mld-output-device-rpi = " \
+    vdr-plugin-rpihddevice \
 "
