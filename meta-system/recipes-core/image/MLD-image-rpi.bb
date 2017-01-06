@@ -20,7 +20,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 #IMAGE_LINGUAS = " "
 LABELS = "MLD"
 
-INITRD_IMAGE = "mld-initramfs-rpi"
+#INITRD_IMAGE = "mld-initramfs-rpi"
+KERNEL_INITRAMFS ?= "mld-initramfs-rpi"
 
 VIRTUAL-RUNTIME_login_manager = "busybox"
 VIRTUAL-RUNTIME_init_manager = "busybox"
