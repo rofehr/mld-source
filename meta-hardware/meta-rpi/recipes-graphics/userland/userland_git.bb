@@ -16,33 +16,39 @@ COMPATIBLE_MACHINE = "raspberrypi"
 
 SRCBRANCH = "master"
 SRCFORK = "raspberrypi"
-SRCREV = "748b2ba6112435063352d72f48d1d6dcc124bd6f"
+SRCREV = "bb15afe33b313fe045d52277a78653d288e04f67"
 
 SRC_URI = "\
     git://github.com/${SRCFORK}/userland.git;protocol=git;branch=${SRCBRANCH} \
-    file://0002-set-VMCS_INSTALL_PREFIX-to-usr.patch \
-    file://0003-cmake-generate-and-install-pkgconfig-files.patch \
-    file://0005-Allow-applications-to-set-next-resource-handle.patch \
-    file://0006-wayland-Add-support-for-the-Wayland-winsys.patch \
-    file://0007-wayland-Add-Wayland-example.patch \
-    file://0008-wayland-egl-Add-bcm_host-to-dependencies.patch \
-    file://0009-interface-remove-faulty-assert-to-make-weston-happy-.patch \
-    file://0010-zero-out-wl-buffers-in-egl_surface_free.patch \
-    file://0011-initialize-front-back-wayland-buffers.patch \
-    file://0012-Remove-RPC_FLUSH.patch \
-    file://0013-fix-cmake-dependency-race.patch \
-    file://0014-Fix-enum-conversion-warnings.patch \
+    file://0001-Allow-applications-to-set-next-resource-handle.patch \
+    file://0002-wayland-Add-support-for-the-Wayland-winsys.patch \
+    file://0003-wayland-Add-Wayland-example.patch \
+    file://0004-wayland-egl-Add-bcm_host-to-dependencies.patch \
+    file://0005-interface-remove-faulty-assert-to-make-weston-happy-.patch \
+    file://0006-zero-out-wl-buffers-in-egl_surface_free.patch \
+    file://0007-initialize-front-back-wayland-buffers.patch \
+    file://0008-Remove-RPC_FLUSH.patch \
+    file://0009-fix-cmake-dependency-race.patch \
+    file://0010-Fix-for-framerate-with-nested-composition.patch \
+    file://0011-build-shared-library-for-vchostif.patch \
+    file://0012-implement-buffer-wrapping-interface-for-dispmanx.patch \
 "
 S = "${WORKDIR}/git"
 
 inherit cmake pkgconfig
 
+ASNEEDED = ""
+
 EXTRA_OECMAKE = "-DCMAKE_BUILD_TYPE=Release -DCMAKE_EXE_LINKER_FLAGS='-Wl,--no-as-needed' \
-                "
+                 -DVMCS_INSTALL_PREFIX=${exec_prefix} \
+"
+
+EXTRA_OECMAKE_append_aarch64 = " -DARM64=ON "
+
 
 PACKAGECONFIG ?= "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'wayland', '', d)}"
 
-PACKAGECONFIG[wayland] = "-DBUILD_WAYLAND=TRUE -DWAYLAND_SCANNER_EXECUTABLE:FILEPATH=${STAGING_BINDIR_NATIVE}/wayland-scanner,,wayland"
+PACKAGECONFIG[wayland] = "-DBUILD_WAYLAND=TRUE -DWAYLAND_SCANNER_EXECUTABLE:FILEPATH=${STAGING_BINDIR_NATIVE}/wayland-scanner,,wayland-native wayland"
 
 CFLAGS_append = " -fPIC"
 
@@ -69,3 +75,5 @@ FILES_${PN}-doc += "${datadir}/install"
 FILES_${PN}-dbg += "${libdir}/plugins/.debug"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
+
+RDEPENDS_${PN} += "bash"

@@ -9,42 +9,15 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 inherit packagegroup 
 
-PACKAGES = " \
- packagegroup-mld-base \
- packagegroup-mld-network \
-"
 
-RDEPENDS_packagegroup-mld-base = " \
-    busybox \
-    udev \
-	initscripts \
-	sysvinit \
-    acl \
-    attr \
-    nfs-utils \    
-    xfsprogs \
-    btrfs-tools \
-    dialog \ 
-    findutils \
-    gptfdisk \
-	gettext \
-	gettext-runtime \
-	ssh \
-	hdparm \
-	modutils-initscripts \
-	base \
-	psplash \
-"
+
 
 RDEPENDS_packagegroup-mld-x86 = " \
     extlinux \
     syslinux-extlinux \
 "
 
-RDEPENDS_packagegroup-mld-network = " \
-	init-ifupdown \
-	network \
-"
+
 
 
 RDEPENDS_packagegroup-mld-kernel-modules = " \
