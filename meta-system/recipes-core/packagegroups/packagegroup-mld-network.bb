@@ -6,11 +6,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 inherit packagegroup 
 
-PACKAGES = " \
- packagegroup-mld-network \
-"
-
-RDEPENDS_packagegroup-mld-network = " \
+RDEPENDS__${PN} = " \
     init-ifupdown \
     network \
 "

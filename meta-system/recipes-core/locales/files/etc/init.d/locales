@@ -1,0 +1,55 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+case "$1" in
+	start)
+		if [ "$LANG" != "$LC_ALL" ]; then
+			echo "Setting LANG:"
+			update_config "LANG" "export LANG='$LANG'" /etc/profile
+			update_config "LC_ALL" "export LC_ALL='$LANG'" /etc/profile
+		fi
+		
+		echo "Setting time:"
+		if [ -n "$TIMEZONE" ]; then
+			ln -fs /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+		fi
+		rtc=$(ls /dev/rtc* 2>/dev/null | tail -n1)
+		if [ "$rtc" ]; then
+			hwclock -s -u -f $rtc
+		elif [ -e /etc/lasttime ]; then
+			saved="$(cat /etc/lasttime)"
+			saved_sec=$(date -u -d "$saved" '+%s')
+			now_sec=$(date -u '+%s')
+			if [ $now_sec -le $saved_sec ] ; then
+				date -u -s "$saved"
+			fi
+		fi
+		check_status
+		
+		if [ -n "$KEYMAP" ]; then
+			echo "Load keymap: $KEYMAP"
+			loadkeys "$KEYMAP" >>/dev/null 2>&1
+			check_status
+		fi
+		;;
+	stop)
+		rtc=$(ls /dev/rtc* 2>/dev/null | tail -n1)
+		if [ "$rtc" ]; then
+			echo "Setting hardware clock:"
+			hwclock -w -u -f $rtc
+		else
+			echo "Storing time:"
+			date -u '+%Y-%m-%d %H:%M:%S' > /etc/lasttime
+		fi
+		check_status
+		;;
+	init)
+		start=1
+		stop=1
+		priority=9
+		;;
+	*)
+		echo "Usage $0 {start | stop}" >&2
+		exit 1
+esac

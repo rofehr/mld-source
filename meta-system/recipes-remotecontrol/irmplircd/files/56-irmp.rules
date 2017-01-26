@@ -1,0 +1,2 @@
+SUBSYSTEMS=="usb", ATTRS{product}=="USB IR Remote Receiver", SYMLINK="irmp"
+KERNEL=="hidraw*", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="4444", SYMLINK+="irmp", RUN+="/bin/mkdir /var/run/lirc", TAG+="systemd"

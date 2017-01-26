@@ -1,0 +1,31 @@
+#!/bin/sh
+
+. /etc/init.d/rc.functions
+
+LANG=${LANG:-de_DE.UTF-8}
+
+menu="de_DE Deutsch en_GB English"
+count=$(($(echo "$menu" | wc -w) / 2))
+test -z "$QUIET" && dialog --clear --backtitle "$SYSTEM_NAME" --title "$(gt 'Language selection')" ${LANG:+--default-item "${LANG%.*}"} --menu "$(gt 'Please select your language')" $((8+$count)) 45 $count $menu 2>$$.tmp
+if [ $? = 0 ]; then
+	LANG="$(cat $$.tmp | cut -d ' ' -f 1).UTF-8"
+	TIMEZONE=
+	KEYMAP=
+fi
+rm -f $$.tmp
+
+update_setting "LANG" "$LANG" "Sprache des Systems (ist ebenfalls in der /etc/profile eingetragen)"
+update_config "LANG" "export LANG='$LANG'" /etc/profile
+update_config "LC_ALL" "export LC_ALL='$LANG'" /etc/profile
+
+if [ ! "$TIMEZONE" ]; then
+	timezones="de_DE Europe/Berlin\nen_GB Europe/London"
+	timezone="$(echo -e "$timezones" | grep "${LANG%%.*}" | cut -d " " -f 2)"
+	update_setting "TIMEZONE" "$timezone" "timezone of the system"
+fi
+
+if [ ! "$KEYMAP" ]; then
+	keymaps="de_DE de-latin1"
+	keymap="$(echo -e "$keymaps" | grep "${LANG%%.*}" | cut -d " " -f 2)"
+	update_setting "KEYMAP" "$keymap" "keymap to use"
+fi

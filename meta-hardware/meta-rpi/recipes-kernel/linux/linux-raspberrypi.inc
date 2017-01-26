@@ -19,6 +19,10 @@ PV = "${LINUX_VERSION}+git${SRCPV}"
 KERNEL_DEFCONFIG_raspberrypi ?= "bcmrpi_defconfig"
 KERNEL_DEFCONFIG_raspberrypi2 ?= "bcm2709_defconfig"
 
+#INITRAMFS_IMAGE = ""
+#INITRAMFS_IMAGE_BUNDLE = "1"
+
+
 # CMDLINE for raspberrypi
 CMDLINE = "dwc_otg.lpm_enable=0 console=serial0,115200 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait"
 

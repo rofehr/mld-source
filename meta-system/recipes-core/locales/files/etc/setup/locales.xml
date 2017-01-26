@@ -1,0 +1,11 @@
+<menu name="System">
+	<entry name="Language" sysconfig="LANG" type="selection" value="" quickstart="1" command="/etc/setup/locales.sh setlang" help1="set system language">
+		<value>en_GB.UTF-8</value>
+		<value>de_DE.UTF-8</value>
+	</entry>
+	<entry name="Timezone" sysconfig="TIMEZONE" type="selection" value="" quickstart="1" setup="/etc/setup/locales.sh timezones" command="/etc/setup/locales.sh settimezone" help1="set timezone" />
+	<entry name="Keymap" sysconfig="KEYMAP" type="selection" value="" command="/etc/setup/locales.sh setkeymap" help1="set keymap">
+		<value>-</value>
+		<value>de-latin1</value>
+	</entry>
+</menu>

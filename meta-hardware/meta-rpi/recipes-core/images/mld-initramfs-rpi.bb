@@ -8,7 +8,7 @@ first 'init' program more efficiently."
 PACKAGE_INSTALL = " urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
                     base findutils busybox gettext gettext-runtime kernel-modules \
                     apt apt-mld dpkg-mld util-linux-blkid install btrfs-tools gptfdisk \
-                    syslinux extlinux initramfs ssh-mld dropbear "
+                    initramfs ssh-mld dropbear "
                     
 PACKAGE_INSTALL += "  "
  
@@ -26,7 +26,7 @@ IMAGE_LINGUAS ?= "de-de"
 
 LICENSE = "MIT"
 
-IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
+IMAGE_FSTYPES = " ${INITRAMFS_FSTYPES}"
 
 #inherit core-image
 inherit image

@@ -1,0 +1,27 @@
+#!/bin/sh
+
+splash_progress()
+{
+	psplash-write "PROGRESS $1"
+}
+
+splash_message()
+{
+	psplash-write "MSG $1"
+}
+
+splash_hide()
+{
+	psplash-write "QUIT"
+}
+
+splash_stop()
+{
+	killall -q psplash
+}
+
+splash_show()
+{
+	killall -q psplash
+	psplash &>/dev/null &
+}
