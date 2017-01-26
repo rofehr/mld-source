@@ -12,7 +12,6 @@ RDEPENDS_${PN} = "initscripts"
 
 SRC_URI = " \
                 file://amlsetfb.sh \
-                file://aaa.sh \
                 file://GPLv2.patch \
 "
 

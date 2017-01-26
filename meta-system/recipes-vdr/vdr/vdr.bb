@@ -24,6 +24,8 @@ SRC_URI[sha256sum] = "7c259e1ed1f39d93d23df1d5d0f85dd2a1fa9ec1dadff79e5833e2ff3e
 LIC_FILES_CHKSUM = "file://COPYING;md5=892f569a555ba9c07a568a7c0c4fa63a"
 
 SRC_URI_append = " \
+    file://etc/vdr/channels.conf \
+    file://etc/vdr/sources.conf \
 	file://remotetimers.patch \
 	file://vdr-1.7.21-pluginmissing.patch \
 	file://vdr-1.7.29-menuselection.patch \
@@ -77,10 +79,20 @@ do_compile () {
 }
 
 do_install () {
+    install -d ${D}${base_prefix}
+	
 	oe_runmake 'DESTDIR=${D}' install-bin install-i18n install-includes install-pc
 }
 
-FILES_${PN} = "${bindir}/* ${localstatedir}/cache/vdr ${datadir}/vdr "
+FILES_${PN} = " \
+       ${bindir}/* \
+       ${localstatedir}/cache/vdr \
+       ${datadir}/vdr \
+       ${base_prefix}/etc/vdr/channels.conf \
+       ${base_prefix}/etc/vdr/sources.conf \
+       ${base_prefix}/srv/vdr/video \
+        "
+
 
 FILES_${PN}-dbg += "${PLUGINDIR}/.debug/*"
 

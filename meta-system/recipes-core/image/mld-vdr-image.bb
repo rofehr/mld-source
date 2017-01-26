@@ -2,7 +2,7 @@ include recipes-core/images/core-image-minimal.bb
 
 SPLASH = "psplash"
 
-IMAGE_FEATURES += "package-management ssh-server-dropbear splash"
+IMAGE_FEATURES += "package-management ssh-server-openssh splash"
 
 IMAGE_INSTALL += " \
 	kernel-modules \
@@ -76,12 +76,32 @@ IMAGE_INSTALL += " \
     gettext \
 "  
 
-# RPI only
-IMAGE_INSTALL += " \
+## raspberry specially
+RRECOMMENDS_${PN}_append_raspberrypi = " \
     libcec-rpi \
     vdr-plugin-rpihddevice \
     vdr-plugin-rpihddevice-locale-de-de \
     vdr-plugin-cecremote \
+"
+
+RRECOMMENDS_${PN}_append_raspberrypi2 = " \
+    libcec-rpi \
+    vdr-plugin-rpihddevice \
+    vdr-plugin-rpihddevice-locale-de-de \
+    vdr-plugin-cecremote \
+"
+
+RRECOMMENDS_${PN}_append_raspberrypi3 = " \
+    libcec-rpi \
+    vdr-plugin-rpihddevice \
+    vdr-plugin-rpihddevice-locale-de-de \
+    vdr-plugin-cecremote \
+"
+
+## Wetekplay specially
+RRECOMMENDS_${PN}_append_wetekplay = " \
+    wetek-dvb-modules \
+    amlsetfb \
 "
 	
 export IMAGE_BASENAME="mld-vdr-image"

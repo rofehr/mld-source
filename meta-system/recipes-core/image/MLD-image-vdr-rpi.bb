@@ -34,6 +34,11 @@ ROOTFS = " "
 IMAGE_INSTALL += " ethtool ifupdown e2fsprogs udev udev-mld init-mld network webserver \
                    base findutils busybox nano mc gettext gettext-runtime kernel-modules \
                    apt apt-mld dpkg-mld bash util-linux-blkid btrfs-tools ffmpeg"
+                   
+IMAGE_INSTALL += " vdr vdr-plugin-rpihddevice psplash"                   
+
+IMAGE_FEATURES += " package-management ssh-server-dropbear"
+                   
 
 AUTO_SYSLINUXMENU = "1"
 #SYSLINUX_SPLASH = "${WORKDIR}/silent.png"
