@@ -14,7 +14,6 @@ IMAGE_INSTALL += " \
 	ttf-bitstream-vera \
 	font-opensans \
 	irmplircd \
-	graphlcd-base-ax206dpf \
 	vdr-font-symbols \
 	vdr \
 	vdr-locale-de-de \
@@ -24,8 +23,6 @@ IMAGE_INSTALL += " \
 	vdr-plugin-femon-locale-de-de \
 	vdr-plugin-satip \
 	vdr-plugin-satip-locale-de-de \
-	vdr-plugin-graphlcd-ax206dpf \
-	vdr-plugin-graphlcd-ax206dpf-locale-de-de \
 	vdr-plugin-svdrpservice \
 	vdr-plugin-svdrpservice-locale-de-de \
 	vdr-plugin-remotetimers \
