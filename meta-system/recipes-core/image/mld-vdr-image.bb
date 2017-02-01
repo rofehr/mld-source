@@ -68,13 +68,32 @@ IMAGE_INSTALL += " glibc-utils \
 IMAGE_INSTALL += " \
     keymaps \
     kbd \
-    nano "	
-
-#MLD 
+    nano \
+    poco \
+    "
+    
+## MLD-Stuff
 IMAGE_INSTALL += " \
+    apt \
+    apt-mld \
+    base \
+    dpkg \
+    dpkg-mld \
+    findutils \
     init-mld \
+    initramfs \
+    install \
+    locales \
+    network \
+    ssh-mld \
+    udev-mld \
+    urldecode \
+    webserver \
     gettext \
-"  
+    gettext-runtime \
+    "	
+    	
+
 
 ## raspberry specially
 RRECOMMENDS_${PN}_append_raspberrypi = " \
