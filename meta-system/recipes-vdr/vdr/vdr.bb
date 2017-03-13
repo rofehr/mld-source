@@ -80,6 +80,16 @@ do_compile () {
 
 do_install () {
     install -d ${D}${base_prefix}
+    install -d ${D}${base_prefix}/etc
+    install -d ${D}${base_prefix}/etc/vdr
+    
+    install -d ${D}/srv
+    install -d ${D}/srv/vdr
+    install -d ${D}/srv/vdr/video
+    
+	
+	install -m 0755    ${WORKDIR}/etc/vdr/channels.conf               ${D}${base_prefix}/etc/vdr
+    install -m 0755    ${WORKDIR}/etc/vdr/sources.conf                ${D}${base_prefix}/etc/vdr
 	
 	oe_runmake 'DESTDIR=${D}' install-bin install-i18n install-includes install-pc
 }

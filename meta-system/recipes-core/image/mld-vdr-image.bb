@@ -2,6 +2,9 @@ include recipes-core/images/core-image-minimal.bb
 
 SPLASH = "psplash"
 
+base_sbindir_progs = "True"
+base_bindir_progs = "True"
+
 IMAGE_FEATURES += "package-management ssh-server-openssh splash"
 
 IMAGE_INSTALL += " \
@@ -14,6 +17,11 @@ IMAGE_INSTALL += " \
 	ttf-bitstream-vera \
 	font-opensans \
 	irmplircd \
+	"
+
+	
+## VDR Stuff	
+IMAGE_INSTALL += "\
 	vdr-font-symbols \
 	vdr \
 	vdr-locale-de-de \
@@ -47,9 +55,12 @@ IMAGE_INSTALL += " \
 	vdr-plugin-extrecmenu-locale-de-de \
 	vdr-plugin-remote \
 	vdr-plugin-remote-locale-de-de \
-	vdr-plugin-skinenigmang-logos-xpm-hi"
+	vdr-plugin-skinenigmang-logos-xpm-hi \
+	"
 	
-IMAGE_INSTALL += " glibc-utils \
+  	
+IMAGE_INSTALL_append = "\
+    glibc-utils \
 	glibc-binaries \
 	glibc-binary-localedata-de-de \
 	glibc-localedata-de-de \
@@ -60,7 +71,9 @@ IMAGE_INSTALL += " glibc-utils \
 	glibc-charmap-utf-8 \
 	glibc-gconv-iso8859-1 \
 	glibc-gconv-iso8859-15 \
-	glibc-gconv-unicode "
+	glibc-gconv-unicode \
+    net-tools \
+	"
 	
 IMAGE_INSTALL += " \
     keymaps \
