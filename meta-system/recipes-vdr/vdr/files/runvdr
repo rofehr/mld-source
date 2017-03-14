@@ -1,0 +1,112 @@
+#!/bin/sh
+#
+# run vdr
+
+. /etc/init.d/rc.functions
+
+case "$1" in
+	-k)
+		touch /tmp/vdr_stop
+		killproc "/usr/bin/vdr" 10
+		exit $?
+		;;
+	-r)
+		killproc "/usr/bin/vdr" 10
+		exit $?
+		;;
+	-n)
+		norestart=1
+		;;
+	-*)
+		echo "Usage $0 {-k | -r | -q}"
+		echo "      -k   kill vdr"
+		echo "      -r   restart vdr"
+		echo "      -n   no restart if an error occur"
+		exit 1
+		;;
+esac
+
+ps=$(ps); echo "$ps" | grep "{${0##*/}}" | grep -q -v $$ && { echo "${0##*/} is already running"; exit 1; }
+
+rm -f /tmp/vdr_stop
+
+/etc/vdr/run.d/rc.action start
+
+while true; do
+	. /etc/rc.config
+
+	export LANG
+	export LC_ALL=$LANG
+	export VDR_CHARSET_OVERRIDE
+
+	# check if a remote control must be enabled
+	if ps | grep -v "grep" | grep -q "lircd" && (! test -e /usr/bin/vdr-sxfe || ! grep -sqi "^lirc\." /etc/vdr/remote.conf); then
+		VDR_ARGS="$VDR_ARGS --lirc"
+	fi
+
+	# extend remote configuration file
+	ls /etc/vdr/remote.conf.* 2>/dev/null | while read remote; do
+		remote=${remote##*.}
+		grep -q -i "^$remote\." /etc/vdr/remote.conf 2>/dev/null || cat /etc/vdr/remote.conf.$remote >> /etc/vdr/remote.conf
+	done
+
+	# update reccmds.conf
+	cat /etc/vdr/reccmds.conf.* 2>/dev/null > /etc/vdr/reccmds.conf
+	find /etc/vdr -name "reccmds.sh.*" -exec {} \; >> /etc/vdr/reccmds.conf
+
+	# update vdr configuration file
+	while read line; do
+		if [ -z "${line##!*}" ]; then
+			line="${line#!}"
+			sed "/^${line%% *}/d" -i /etc/vdr/setup.conf
+		fi
+		if ! grep -q "^${line%% *}" /etc/vdr/setup.conf; then
+			echo "$line" >> /etc/vdr/setup.conf
+		fi
+	done 2>/dev/null < /etc/vdr/setup.conf.add
+	rm -f /etc/vdr/setup.conf.add
+
+	# activate selected channel list
+	if [ "${VDR_CHANNELLIST##*.user}" ]; then
+		cp "/etc/vdr/channels/$VDR_CHANNELLIST.conf" "/etc/vdr/channels/$VDR_CHANNELLIST.user.conf"
+		update_setting "VDR_CHANNELLIST" "$VDR_CHANNELLIST.user"
+	fi
+	touch "/etc/vdr/channels/$VDR_CHANNELLIST.conf"
+	ln -fs "/etc/vdr/channels/$VDR_CHANNELLIST.conf" /etc/vdr/channels.conf
+
+	# suche Plugins und Parameter zusammen
+	plugins=""
+	for plugin in $VDR_PLUGIN_ORDER $(ls /usr/lib/vdr/libvdr*$(vdr -V | grep '^vdr (' | sed 's|.*(.*/\(.*\)).*|\1|') 2>/dev/null | sed 's/.*libvdr-\([^.]*\).*/\1/'); do #'
+		if [ -z "`echo "$plugins" | grep -e "-P[^a-z]$plugin " 2>/dev/null`" -a -n "`ls /usr/lib/vdr/libvdr-$plugin* 2>/dev/null`" ]; then
+			eval options=\$VDR_PLUGIN_ARGS_$(echo "$plugin" | sed 's/-/_/g')
+			plugins="$plugins -P\"$plugin $options\""
+		fi
+	done
+
+	# wait for dvb adapters
+	lsmod | grep -q dvb.core && test -z "$VDR_DVB_ADAPTER_COUNT" && update_setting "VDR_DVB_ADAPTER_COUNT" "1"
+	i=0; while [ $i -lt 15 -a $(ls /dev/dvb/adapter?/dvr? 2>/dev/null | wc -l) -lt 0$VDR_DVB_ADAPTER_COUNT ]; do i=$(($i+1)); sleep 1 "#waiting for dvb adapters"; done
+	update_setting "VDR_DVB_ADAPTER_COUNT" "$(ls /dev/dvb/adapter?/dvr? 2>/dev/null | wc -l)"
+
+	mkdir -p /var/cache/vdr
+
+	starttime=`date +%s`
+
+	# starte vdr
+	eval /usr/bin/vdr -s /etc/vdr/shutdown.d/rc.action -r /etc/vdr/recording.d/rc.action -w 60 -g /tmp -u root $VDR_ARGS $plugins
+
+	echo -n "VDR exits at " >&2; date >&2
+
+	killproc "/usr/bin/vdr" 0
+
+	if [ ! -e /tmp/vdr_stop -a ! "$norestart" -a $starttime -gt $(( `date +%s` - 15 )) ]; then
+		sleep 10 "delaying vdr restart"
+	fi
+	test -e /tmp/vdr_stop -o "$norestart" && break
+
+	/etc/vdr/run.d/rc.action restart
+done
+
+/etc/vdr/run.d/rc.action stop
+
+rm -f /tmp/vdr_stop

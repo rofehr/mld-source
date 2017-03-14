@@ -31,7 +31,8 @@ SRC_URI_append = " \
 	file://vdr-1.7.29-menuselection.patch \
 	file://MainMenuHooks-v1_0_3.patch \
 	file://vdr-2.2.0_horizontal_menu.patch \
-    file://0_jpeg.patch \	
+    file://0_jpeg.patch \
+    file://runvdr \	
 "
 
 DEPENDS = " \
@@ -90,6 +91,8 @@ do_install () {
 	
 	install -m 0755    ${WORKDIR}/etc/vdr/channels.conf               ${D}${base_prefix}/etc/vdr
     install -m 0755    ${WORKDIR}/etc/vdr/sources.conf                ${D}${base_prefix}/etc/vdr
+    install -m 0755    ${WORKDIR}/runvdr                              ${D}${sbindir}/etc/vdr
+    
 	
 	oe_runmake 'DESTDIR=${D}' install-bin install-i18n install-includes install-pc
 }
