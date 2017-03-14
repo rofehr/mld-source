@@ -33,6 +33,8 @@ SRC_URI_append = " \
 	file://vdr-2.2.0_horizontal_menu.patch \
     file://0_jpeg.patch \
     file://runvdr \	
+    file://etc/vdr/run.d/rc.action \ 
+    file://etc/vdr/run.d/vdr \ 
 "
 
 DEPENDS = " \
@@ -83,6 +85,7 @@ do_install () {
     install -d ${D}${base_prefix}
     install -d ${D}${base_prefix}/etc
     install -d ${D}${base_prefix}/etc/vdr
+    install -d ${D}${exec_prefix}/sbin
     
     install -d ${D}/srv
     install -d ${D}/srv/vdr
@@ -91,7 +94,11 @@ do_install () {
 	
 	install -m 0755    ${WORKDIR}/etc/vdr/channels.conf               ${D}${base_prefix}/etc/vdr
     install -m 0755    ${WORKDIR}/etc/vdr/sources.conf                ${D}${base_prefix}/etc/vdr
-    install -m 0755    ${WORKDIR}/runvdr                              ${D}${sbindir}/etc/vdr
+
+    install -m 0755    ${WORKDIR}/etc/vdr/run.d/vdr                    ${D}${base_prefix}/etc/vdr/run.d
+    install -m 0755    ${WORKDIR}/etc/vdr/run.d/rc.action              ${D}${base_prefix}/etc/vdr/run.d
+    
+    install -m 0755    ${WORKDIR}/runvdr                              ${D}${exec_prefix}/sbin
     
 	
 	oe_runmake 'DESTDIR=${D}' install-bin install-i18n install-includes install-pc

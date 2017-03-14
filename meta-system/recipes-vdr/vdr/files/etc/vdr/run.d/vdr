@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# update app start menu
+
+. /etc/init.d/rc.functions
+
+action="$1"
+menu=/etc/vdr/menu.xml
+
+case "$action" in
+	start|restart)
+		rm -f /var/run/vdr.runapp
+
+		sed "/<menu name=\"$(tr 'Apps')\">/,/<\/menu>/d; /<command name=\"$(tr 'Exit')\"/d" -i $menu
+
+		if [ "$APPSTARTER_AUTOSTART" = "VDR" ]; then
+			for app in $(find /usr/share/menu -type f | sort); do
+				eval "$(sed "s/.*://" $app)"
+				if [ "$title" != "VDR" ]; then
+					if ! grep -q "<menu name=\"$(tr 'Apps')\">" $menu; then
+						sed "s|^\(    <menu name=\"System\">\)|    <menu name=\"$(tr 'Apps')\">\n    </menu>\n\1|" -i $menu
+					fi
+					sed "s|\(.*\)\(<menu name=\"Apps\">\)|\1\2\n\1    <command name=\"$title\" execute=\"$0 startapp $title\" />|" -i $menu
+				fi
+			done
+
+		else
+			sed "s|^\(</menus>\)|    <command name=\"$(tr 'Exit')\" execute=\"$0 stopvdr\" />\n\1|" -i $menu
+		fi
+		;;
+	stop)
+		;;
+	startapp)
+		at now 2>/dev/null <<- EOF
+			/etc/vdr/frontend.d/rc.action suspend
+			touch /var/run/vdr.runapp
+			appstarter.sh $2
+			rm -f /var/run/vdr.runapp
+			/etc/vdr/frontend.d/rc.action resume
+		EOF
+		;;
+	stopvdr)
+		at now 2>/dev/null <<- EOF
+			/etc/vdr/frontend.d/rc.action stop
+		EOF
+		;;
+esac

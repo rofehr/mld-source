@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 {start | stop | restart}" >&2
+	exit 1
+fi
+
+for script in $(find ${0%/*} -type f ! -name ${0##*/} | sort); do
+    $script $@
+done

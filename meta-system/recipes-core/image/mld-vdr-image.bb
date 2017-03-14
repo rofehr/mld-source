@@ -120,7 +120,7 @@ RRECOMMENDS_${PN}_append_raspberrypi2 = " \
     vdr-plugin-cecremote \
 "
 
-RRECOMMENDS_${PN}_append_raspberrypi3 = " \
+RRECOMMENDS_${PN}_append_rpi3 = " \
     libcec-rpi \
     vdr-plugin-rpihddevice \
     vdr-plugin-rpihddevice-locale-de-de \
