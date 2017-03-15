@@ -106,14 +106,14 @@ IMAGE_INSTALL += " \
 
 
 ## raspberry specially
-RRECOMMENDS_${PN}_append_raspberrypi = " \
+RRECOMMENDS_${PN}_append_rpi = " \
     libcec-rpi \
     vdr-plugin-rpihddevice \
     vdr-plugin-rpihddevice-locale-de-de \
     vdr-plugin-cecremote \
 "
 
-RRECOMMENDS_${PN}_append_raspberrypi2 = " \
+RRECOMMENDS_${PN}_append_rpi2 = " \
     libcec-rpi \
     vdr-plugin-rpihddevice \
     vdr-plugin-rpihddevice-locale-de-de \
