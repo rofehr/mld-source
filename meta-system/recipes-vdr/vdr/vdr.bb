@@ -85,7 +85,7 @@ do_install () {
     install -d ${D}${base_prefix}
     install -d ${D}${base_prefix}/etc
     install -d ${D}${base_prefix}/etc/vdr
-    install -d ${D}${exec_prefix}/sbin
+    install -d ${D}${bindir}
     
     install -d ${D}/srv
     install -d ${D}/srv/vdr
@@ -95,10 +95,10 @@ do_install () {
 	install -m 0755    ${WORKDIR}/etc/vdr/channels.conf               ${D}${base_prefix}/etc/vdr
     install -m 0755    ${WORKDIR}/etc/vdr/sources.conf                ${D}${base_prefix}/etc/vdr
 
-    install -m 0755    ${WORKDIR}/etc/vdr/run.d/vdr                    ${D}${base_prefix}/etc/vdr/run.d
-    install -m 0755    ${WORKDIR}/etc/vdr/run.d/rc.action              ${D}${base_prefix}/etc/vdr/run.d
+    install -m 0755    ${WORKDIR}/etc/vdr/run.d/vdr                   ${D}${base_prefix}/etc/vdr/run.d
+    install -m 0755    ${WORKDIR}/etc/vdr/run.d/rc.action             ${D}${base_prefix}/etc/vdr/run.d
     
-    install -m 0755    ${WORKDIR}/runvdr                              ${D}${exec_prefix}/sbin
+    install -m 0755    ${WORKDIR}/runvdr                              ${D}${bindir}/sbin
     
 	
 	oe_runmake 'DESTDIR=${D}' install-bin install-i18n install-includes install-pc
