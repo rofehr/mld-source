@@ -40,7 +40,7 @@ IMAGE_INSTALL += " ethtool ifupdown e2fsprogs udev udev-mld init-mld network web
 #"
 
 #INITRD_IMAGE = "mld-initramfs-rpi"
-#KERNEL_INITRAMFS = "-initramfs"
+KERNEL_INITRAMFS = ""
 
 VIRTUAL-RUNTIME_login_manager = "busybox"
 VIRTUAL-RUNTIME_init_manager = "busybox"

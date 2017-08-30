@@ -46,11 +46,11 @@ IMAGE_DEPENDS_wetek-sdimg = " \
             mtools-native \
             dosfstools-native \
             virtual/kernel \
-            ${@bb.utils.contains("KERNEL_IMAGETYPE", "uImage", "u-boot", "",d)} \
+            ${@base_contains("KERNEL_IMAGETYPE", "uImage", "u-boot", "",d)} \
             "
 
 # SD card image name
-SDIMG = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.wetek-sd.img"
+SDIMG = "${DEPLOY_DIR_IMAGE}/${IMAGE_NAME}.rootfs.wetek-sdimg"
 
 # Additional files and/or directories to be copied into the vfat partition from the IMAGE_ROOTFS.
 FATPAYLOAD ?= ""
@@ -84,9 +84,8 @@ IMAGE_CMD_wetek-sdimg () {
 
     # Create a vfat image with boot files
     BOOT_BLOCKS=$(LC_ALL=C parted -s ${SDIMG} unit b print | awk '/ 1 / { print substr($4, 1, length($4 -1)) / 512 /2 }')
-    [ -f ${WORKDIR}/boot.img ] && rm ${WORKDIR}/boot.img
     mkfs.vfat -n "${BOOTDD_VOLUME_ID}" -S 512 -C ${WORKDIR}/boot.img $BOOT_BLOCKS
-        mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}-${MACHINE}.bin ::kernel.img
+    mcopy -i ${WORKDIR}/boot.img -s ${DEPLOY_DIR_IMAGE}/${KERNEL_IMAGETYPE}${KERNEL_INITRAMFS}-${MACHINE}.bin ::kernel.img
 
     if [ -n ${FATPAYLOAD} ] ; then
         echo "Copying payload into VFAT"
@@ -107,11 +106,5 @@ IMAGE_CMD_wetek-sdimg () {
 
     # Burn Partitions
     dd if=${WORKDIR}/boot.img of=${SDIMG} conv=notrunc seek=1 bs=$(expr ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
-    ### try adjusting
-    tune2fs -o ^acl ${SDIMG_ROOTFS}
-    tune2fs -o  ^user_xattr ${SDIMG_ROOTFS}
-    #tune2fs -E mount_opts=auto_da_alloc ${SDIMG_ROOTFS} 
-    #tune2fs -e remount-ro ${SDIMG_ROOTFS}
-    tune2fs -E  mount_opts=noatime  ${SDIMG_ROOTFS}
     dd if=${SDIMG_ROOTFS} of=${SDIMG} conv=notrunc seek=1 bs=$(expr 1024 \* ${BOOT_SPACE_ALIGNED} + ${IMAGE_ROOTFS_ALIGNMENT} \* 1024) && sync && sync
 }
