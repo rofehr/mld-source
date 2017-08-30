@@ -2,6 +2,10 @@ include recipes-core/images/core-image-minimal.bb
 
 KERNEL_INITRAMFS = ""
 
+INITRAMFS_IMAGE = "mld-image"
+INITRAMFS_IMAGE_BUNDLE = "1"
+#IMAGE_FSTYPES = "cpio.gz"
+
 IMAGE_LINGUAS = "de-de"
 LABELS = "MLD"
 
