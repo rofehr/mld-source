@@ -2,7 +2,7 @@ SECTION = "kernel"
 DESCRIPTION = "Mainline Linux kernel"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
-COMPATIBLE_MACHINE = "(sun4i|sun5i|sun7i|sun8i)"
+COMPATIBLE_MACHINE = "(sun4i|sun5i|sun7i)"
 
 inherit kernel
 
@@ -18,9 +18,9 @@ DEFAULT_PREFERENCE = "-1"
 
 KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
 	
-# 4.11.0-rc5
-PV = "4.11.0+git${SRCPV}"
-SRCREV_pn-${PN} = "81d4bab4ce87228c37ab14a885438544af5c9ce6"
+# 4.5.0
+PV = "4.4+4.5.0.git${SRCPV}"
+SRCREV_pn-${PN} = "b562e44f507e863c6792946e4e1b1449fbbac85d"
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git;protocol=git;branch=master \
         file://defconfig \
