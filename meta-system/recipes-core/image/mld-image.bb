@@ -1,5 +1,7 @@
 include recipes-core/images/core-image-minimal.bb
 
+#IMAGE_ROOTFS_SIZE = "1048576"
+
 IMAGE_LINGUAS = "de-de"
 LABELS = "MLD"
 
