@@ -1,5 +1,8 @@
 include recipes-core/images/core-image-minimal.bb
 
+IMAGE_LINGUAS = "de-de"
+LABELS = "MLD"
+
 SPLASH = "psplash"
 
 base_sbindir_progs = "True"
