@@ -1,0 +1,25 @@
+SECTION = "kernel"
+DESCRIPTION = "Mainline Linux kernel"
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
+COMPATIBLE_MACHINE = "(sun4i|sun5i|sun7i)"
+
+inherit kernel
+
+require recipes-kernel/linux/linux-dtb.inc
+require linux.inc
+
+# Pull in the devicetree files into the rootfs
+RDEPENDS_kernel-base += "kernel-devicetree"
+
+KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_ENTRYPOINT}"
+
+S = "${WORKDIR}/linux-sunxi-cedrus-master"
+	
+SRC_URI[md5sum] = "5e4fcbdc6ed7c8d177c142299c5ef7c0"
+SRC_URI[sha256sum] = "1a4f4a5e638a9bedecfe6855e1ef74964e7262d135c76f20e180884dc0ca473e"
+
+
+SRC_URI = "https://github.com/FlorentRevest/linux-sunxi-cedrus/archive/master.zip \
+        file://defconfig \
+        "
