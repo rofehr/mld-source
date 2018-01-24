@@ -23,11 +23,15 @@ IMAGE_LINGUAS ?= "de-de"
 LABELS = "MLD"
 
 
+#INITRAMFS_IMAGE = "mld-image"
+#INITRAMFS_IMAGE_BUNDLE = "1"
+
 INITRD_IMAGE = "mld-initramfs-x86"
+#INITRD_IMAGE = "initramfs-framework"
 IMAGE_FSTYPES = "iso"
 
-VIRTUAL-RUNTIME_login_manager = "busybox"
-VIRTUAL-RUNTIME_init_manager = "busybox"
+#VIRTUAL-RUNTIME_login_manager = "busybox"
+#VIRTUAL-RUNTIME_init_manager = "busybox"
 VIRTUAL-RUNTIME_initscripts = "init"
 
 IMAGE_FEATURES = " "

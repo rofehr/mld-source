@@ -88,9 +88,39 @@ KMACHINE_genericx86-64 ?= "common-pc-64"
 #SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.10.y"                
 
 # Kernel 4.12
-LINUX_VERSION ?= "4.12.10"
-SRCREV = "d23a9821d3972ae373357e933c8af8216d72e374"
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.10.y"                
+#LINUX_VERSION ?= "4.12.10"
+#SRCREV = "d23a9821d3972ae373357e933c8af8216d72e374"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.10.y"                
+
+# Kernel 4.13
+#LINUX_VERSION ?= "4.13.2"
+#SRCREV = "07dd6cc1fff160143e82cf5df78c1db0b6e03355"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.13.y"                
+
+# Kernel 4.14
+#LINUX_VERSION ?= "4.14"
+#SRCREV = "bebc6082da0a9f5d47a1ea2edc099bf671058bd4"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git;protocol=git"   
+
+# Kernel 4.13
+#LINUX_VERSION ?= "4.13.14"
+#SRCREV = "b1d6a6ff22862dfca8006afe2a6cdcb28c35b002"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.13.y"                
+
+# Kernel 4.14.1
+#LINUX_VERSION ?= "4.14.1"
+#SRCREV = "62b0ea074a9aeec15ea2217a97273070101bf185"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.14.y"   
+
+# Kernel 4.14.2
+LINUX_VERSION ?= "4.14.2"
+SRCREV = "8292fd8d726105abc01dae26d0a2cddcf53d4e0f"
+SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.14.y"   
+
+# Kernel 4.15-rc1
+#LINUX_VERSION ?= "4.15-rc1"
+#SRCREV = "2fd4bf77c3d8ccceaf6bdaa507ee4cf94e1a2ca5"
+#SRC_URI = "https://git.kernel.org/torvalds/t/linux-4.15-rc1.tar.gz"   
 
 
 SRC_URI += " file://defconfig \

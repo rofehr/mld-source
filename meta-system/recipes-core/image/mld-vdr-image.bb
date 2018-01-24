@@ -7,6 +7,7 @@ base_bindir_progs = "True"
 
 IMAGE_FEATURES += "package-management ssh-server-openssh splash"
 
+
 IMAGE_INSTALL += " \
 	kernel-modules \
 	cpufrequtils \

@@ -5,12 +5,13 @@ first 'init' program more efficiently."
 
 
 # Base Packages
-PACKAGE_INSTALL = " urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
+PACKAGE_INSTALL = "${IMAGE_INSTALL} urldecode ifupdown e2fsprogs udev udev-mld init-mld network webserver \
                     base findutils busybox gettext gettext-runtime kernel-modules \
                     apt apt-mld dpkg-mld util-linux-blkid install btrfs-tools gptfdisk \
                     syslinux extlinux initramfs ssh-mld dropbear "
+
                     
-PACKAGE_INSTALL += "  "
+#PACKAGE_INSTALL += "  "
  
 #Only for Testing
 PACKAGE_INSTALL += " nano mc"
@@ -32,6 +33,7 @@ IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 inherit image
 
 IMAGE_ROOTFS_SIZE = "8192"
+
 
 export IMAGE_BASENAME = "mld-initramfs-x86"
 
