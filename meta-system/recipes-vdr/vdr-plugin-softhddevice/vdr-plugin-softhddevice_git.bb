@@ -3,7 +3,7 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=892f569a555ba9c07a568a7c0c4fa63a"
 
 SRCREV = "  6dfa88aecf1b5a4c5932ba278209d9f22676547f"
-SRC_URI = "git://projects.vdr-developer.org/git/vdr-plugin-softhddevice.git;protocol=http \
+SRC_URI = "git://projects.vdr-developer.org/git/vdr-plugin-softhddevice.git;protocol=http"
 
 PR="r1"
 
