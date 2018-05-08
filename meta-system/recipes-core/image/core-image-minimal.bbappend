@@ -28,7 +28,8 @@ GLIBC_GENERATE_LOCALES = "de_DE.UTF-8"
 IMAGE_LINGUAS = "de-de"
 
 
-IMAGE_FSTYPES = "iso"
+
+
 
 INHERIT += "rm_work"
  
