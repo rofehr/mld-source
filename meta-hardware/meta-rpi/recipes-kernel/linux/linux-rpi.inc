@@ -18,7 +18,7 @@ UDEV_GE_141 ?= "1"
 CMDLINE_DEBUG ?= ""
 CMDLINE_append = " ${CMDLINE_DEBUG}"
 
-KERNEL_INITRAMFS ?= '${@base_conditional("INITRAMFS_IMAGE_BUNDLE", "1", "1", "", d)}'
+KERNEL_INITRAMFS ?= '${@oe.utils.conditional("INITRAMFS_IMAGE_BUNDLE", "1", "1", "", d)}'
 
 # Set a variable in .configure
 # $1 - Configure variable to be set
