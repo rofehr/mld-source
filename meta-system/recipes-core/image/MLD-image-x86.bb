@@ -46,9 +46,9 @@ SYSLINUX_ROOT = "root=/"
 APPEND = "vga=0x314 splash=verbose nobg apm=off"
 
 
-#inherit core-image
+inherit core-image
 #inherit image
-include recipes-core/images/core-image-minimal.bb
+#include recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME="x86"
 
