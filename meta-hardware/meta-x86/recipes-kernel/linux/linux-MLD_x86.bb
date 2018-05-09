@@ -117,10 +117,11 @@ LINUX_VERSION ?= "4.14.2"
 SRCREV = "8292fd8d726105abc01dae26d0a2cddcf53d4e0f"
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.14.y"   
 
-# Kernel 4.15-rc1
-#LINUX_VERSION ?= "4.15-rc1"
-#SRCREV = "2fd4bf77c3d8ccceaf6bdaa507ee4cf94e1a2ca5"
-#SRC_URI = "https://git.kernel.org/torvalds/t/linux-4.15-rc1.tar.gz"   
+# Kernel 4.16.6
+#LINUX_VERSION ?= "4.16.6"
+#SRCREV = "cf94ecafe6ef3fb9ba94084666c9b7ef5433d436"
+#SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;protocol=git;branch=linux-4.16.y"   
+
 
 
 SRC_URI += " file://defconfig \

@@ -2,9 +2,9 @@ include recipes-core/images/core-image-minimal.bb
 
 KERNEL_INITRAMFS = ""
 
-#INITRAMFS_IMAGE = "mld-image"
+INITRAMFS_IMAGE = "core-image-minimal-initramfs"
 #INITRAMFS_IMAGE_BUNDLE = "1"
-#IMAGE_FSTYPES = "cpio.gz"
+
 
 IMAGE_LINGUAS = "de-de"
 LABELS = "MLD"
@@ -20,21 +20,27 @@ IMAGE_FEATURES += "package-management ssh-server-openssh splash"
 
     
 ## MLD-Stuff
-IMAGE_INSTALL += " \
-    base \
-    findutils \
-    init-mld \
-    initramfs \
-    install \
-    locales \
-    network \
-    ssh-mld \
-    udev-mld \
-    urldecode \
-    webserver \
-    gettext \
-    gettext-runtime \
-    "	
+#IMAGE_INSTALL += " \
+#    kernel-modules\
+#    packagegroup-mld \
+#    packagegroup-mld-base \
+#    packagegroup-mld-network \
+#    base \
+#    findutils \
+#    init-mld \
+#    initramfs \
+#    install \
+#    locales \
+#    network \
+#    ssh-mld \
+#    udev-mld \
+#    urldecode \
+#    webserver \
+#    gettext \
+#    gettext-runtime \
+#    init-ifupdown \
+#    network \
+#    "	
     
 
 

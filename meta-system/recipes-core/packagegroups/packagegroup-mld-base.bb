@@ -13,10 +13,10 @@ RDEPENDS__${PN} = " \
     sysvinit \
     acl \
     attr \
-    nfs-utils \    
+    nfs-utils \
     xfsprogs \
     btrfs-tools \
-    dialog \ 
+    dialog \
     findutils \
     gptfdisk \
     gettext \
