@@ -1,5 +1,7 @@
 include recipes-core/images/core-image-minimal.bb
 
+INITRAMFS_MAXSIZE ??= "262144"
+
 IMAGE_LINGUAS = "de-de"
 LABELS = "MLD"
 
@@ -13,13 +15,24 @@ base_bindir_progs = "True"
 
 IMAGE_FEATURES += "package-management ssh-server-openssh splash"
 
+
 PACKAGE_INSTALL_append += " \
     kernel-modules\
+    base-files \
     base \
+    findutils \
     init-mld \
     gettext \
     gettext-runtime \
+    urldecode \
     webserver \
+    extlinux \
+    psplash \
+    syslinux \
+    ssh-mld \
+    udev-mld \
+    install \
+    locales \
     "    
 
 #PACKAGE_INSTALL_append += " \

@@ -130,10 +130,11 @@ SRC_URI += " file://var/www/functions.sh \
 #SRC_URI_append_arm = " file://alignment.sh"
 
 
-do_install () {
+do_install_append () {
 	#
 	# Directorys erstellen
 	#
+	install -d ${D}/var/spool 
 	install -d ${D}${sysconfdir}/applications/register.d
 	install -d ${D}${sysconfdir}/init.d
 	install -d ${D}${sysconfdir}/setup
@@ -252,19 +253,47 @@ do_install () {
 	install -m 0755    ${WORKDIR}/var/www/tpl/system.sh										${D}${localstatedir}/www/tpl	
 
     install -m 0755    ${WORKDIR}/var/www/functions.sh										${D}${localstatedir}/www	
-    install -m 0644    ${WORKDIR}/var/www/iframe.css										${D}${localstatedir}/www	
-    install -m 0644    ${WORKDIR}/var/www/iframe.sh											${D}${localstatedir}/www	
-    install -m 0644    ${WORKDIR}/var/www/index.css											${D}${localstatedir}/www	
-    install -m 0644    ${WORKDIR}/var/www/index.js											${D}${localstatedir}/www	
-    install -m 0644    ${WORKDIR}/var/www/index.sh											${D}${localstatedir}/www	
-    install -m 0644    ${WORKDIR}/var/www/.htaccess                                         ${D}${localstatedir}/www    
+    install -m 0755    ${WORKDIR}/var/www/iframe.css										${D}${localstatedir}/www	
+    install -m 0755    ${WORKDIR}/var/www/iframe.sh											${D}${localstatedir}/www	
+    install -m 0755    ${WORKDIR}/var/www/index.css											${D}${localstatedir}/www	
+    install -m 0755    ${WORKDIR}/var/www/index.js											${D}${localstatedir}/www	
+    install -m 0755    ${WORKDIR}/var/www/index.sh											${D}${localstatedir}/www	
+    install -m 0755    ${WORKDIR}/var/www/.htaccess                                         ${D}${localstatedir}/www    
 
 	
 }
 
+#FILES_${PN} += " /*"
+
 FILES_${PN} += " \
+       ${localstatedir} \
        /etc/init.d/webserver \
        /var/spool \
-  	   /var/spool/error \
+       /var/spool/error \
 	   /var/spool/bootstep \
-        "
+       /var/www/functions.sh \
+	   /var/www/iframe.css \
+	   /var/www/iframe.sh \
+	   /var/www/index.css \
+	   /var/www/index.js \
+	   /var/www/index.sh \
+	   /var/www/.htaccess \
+	   /var/www/tpl/about.sh \
+	   /var/www/tpl/apps.sh \
+	   /var/www/tpl/commands.sh \
+	   /var/www/tpl/errorhandling.sh \
+	   /var/www/tpl/help.sh \
+	   /var/www/tpl/home_layout.sh \
+	   /var/www/tpl/iframe.sh \
+	   /var/www/tpl/info.sh \
+	   /var/www/tpl/logfiles.sh \
+	   /var/www/tpl/login.sh \
+	   /var/www/tpl/logout.sh \
+	   /var/www/tpl/map.sh \
+	   /var/www/tpl/quickstart.sh \
+	   /var/www/tpl/reboot.sh \
+	   /var/www/tpl/setup.js \
+	   /var/www/tpl/setup.sh \
+	   /var/www/tpl/system.sh \
+       "
+       
