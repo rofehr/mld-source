@@ -261,3 +261,10 @@ do_install () {
 
 	
 }
+
+FILES_${PN} += " \
+       /etc/init.d/webserver \
+       /var/spool \
+  	   /var/spool/error \
+	   /var/spool/bootstep \
+        "

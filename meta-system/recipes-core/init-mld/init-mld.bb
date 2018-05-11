@@ -52,7 +52,7 @@ do_install () {
 	#
 	# Dateien installieren
 	#
-    #install -m 0755    ${WORKDIR}/init                                      ${D}${base_sbindir}
+    install -m 0755    ${WORKDIR}/init                                      ${D}
 	
 	#install -m 0755    ${WORKDIR}/init                                      ${IMAGE_ROOTFS}
 	
@@ -79,6 +79,22 @@ do_install () {
 }
 
 FILES_${PN} += " \
-       ${base_prefix}/init \
+        /init \
+        /etc/init.d/dma \
+        /etc/init.d/example \
+        /etc/init.d/fsck \
+        /etc/init.d/initramfs \
+        /etc/init.d/localhost \
+        /etc/init.d/mount \
+        /etc/init.d/rc.functions \
+        /etc/init.d/rc.init \
+        /etc/init.d/rc.poweroff \
+        /etc/init.d/rc.sysinit \
+        /etc/setup/init.sh \
+        /etc/setup/init.xml \
+        /sbin/restart \
+        /sbin/shutdown \
+        /sbin/start \
+        /sbin/stop \
         "
 

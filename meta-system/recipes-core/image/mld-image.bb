@@ -1,34 +1,32 @@
 include recipes-core/images/core-image-minimal.bb
 
-KERNEL_INITRAMFS = ""
-
-INITRAMFS_IMAGE = "core-image-minimal-initramfs"
-#INITRAMFS_IMAGE_BUNDLE = "1"
-
-
 IMAGE_LINGUAS = "de-de"
 LABELS = "MLD"
+
+LICENSE = "MIT"
 
 SPLASH = "psplash"
 
 base_sbindir_progs = "True"
 base_bindir_progs = "True"
 
+
 IMAGE_FEATURES += "package-management ssh-server-openssh splash"
 
+PACKAGE_INSTALL_append += " \
+    kernel-modules\
+    base \
+    init-mld \
+    gettext \
+    gettext-runtime \
+    webserver \
+    "    
 
-
-    
-## MLD-Stuff
-#IMAGE_INSTALL += " \
+#PACKAGE_INSTALL_append += " \
 #    kernel-modules\
-#    packagegroup-mld \
-#    packagegroup-mld-base \
-#    packagegroup-mld-network \
 #    base \
 #    findutils \
 #    init-mld \
-#    initramfs \
 #    install \
 #    locales \
 #    network \
@@ -40,8 +38,9 @@ IMAGE_FEATURES += "package-management ssh-server-openssh splash"
 #    gettext-runtime \
 #    init-ifupdown \
 #    network \
-#    "	
-    
+#    apt \
+#    "    
+
 
 
 
