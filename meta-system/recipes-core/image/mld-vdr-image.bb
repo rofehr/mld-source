@@ -136,3 +136,4 @@ RRECOMMENDS_${PN}_append_wetekplay = " \
 	
 export IMAGE_BASENAME="mld-vdr-image"
 
+COMPATIBLE_HOST = "(i.86|x86_64).*-linux"

@@ -50,3 +50,4 @@ include recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME="rpi"
 
+COMPATIBLE_HOST = "(raspberrypi |raspberrypi2 |raspberrypi3)"

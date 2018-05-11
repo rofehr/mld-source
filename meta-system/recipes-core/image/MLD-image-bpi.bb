@@ -59,3 +59,4 @@ include recipes-core/images/core-image-minimal.bb
 
 export IMAGE_BASENAME="bpi"
 
+COMPATIBLE_HOST = "(i.86|x86_64).*-linux"

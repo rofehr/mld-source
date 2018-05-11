@@ -8,3 +8,5 @@ inherit core-image
 
 
 IMAGE_INSTALL += " yavta v4l-utils"
+
+COMPATIBLE_HOST = "(wetekplay)"

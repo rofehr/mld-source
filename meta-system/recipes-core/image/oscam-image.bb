@@ -88,3 +88,4 @@ RRECOMMENDS_${PN}_append_cubietruck = " \
 
 export IMAGE_BASENAME="oscam-image"
 
+COMPATIBLE_HOST = "(i.86|x86_64).*-linux"

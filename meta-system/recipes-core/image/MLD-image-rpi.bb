@@ -52,3 +52,4 @@ IMAGE_FEATURES += " package-management ssh-server-dropbear"
 inherit core-image
 
 export IMAGE_BASENAME="rpi"
+COMPATIBLE_HOST = "(raspberrypi |raspberrypi2 |raspberrypi3)"

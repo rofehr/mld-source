@@ -6,3 +6,5 @@ IMAGE_INSTALL += "kernel-modules linux-firmware tiny-init nfs-utils esd esddsp e
 
 export IMAGE_BASENAME="rpi-audio-image"
 
+COMPATIBLE_HOST = "(raspberrypi |raspberrypi2 |raspberrypi3)"
+

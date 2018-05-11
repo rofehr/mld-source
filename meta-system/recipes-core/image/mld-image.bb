@@ -28,33 +28,11 @@ PACKAGE_INSTALL_append += " \
     webserver \
     extlinux \
     psplash \
-    syslinux \
     ssh-mld \
     udev-mld \
     install \
     locales \
     "    
-
-#PACKAGE_INSTALL_append += " \
-#    kernel-modules\
-#    base \
-#    findutils \
-#    init-mld \
-#    install \
-#    locales \
-#    network \
-#    ssh-mld \
-#    udev-mld \
-#    urldecode \
-#    webserver \
-#    gettext \
-#    gettext-runtime \
-#    init-ifupdown \
-#    network \
-#    apt \
-#    "    
-
-
 
 
 ## Wetekplay specially
@@ -85,3 +63,4 @@ RRECOMMENDS_${PN}_append_cubietruck = " \
 
 export IMAGE_BASENAME="mld-image"
 
+#COMPATIBLE_HOST = "(i.86|x86_64|raspberrypi|raspberrypi2|raspberrypi3)"

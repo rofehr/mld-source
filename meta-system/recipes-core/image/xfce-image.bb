@@ -19,3 +19,5 @@ LICENSE = "MIT"
 export IMAGE_BASENAME = "xfce-image"
 
 inherit core-image
+
+COMPATIBLE_HOST = "(i.86|x86_64).*-linux"
