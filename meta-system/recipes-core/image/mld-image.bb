@@ -57,8 +57,6 @@ RRECOMMENDS_${PN}_append_bpi += " \
 	
 ## cubietruck specially
 RRECOMMENDS_${PN}_append_cubietruck = " \
-    sunxi-mali \
-    libvdpau-sunxi \
 "
 
 export IMAGE_BASENAME="mld-image"
