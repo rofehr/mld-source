@@ -1,30 +1,34 @@
 # Simple initramfs image for the MLD Distro
 DESCRIPTION = "Simple initramfs image for the MLD Distro."
 
+GLIBC_GENERATE_LOCALES = "de_DE.UTF-8"
 
-PACKAGE_INSTALL += " \
-    kernel-modules\
-    base-files \
-    base \
-    findutils \
-    init-mld \
-    gettext \
-    gettext-runtime \
-    urldecode \
-    webserver \
-    extlinux \
-    psplash \
-    ssh-mld \
-    udev-mld \
-    install \
-    locales \
-    " 
+IMAGE_LINGUAS ?= "de-de"
+
+INITRAMFS_MAXSIZE ??= "262144"
+
+#IMAGE_INSTALL += " \
+#    kernel-modules\
+#    base-files \
+#    base \
+#    findutils \
+#    init-mld \
+#    gettext \
+#    gettext-runtime \
+#    urldecode \
+#    webserver \
+#    extlinux \
+#    psplash \
+#    ssh-mld \
+#    udev-mld \
+#    install \
+#    locales \
+#    " 
 
 
 # Do not pollute the initrd image with rootfs features
-IMAGE_FEATURES = ""
+#IMAGE_FEATURES = ""
 
-IMAGE_LINGUAS = ""
 
 LICENSE = "MIT"
 

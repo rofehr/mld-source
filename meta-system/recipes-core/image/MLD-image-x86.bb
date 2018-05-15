@@ -4,6 +4,7 @@
 #  arch:   x86  
 #   
 ##############################################################
+
 SUMMARY = "A MLD base image ."
 
 DESCRIPTION = "An image containing the BASE system for MLD ${DISTRO_VERSION} "
@@ -12,10 +13,7 @@ HOMEPAGE = "http://www.minidvblinux.de"
 
 LICENSE = "MIT"
 
-#inherit core-image
-#inherit image
 include recipes-core/images/core-image-minimal.bb
-
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
@@ -27,27 +25,27 @@ IMAGE_LINGUAS ?= "de-de"
 
 LABELS = "MLD"
 
+SPLASH_IMAGE = "silent.png"
 
 IMAGE_FEATURES += "package-management ssh-server-openssh splash"
 
-
-#IMAGE_INSTALL += " \
-#    kernel-modules\
-#    base-files \
-#    base \
-#    findutils \
-#    init-mld \
-#    gettext \
-#    gettext-runtime \
-#    urldecode \
-#    webserver \
-#    extlinux \
-#    psplash \
-#    ssh-mld \
-#    udev-mld \
-#    install \
-#    locales \
-#    "    
+IMAGE_INSTALL_append += " \
+    kernel-modules\
+    base-files \
+    base \
+    findutils \
+    init-mld \
+    gettext \
+    gettext-runtime \
+    urldecode \
+    webserver \
+    extlinux \
+    psplash \
+    ssh-mld \
+    udev-mld \
+    install \
+    locales \
+    "    
 
 
 
